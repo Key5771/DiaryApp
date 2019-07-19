@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -71,9 +72,11 @@ public class CalendarView extends LinearLayout {
         }
     };
 
-    private final OnLongClickListener onDayOfMonthLongClickListener = new OnClickListener() {
+
+
+    private final OnLongClickListener onDayOfMonthLongClickListener = new OnLongClickListener() {
         @Override
-        public boolean onClick(View view) {
+        public boolean onLongClick(View view) {
             ViewGroup dayOfMonthContainer = (ViewGroup) view;
             String tagID = (String) dayOfMonthContainer.getTag();
             tagID = tagID.substring(DAY_OF_MONTH_LAYOUT.length(),tagID.length());
@@ -178,9 +181,9 @@ public class CalendarView extends LinearLayout {
             return;
         }
 
-        LayoutInflater inflater =(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);\
+        LayoutInflater inflater =(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         rootView = inflater.inflate(R.layout.calendar_view,this,true);
-        findViewById(rootView);
+        findViewsById(rootView);
 
         currentCalendar = Calendar.getInstance();
         setDate(currentCalendar.getTime());
@@ -245,7 +248,7 @@ public class CalendarView extends LinearLayout {
         ImageView circleImage = getCircleImage(calendar);
         circleImage.setVisibility(View.VISIBLE);
         if(lastSelectedDayCalendar != null && areInTheSameDay(calendar, lastSelectedDayCalendar)){
-            DrawableCompat.setTint(circleImage.getDrawable(),ContextCompat.getColor(,R.color.white));
+            DrawableCompat.setTint(circleImage.getDrawable(),ContextCompat.getColor(getContext(),R.color.white));
         }else {
             DrawableCompat.setTint(circleImage.getDrawable(),ContextCompat.getColor(getContext(),R.color.red_pink));
         }
@@ -295,7 +298,7 @@ public class CalendarView extends LinearLayout {
 
 
     private void setUpMonthLayout(){
-        String dateText = new DateFormatSymbols(Locale.getDefault().getMonths()[currentCalendar.get(Calendar.MONTH)]);
+        String dateText = new DateFormatSymbols(Locale.getDefault()).getMonths()[currentCalendar.get(Calendar.MONTH)];
         dateText = dateText.substring(0,1).toUpperCase()+ dateText.subSequence(1,dateText.length());
         Calendar calendar = Calendar.getInstance();
 
@@ -312,14 +315,139 @@ public class CalendarView extends LinearLayout {
         String[] weekDaysArray = new DateFormatSymbols(Locale.getDefault()).getWeekdays();
         int length = weekDaysArray.length;
 
-        for(int i = i; i<length; i++){
-            dayOfWeek = rootView.findViewWithTag(DAY_OF_WEEK_TEXT + get)
+        for(int i = 1; i<length; i++){
+            dayOfWeek = rootView.findViewWithTag(DAY_OF_WEEK_TEXT + getWeekIndex(i, currentCalendar));
+            dayOfWeekString = weekDaysArray[i];
+            if (shortWeekDays){
+                dayOfWeekString = checkSpecificLocales(dayOfWeekString,i);
+            } else {
+                dayOfWeekString = dayOfWeekString.substring(0,1).toUpperCase() + dayOfWeekString.substring(1,3);
+            }
+
+            dayOfWeek.setText(dayOfWeekString);
         }
     }
+
+    private void SetUpDaysOfMonthLayout(){
+        TextView dayOfTheMonthText;
+        View circleImage;
+
+        ViewGroup dayOfTheMonthContainer;
+        ViewGroup dayOfTheMonthBackground;
+
+        for (int i = 1; i < 43; i++) {
+
+            dayOfTheMonthContainer = rootView.findViewWithTag(DAY_OF_MONTH_LAYOUT + i);
+            dayOfTheMonthBackground = rootView.findViewWithTag(DAY_OF_MONTH_BACKGROUND + i);
+            dayOfTheMonthText = rootView.findViewWithTag(DAY_OF_MONTH_TEXT + i);
+            circleImage = rootView.findViewWithTag(DAY_OUT_MONTH_CIRCLE + i);
+
+
+            dayOfTheMonthText.setVisibility(View.INVISIBLE);
+            circleImage.setVisibility(View.GONE);
+
+
+            // Apply styles
+            dayOfTheMonthText.setBackgroundResource(android.R.color.transparent);
+            dayOfTheMonthText.setTypeface(null, Typeface.NORMAL);
+            dayOfTheMonthText.setTextColor(ContextCompat.getColor(getContext(), R.color.dark));
+            dayOfTheMonthContainer.setBackgroundResource(android.R.color.transparent);
+            dayOfTheMonthContainer.setOnClickListener(null);
+            dayOfTheMonthBackground.setBackgroundResource(android.R.color.transparent);
+
+
+        }
+    }
+
+
+    private void setUpDaysInCalendar(){
+
+        Calendar auxCalendar = Calendar.getInstance(Locale.getDefault());
+        auxCalendar.setTime(currentCalendar.getTime());
+        auxCalendar.set(Calendar.DAY_OF_MONTH, 1);
+
+        int firstDayOfMonth = auxCalendar.get(Calendar.DAY_OF_WEEK);
+        TextView dayOfTheMonthText;
+        ViewGroup dayOfTheMonthContainer;
+        ViewGroup dayOfTheMonthLayout;
+
+        // Calculate dayOfTheMonthIndex
+        int dayOfTheMonthIndex = getWeekIndex(firstDayOfMonth, auxCalendar);
+
+        for (int i = 1; i <= auxCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++, dayOfTheMonthIndex++) {
+            dayOfTheMonthContainer = rootView.findViewWithTag(DAY_OF_MONTH_LAYOUT + dayOfTheMonthIndex);
+            dayOfTheMonthText = rootView.findViewWithTag(DAY_OF_MONTH_TEXT + dayOfTheMonthIndex);
+            if (dayOfTheMonthText == null) {
+                break;
+            }
+            dayOfTheMonthContainer.setOnClickListener(onDayOfMonthClickListener);
+            dayOfTheMonthContainer.setOnLongClickListener(onDayOfMonthLongClickListener);
+            dayOfTheMonthText.setVisibility(View.VISIBLE);
+            dayOfTheMonthText.setText(String.valueOf(i));
+        }
+
+        for (int i = 36; i < 43; i++) {
+            dayOfTheMonthText = rootView.findViewWithTag(DAY_OF_MONTH_TEXT + i);
+            dayOfTheMonthLayout = rootView.findViewWithTag(DAY_OF_MONTH_LAYOUT + i);
+            if (dayOfTheMonthText.getVisibility() == INVISIBLE) {
+                dayOfTheMonthLayout.setVisibility(GONE);
+            } else {
+                dayOfTheMonthLayout.setVisibility(VISIBLE);
+            }
+        }
+
+
+    }
+
+
+
+    private void markDayAsCurrentDay(){
+
+        Calendar nowCalendar = Calendar.getInstance();
+
+        if(nowCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) && nowCalendar.get(Calendar.MONTH) == currentCalendar.get(Calendar.MONTH)){
+            Calendar currentCalendar = Calendar.getInstance();
+            currentCalendar.setTime(nowCalendar.getTime());
+
+            ViewGroup dayOfMonthBackground = getDayOfMonthBackground(currentCalendar);
+            dayOfMonthBackground.setBackgroundResource(R.drawable.ring);
+        }
+    }
+
+
+
+    private void updateView(){
+        setUpMonthLayout();
+        setUpWeekDaysLayout();
+        SetUpDaysOfMonthLayout();
+        setUpDaysInCalendar();
+        markDayAsCurrentDay();
+    }
+
+
+    private ViewGroup getDayOfMonthBackground(Calendar currentCalendar){
+        return (ViewGroup) getView(DAY_OF_MONTH_BACKGROUND, currentCalendar);
+    }
+
+    private TextView getDayOfMonthText(Calendar currentCalendar){
+        return (TextView) getView(DAY_OF_MONTH_TEXT, currentCalendar);
+    }
+
+    private ImageView getCircleImage(Calendar currentCalendar){
+        return (ImageView) getView(DAY_OUT_MONTH_CIRCLE, currentCalendar);
+    }
+
+    private View getView(String key, Calendar currentCalendar){
+        int index = getDayIndexByDate(currentCalendar);
+        return rootView.findViewWithTag(key + index);
+    }
+
 
     public interface CalendarListener{
         void onDayClick(Date date);
 
         void onDayLongClick(Date date);
     }
+
+
 }
