@@ -10,7 +10,7 @@
     <com.marcohc.robotocalendar.RobotoCalendarView
         android:id="@+id/robotoCalendarPicker"
         android:layout_width="0dp"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:gravity="center|fill"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
