@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/calendar"
+        android:icon="@drawable/calendar"
+        android:title="달력"/>
+
+    <item
+        android:id="@+id/diary"
+        android:icon="@drawable/book"
+        android:title="일기"/>
+
+    <item
+        android:id="@+id/mood"
+        android:icon="@drawable/picture"
+        android:title="기분"/>
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/profile"
+        android:title="설정"/>
+</menu>
