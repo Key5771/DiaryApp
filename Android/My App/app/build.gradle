@@ -1,10 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.myapplication"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -33,4 +35,10 @@ dependencies {
     implementation 'com.github.marcohc:robotocalendarview:3.6.0'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.android.support:design:28.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:support-v4:28.0.0'
+
+}
+repositories {
+    mavenCentral()
 }

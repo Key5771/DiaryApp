@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".Activity.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -29,10 +26,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="MTODAY"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
         android:fontFamily="@font/ahrdyrxkd"
+        android:text="MTODAY"
+        android:textColor="@android:color/background_dark"
+        android:textSize="25sp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.497"
@@ -40,39 +38,12 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.marcohc.robotocalendar.RobotoCalendarView
-        android:id="@+id/robotoCalendarPicker"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-    </com.marcohc.robotocalendar.RobotoCalendarView>
-
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frame_layout"
-        android:layout_marginBottom="?attr/actionBarSize">
-
-    </FrameLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/robotoCalendarPicker"
-        app:menu="@menu/bottom_menu"
-        app:itemTextColor="@android:color/black"/>
-
-
-
+        android:gravity="center"
+        android:text="Feeling"
+        android:background="@color/white"
+         />
 
 </android.support.constraint.ConstraintLayout>
