@@ -45,7 +45,7 @@ public class DiaryFragment extends Fragment {
             DiaryContent content = new DiaryContent();
             int index = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
             content.setTitle(cursor.getString(1));
-            content.setContent("내용이 없습니다");
+            content.setContent(cursor.getString(2));
             diaryContentList.add(content);
         }
 
