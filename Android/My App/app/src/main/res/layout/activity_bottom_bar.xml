@@ -9,23 +9,20 @@
         android:id="@+id/view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintBottom_toTopOf="@id/frame_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/robotoCalendarPicker"
-        app:menu="@menu/bottom_menu"
-        app:itemTextColor="@android:color/black"/>
+        android:layout_height="match_parent"
+        android:id="@+id/frame_layout"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

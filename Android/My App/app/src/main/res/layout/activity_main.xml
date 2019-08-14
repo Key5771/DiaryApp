@@ -40,25 +40,14 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.marcohc.robotocalendar.RobotoCalendarView
-        android:id="@+id/robotoCalendarPicker"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    </com.marcohc.robotocalendar.RobotoCalendarView>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/frame_layout"
-        android:layout_marginBottom="?attr/actionBarSize">
-
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginTop="40dp">
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
@@ -68,11 +57,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/robotoCalendarPicker"
+        app:layout_constraintTop_toBottomOf="@+id/frame_layout"
         app:menu="@menu/bottom_menu"
-        app:itemTextColor="@android:color/black"/>
-
-
-
+        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@color/red_inactive"/>
 
 </android.support.constraint.ConstraintLayout>
