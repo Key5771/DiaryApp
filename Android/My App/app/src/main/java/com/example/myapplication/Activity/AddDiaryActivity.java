@@ -38,7 +38,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                 SQLiteDatabase db = mHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(TaskContract.TaskEntry.COL_TASK_TITLE, get_title);
-                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, get_content);
+                values.put(TaskContract.TaskEntry.COL_TASK_CONTENT, get_content);
                 db.insertWithOnConflict(TaskContract.TaskEntry.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 db.close();
 

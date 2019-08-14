@@ -38,12 +38,11 @@ public class DiaryFragment extends Fragment {
 
         TaskDbHelper taskDbHelper = new TaskDbHelper(getContext());
         SQLiteDatabase sqLiteDatabase = taskDbHelper.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.query(TaskContract.TaskEntry.TABLE, new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+        Cursor cursor = sqLiteDatabase.query(TaskContract.TaskEntry.TABLE, new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE, TaskContract.TaskEntry.COL_TASK_CONTENT},
                 null, null, null, null, null);
 
         while(cursor.moveToNext()) {
             DiaryContent content = new DiaryContent();
-            int index = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
             content.setTitle(cursor.getString(1));
             content.setContent(cursor.getString(2));
             diaryContentList.add(content);

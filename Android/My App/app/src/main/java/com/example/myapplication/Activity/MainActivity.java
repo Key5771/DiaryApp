@@ -62,11 +62,13 @@ public class MainActivity extends AppCompatActivity  {
         mHelper = new TaskDbHelper(this);
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE, TaskContract.TaskEntry.COL_TASK_CONTENT},
                 null, null, null, null, null);
         while(cursor.moveToNext()){
             int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
+            int index = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_CONTENT);
             Log.d(TAG, "Task: " + cursor.getString(idx));
+            Log.d(TAG, "Content: " + cursor.getString(index));
         }
         cursor.close();
     db.close();
@@ -116,17 +118,20 @@ public class MainActivity extends AppCompatActivity  {
         ArrayList<String> DiaryList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE, TaskContract.TaskEntry.COL_TASK_CONTENT},
                 null, null, null, null,null);
         while(cursor.moveToNext()){
             int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
+            int index = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_CONTENT);
             DiaryList.add(cursor.getString(idx));
+            DiaryList.add(cursor.getString(index));
         }
 
         mDiaryListView = (ListView) findViewById(R.id.diary_list);
 
         if(DiaryFragment == null) {
             DiaryFragment = new ArrayAdapter<>(this, R.layout.diary_list_item, R.id.diary_item_title, DiaryList);
+            DiaryFragment = new ArrayAdapter<>(this, R.layout.diary_list_item, R.id.diary_item_content, DiaryList);
             mDiaryListView.setAdapter(DiaryFragment);
         } else{
             DiaryFragment.clear();
@@ -142,7 +147,9 @@ public class MainActivity extends AppCompatActivity  {
     public void deleteDiary(View view){
         View parent = (View) view.getParent();
         TextView diaryTextView = (TextView) parent.findViewById(R.id.diary_item_title);
+        TextView diaryTextView2 = (TextView) parent.findViewById(R.id.diary_item_content);
         String diary = String.valueOf(diaryTextView.getText());
+        String diary2 = String.valueOf(diaryTextView2.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
         db.delete(TaskContract.TaskEntry.TABLE, TaskContract.TaskEntry.COL_TASK_TITLE + " = ?", new String[]{diary});
         db.close();
