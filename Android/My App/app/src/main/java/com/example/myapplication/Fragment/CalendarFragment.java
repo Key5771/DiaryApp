@@ -23,6 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +33,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Activity.AddDiaryActivity;
 import com.example.myapplication.Activity.MainActivity;
-import com.example.myapplication.CalendarView;
+//import com.example.myapplication.CalendarView;
 import com.example.myapplication.Database.TaskContract;
 import com.example.myapplication.Database.TaskDbHelper;
 import com.example.myapplication.R;
@@ -40,6 +42,7 @@ import com.marcohc.robotocalendar.RobotoCalendarView;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -51,6 +54,8 @@ public class CalendarFragment extends Fragment implements RobotoCalendarView.Rob
     private TaskDbHelper mHelper;
     Activity root = getActivity();
 
+    private CalendarView calendarView;
+    private float scale = 1.2f;
     public static final int calendarBackground = R.drawable.backscreen2;
 
 
@@ -62,6 +67,10 @@ public class CalendarFragment extends Fragment implements RobotoCalendarView.Rob
         View view = inflater.inflate(R.layout.activity_calendar_fragment,container,false);
         mHelper = new TaskDbHelper(getContext());
 
+        calendarView = (CalendarView) view.findViewById(R.id.calendarView);
+//        calendarView.setScaleX(scale);
+        calendarView.setScaleY(scale);
+
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener(){
@@ -71,16 +80,6 @@ public class CalendarFragment extends Fragment implements RobotoCalendarView.Rob
                 startActivity(transferIntent);
             }
         });
-
-
-        robotoCalendarView = (RobotoCalendarView) view.findViewById(R.id.robotoCalendarPicker);
-        robotoCalendarView.setRobotoCalendarListener(this);
-        robotoCalendarView.setShortWeekDays(false);
-        robotoCalendarView.showDateTitle(true);
-        robotoCalendarView.markCircleImage1(new Date());
-        robotoCalendarView.setBackgroundResource(calendarBackground);
-        robotoCalendarView.getBackground();
-//        robotoCalendarView.setBackground(R.drawable.backscreen2);
 
         return view;
     }
@@ -107,8 +106,6 @@ public class CalendarFragment extends Fragment implements RobotoCalendarView.Rob
                 .create();
         dialog.show();
     }
-
-
 
 
 
