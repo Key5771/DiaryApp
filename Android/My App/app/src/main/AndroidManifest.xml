@@ -5,12 +5,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="DAILY"
-        android:roundIcon="@drawable/book"
+        android:label="Calendary"
+        android:roundIcon="@drawable/appicon1"
         android:supportsRtl="true"
         android:theme="@style/Splash">
         <activity android:name=".Fragment.DiaryFragment"></activity>
         <activity android:name=".Activity.AddDiaryActivity"></activity>
+        <activity android:name=".Activity.DetailActivity"></activity>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

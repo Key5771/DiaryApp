@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity  {
             DiaryFragment = new ArrayAdapter<>(this, R.layout.diary_list_item, R.id.diary_item_title, DiaryList);
             DiaryFragment = new ArrayAdapter<>(this, R.layout.diary_list_item, R.id.diary_item_content, DiaryList);
             mDiaryListView.setAdapter(DiaryFragment);
-        } else{
+        } else {
             DiaryFragment.clear();
             DiaryFragment.addAll(DiaryList);
             DiaryFragment.notifyDataSetChanged();
@@ -151,12 +151,11 @@ public class MainActivity extends AppCompatActivity  {
         String diary = String.valueOf(diaryTextView.getText());
         String diary2 = String.valueOf(diaryTextView2.getText());
         SQLiteDatabase db = mHelper.getWritableDatabase();
-        db.delete(TaskContract.TaskEntry.TABLE, TaskContract.TaskEntry.COL_TASK_TITLE + " = ?", new String[]{diary});
+        db.delete(TaskContract.TaskEntry.TABLE, TaskContract.TaskEntry.COL_TASK_TITLE + " = ?", new String[]{diary, diary2});
         db.close();
         upDateUI();
 
     }
-
 
     @Override
     protected void attachBaseContext(Context newBase) {

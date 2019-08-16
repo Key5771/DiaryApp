@@ -26,9 +26,7 @@ public class AddDiaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_diary);
         mHelper = new TaskDbHelper(this);
 
-        title = (EditText) findViewById(R.id.edit_title);
-        content = (EditText) findViewById(R.id.edit_content);
-        save_btn = (Button) findViewById(R.id.save_button);
+        init();
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +42,15 @@ public class AddDiaryActivity extends AppCompatActivity {
 
 //                Intent backtoActivity = new Intent(AddDiaryActivity.this, CalendarFragment.class);
 //                startActivity(backtoActivity);
+                finish();
             }
         });
+    }
+
+    public void init() {
+        title = (EditText) findViewById(R.id.edit_title);
+        content = (EditText) findViewById(R.id.edit_content);
+        save_btn = (Button) findViewById(R.id.save_button);
     }
 
 

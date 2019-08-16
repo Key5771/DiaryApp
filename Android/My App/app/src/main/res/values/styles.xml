@@ -31,7 +31,7 @@
     <style name="Splash" parent="AppTheme">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowBackground">@drawable/logo</item>
+        <item name="android:windowBackground">@drawable/calendaryscreen</item>
     </style>
 
     <style name="EditTheme" parent="Theme.AppCompat.DayNight.NoActionBar">

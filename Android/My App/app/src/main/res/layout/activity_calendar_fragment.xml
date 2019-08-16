@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.CalendarFragment">
+    tools:context=".Fragment.CalendarFragment"
+    android:background="@drawable/backscreen2">
 
 
     <com.marcohc.robotocalendar.RobotoCalendarView
@@ -14,7 +15,7 @@
         android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:background="@drawable/backscreen2">
 
     </com.marcohc.robotocalendar.RobotoCalendarView>
 

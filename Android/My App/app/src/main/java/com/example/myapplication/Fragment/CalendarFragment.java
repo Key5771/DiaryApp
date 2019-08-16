@@ -51,6 +51,8 @@ public class CalendarFragment extends Fragment implements RobotoCalendarView.Rob
     private TaskDbHelper mHelper;
     Activity root = getActivity();
 
+    public static final int calendarBackground = R.drawable.backscreen2;
+
 
     @Override
     @Nullable
@@ -76,6 +78,9 @@ public class CalendarFragment extends Fragment implements RobotoCalendarView.Rob
         robotoCalendarView.setShortWeekDays(false);
         robotoCalendarView.showDateTitle(true);
         robotoCalendarView.markCircleImage1(new Date());
+        robotoCalendarView.setBackgroundResource(calendarBackground);
+        robotoCalendarView.getBackground();
+//        robotoCalendarView.setBackground(R.drawable.backscreen2);
 
         return view;
     }

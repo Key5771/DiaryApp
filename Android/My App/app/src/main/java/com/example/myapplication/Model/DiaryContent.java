@@ -1,10 +1,17 @@
 package com.example.myapplication.Model;
 
 public class DiaryContent {
+
+    private int ID;
+
     private String title;
     private String content;
 
-    public DiaryContent() {
+    public int getID(){ return ID;}
+    public void setID(int ID){this.ID = ID;}
+
+    public DiaryContent(){
+
     }
 
     public DiaryContent(String title, String content) {

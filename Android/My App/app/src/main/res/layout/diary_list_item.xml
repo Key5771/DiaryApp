@@ -7,13 +7,15 @@
         android:id="@+id/diary_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#ffffff"/>
 
     <TextView
         android:id="@+id/diary_item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#ffffff"/>
 
 
     <Button
