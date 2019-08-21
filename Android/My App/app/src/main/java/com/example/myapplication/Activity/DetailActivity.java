@@ -2,13 +2,14 @@ package com.example.myapplication.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 
+import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Text;
 
 import java.util.List;
