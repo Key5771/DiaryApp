@@ -38,7 +38,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity  {
 
-    private RobotoCalendarView robotoCalendarView;
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private DiaryFragment diaryFragment = new DiaryFragment();
     private FeelingFragment feelingFragment = new FeelingFragment();
