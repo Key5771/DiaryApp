@@ -1,37 +1,21 @@
 package com.example.myapplication.Fragment;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.myapplication.Activity.DetailActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.example.myapplication.Adapter.DiaryAdapter;
-import com.example.myapplication.Database.TaskContract;
-import com.example.myapplication.Database.TaskDbHelper;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,14 +72,6 @@ public class DiaryFragment extends Fragment {
 //            }
 //        });
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("message").addValueEventListener(new ChildEventListener(){
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s){
-                DiaryContent diaryContent = dataSnapshot.getValue(DiaryContent.class);
-                adapter.add()
-            }
-        })
 
         return view;
     }

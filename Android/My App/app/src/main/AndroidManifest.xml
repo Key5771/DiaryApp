@@ -2,14 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
+        android:label="Calendary"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Calendary"
         android:roundIcon="@drawable/appicon1"
         android:supportsRtl="true"
         android:theme="@style/Splash">
-        <activity android:name=".Fragment.DiaryFragment"></activity>
         <activity android:name=".Activity.AddDiaryActivity"></activity>
         <activity android:name=".Activity.DetailActivity"></activity>
         <activity android:name=".Activity.MainActivity">
@@ -20,7 +21,5 @@
             </intent-filter>
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

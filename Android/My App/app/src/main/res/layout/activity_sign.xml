@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -82,7 +82,6 @@
         android:id="@+id/btn_signin"
         android:layout_width="186dp"
         android:layout_height="38dp"
-        android:layout_weigth="1"
         android:backgroundTint="@color/white"
         android:onClick="signIn"
         android:text="@string/signin"
@@ -90,4 +89,4 @@
         tools:layout_editor_absoluteX="113dp"
         tools:layout_editor_absoluteY="404dp" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout.support.constraint.ConstraintLayout>

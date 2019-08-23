@@ -1,14 +1,9 @@
 package com.example.myapplication.Adapter;
 
 
-
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.myapplication.Fragment.DiaryFragment;
-import com.example.myapplication.R;
 
 
 public class PagerAdapter {

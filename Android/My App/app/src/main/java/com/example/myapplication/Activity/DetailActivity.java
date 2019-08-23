@@ -10,9 +10,6 @@ import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 
 import org.jetbrains.annotations.Nullable;
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 

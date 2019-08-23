@@ -1,14 +1,7 @@
 package com.example.myapplication.Activity;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,9 +9,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.myapplication.Adapter.DiaryAdapter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.myapplication.Database.TaskContract;
 import com.example.myapplication.Database.TaskDbHelper;
 import com.example.myapplication.Fragment.CalendarFragment;
@@ -27,16 +23,15 @@ import com.example.myapplication.Fragment.FeelingFragment;
 import com.example.myapplication.Fragment.SettingFragment;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
-import com.marcohc.robotocalendar.RobotoCalendarView;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private DiaryFragment diaryFragment = new DiaryFragment();
@@ -155,9 +150,5 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 
 }
