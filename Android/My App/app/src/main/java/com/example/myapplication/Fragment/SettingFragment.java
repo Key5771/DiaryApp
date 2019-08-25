@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Activity.LoginActivity;
+import com.example.myapplication.Activity.SignupActivity;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -47,8 +48,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
             startActivity(intent);
         }
 
+
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        userEmail_tv.setText("현재"+ user.getEmail()+"으로 로그인 하였습니다");
+        userEmail_tv.setText("반갑습니다!\n" +user.getEmail() + "으로 로그인 하고 있습니다");
 
         logout_btn.setOnClickListener(this);
         deleteUser_tv.setOnClickListener(this);

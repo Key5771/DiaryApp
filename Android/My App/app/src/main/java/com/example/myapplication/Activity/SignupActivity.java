@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText edit_new_email, edit_new_password;
+    private EditText edit_new_email, edit_new_password, edit_new_nickname, edit_new_password_check;
     private Button buttonSignup;
     private TextView textViewMessage;
     private ProgressDialog progressDialog;
@@ -40,18 +40,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
 
-        edit_new_email = (EditText) findViewById(R.id.edit_new_email);
-        edit_new_password = (EditText) findViewById(R.id.edit_new_password);
-        buttonSignup = (Button) findViewById(R.id.buttonSignup);
-        textViewMessage = (TextView) findViewById(R.id.textViewMessage);
-        progressDialog = new ProgressDialog(this);
-
+        init();
         buttonSignup.setOnClickListener(this);
     }
 
     private void registerUser(){
+        String nickname = edit_new_nickname.getText().toString().trim();
         String email = edit_new_email.getText().toString().trim();
         String password = edit_new_password.getText().toString().trim();
+        String password_check = edit_new_password_check.getText().toString().trim();
+
+        if(TextUtils.isEmpty(nickname)){
+            Toast.makeText(this, "닉네임을 입력해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Email을 입력해주세요!", Toast.LENGTH_SHORT).show();
@@ -62,8 +64,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
+        if(TextUtils.isEmpty(password_check)){
+            Toast.makeText(this, "비밀번호를 한번 더 입력해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!password_check.equals(password)){
+            Toast.makeText(this, "비밀번호를 확인해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         progressDialog.setMessage("등록중입니다. 잠시만 기다려주세요!");
         progressDialog.show();
+
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -86,5 +99,15 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         if(view == buttonSignup) {
             registerUser();
         }
+    }
+
+    public void init(){
+        edit_new_email = (EditText) findViewById(R.id.edit_new_email);
+        edit_new_nickname = (EditText) findViewById(R.id.edit_new_nickname);
+        edit_new_password = (EditText) findViewById(R.id.edit_new_password);
+        edit_new_password_check = (EditText) findViewById(R.id.edit_new_password_check);
+        buttonSignup = (Button) findViewById(R.id.buttonSignup);
+        textViewMessage = (TextView) findViewById(R.id.textViewMessage);
+        progressDialog = new ProgressDialog(this);
     }
 }

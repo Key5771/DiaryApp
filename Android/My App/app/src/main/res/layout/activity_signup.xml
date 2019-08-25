@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.example.myapplication.Activity.SignupActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="120dp"
+        android:layout_height="110dp"
+        app:srcCompat="@drawable/night"
+        android:layout_gravity="center_horizontal"
+        android:tint="@color/orange_inactive"
+        android:layout_margin="30dp"/>
 
     <TextView
         android:id="@+id/signup"
@@ -15,14 +25,27 @@
         android:text="회원가입"
         android:textColor="@color/dark"
         android:textSize="23dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/netmarbleb"
-        android:layout_marginTop="200dp" />
+       />
+
+    <EditText
+        android:id="@+id/edit_new_nickname"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:fontFamily="@font/netmarblem"
+        android:textSize="15dp"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/orange_inactive"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:hint="닉네임" />
 
     <EditText
         android:id="@+id/edit_new_email"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:textSize="15dp"
@@ -45,6 +68,19 @@
         android:backgroundTint="@color/orange_inactive"
         android:inputType="textPassword" />
 
+    <EditText
+        android:id="@+id/edit_new_password_check"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:hint="비밀번호 확인"
+        android:fontFamily="@font/netmarblem"
+        android:textColor="@color/dark"
+        android:textSize="15dp"
+        android:backgroundTint="@color/orange_inactive"
+        android:inputType="textPassword" />
+
     <Button
         android:id="@+id/buttonSignup"
         android:layout_width="200dp"
@@ -63,4 +99,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
          />
+
 </LinearLayout>
