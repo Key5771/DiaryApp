@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backscreen2"
+    android:background="@color/white"
     tools:context="com.example.myapplication.Activity.SignupActivity">
 
     <TextView
@@ -13,19 +13,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입"
-        android:textColor="@color/white"
+        android:textColor="@color/dark"
         android:textSize="23dp"
+        android:fontFamily="@font/netmarbleb"
         android:layout_marginTop="200dp" />
 
     <EditText
         android:id="@+id/edit_new_email"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
-        android:hint="Enter email"
-        android:backgroundTint="@color/white"
+        android:textSize="15dp"
+        android:hint="이메일"
+        android:fontFamily="@font/netmarblem"
+        android:textColor="@color/dark"
+        android:backgroundTint="@color/orange_inactive"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -34,8 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
-        android:hint="Enter passoword"
-        android:backgroundTint="@color/white"
+        android:textSize="15dp"
+        android:hint="비밀번호"
+        android:fontFamily="@font/netmarblem"
+        android:textColor="@color/dark"
+        android:backgroundTint="@color/orange_inactive"
         android:inputType="textPassword" />
 
     <Button
@@ -44,14 +51,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="15dp"
+        android:fontFamily="@font/netmarblem"
         android:backgroundTint="@color/orange_inactive"
-        android:textColor="@color/dark"
+        android:textColor="@color/white"
         android:text="회원가입" />
 
     <TextView
         android:id="@+id/textViewMessage"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/blue_active"
+        android:textColor="@color/dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
          />

@@ -16,7 +16,7 @@ public class SplashActivity extends Activity {
 
          try{
              Thread.sleep(5000);
-             Intent mainIntent = new Intent(this, MainActivity.class);
+             Intent mainIntent = new Intent(this, LoginActivity.class);
              startActivity(mainIntent);
              finish();
          } catch (InterruptedException e){

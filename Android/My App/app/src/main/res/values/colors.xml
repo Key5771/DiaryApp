@@ -23,10 +23,10 @@
     <color name="green_inactive">#81c784</color>
     <color name="blue_grey_inactive">#90a4ae</color>
     <color name="yellow_inactive">#fff176</color>
-    <color name="orange_inactive">#ffb74d</color>
+    <color name="orange_inactive">#f3b15a</color>
     <color name="gery_inactive">#e0e0e0</color>
 
-    <color name="default_inactive">#78909c</color>
+    <color name="default_inactive">#000000</color>
 
     <color name="red_bg_light">#ffebee</color>
     <color name="purple_bg_light">#f3e5f5</color>

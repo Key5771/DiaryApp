@@ -13,18 +13,12 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication.Adapter.DiaryAdapter;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.LinkedList;
 import java.util.List;
 
 public class DiaryFragment extends Fragment {
     private ListView mDiaryListView;
     private DiaryAdapter adapter;
-
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference titleRef = databaseReference.child("title");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

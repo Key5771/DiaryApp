@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        // 자동로그인
         if(firebaseAuth.getCurrentUser() != null){
             finish();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         signin_btn.setOnClickListener(this);
         signup_tv.setOnClickListener(this);
+        find_password.setOnClickListener(this);
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -107,11 +109,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         progressDialog.dismiss();
                         if(task.isSuccessful()){
                             finish();
-                            startActivity(new Intent(getApplicationContext(), SettingFragment.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else{
                             Toast.makeText(getApplicationContext(),"로그인 실패!",Toast.LENGTH_LONG).show();
-
-
                         }
                     }
                 });
@@ -152,8 +152,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view){
         if(view == signin_btn) {
             userLogin();
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
+
         }
         if(view == signup_tv) {
             finish();
@@ -164,5 +163,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(this, FindActivity.class));
         }
     }
+
 
 }

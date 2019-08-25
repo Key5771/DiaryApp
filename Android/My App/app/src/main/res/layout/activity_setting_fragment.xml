@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backscreen2"
+    android:background="@color/white"
     >
 
     <LinearLayout
@@ -15,28 +15,47 @@
 
 
         <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/netmarbleb"
+            android:textColor="@color/dark"
+            android:textSize="26dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="8dp"
+            android:text="설정" />
+
+        <TextView
             android:id="@+id/userEmail_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
             android:layout_marginTop="100dp"
-            android:layout_gravity="center_horizontal"/>
+            android:fontFamily="@font/netmarblem"
+            android:text=""
+            android:textColor="@color/dark" />
 
         <Button
             android:id="@+id/logout_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="200dp"
+            android:backgroundTint="@color/orange_inactive"
+            android:fontFamily="@font/netmarblem"
             android:text="로그아웃"
-            android:layout_gravity="center_horizontal" />
+            android:textColor="@color/white"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/deleteUser_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="회원탈퇴하기"
-            android:textColor="@color/orange_inactive"
+            android:fontFamily="@font/netmarblem"
+            android:textSize="15dp"
+            android:textColor="@color/dark"
             android:layout_margin="16dp"
             android:layout_gravity="center_horizontal" />
 

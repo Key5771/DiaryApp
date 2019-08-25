@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backscreen2"
+    android:background="@color/white"
     android:descendantFocusability="blocksDescendants">
 
     <TextView
@@ -13,14 +12,13 @@
         android:layout_width="331dp"
         android:layout_height="42dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="96dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:fontFamily="@font/netmarblem"
         android:text="title"
-        android:textColor="@color/white"
+        android:textColor="@color/dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.361"
+        app:layout_constraintHorizontal_bias="0.328"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,8 +32,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="104dp"
+        android:fontFamily="@font/netmarblem"
         android:text="content"
-        android:textColor="@color/white"
+        android:textColor="@color/dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.349"
@@ -43,21 +42,35 @@
         app:layout_constraintTop_toBottomOf="@+id/detail_diary_title" />
 
     <TextView
-        android:id="@+id/detail_titlebar"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="320dp"
         android:layout_marginBottom="8dp"
-        android:fontFamily="@font/pensilgood "
-        android:text="Calendary"
-        android:textColor="@color/white"
-        android:textSize="25sp"
+        android:fontFamily="@font/netmarbleb"
+        android:text="일기"
+        android:textColor="@color/dark"
+        android:textSize="23dp"
         app:layout_constraintBottom_toTopOf="@+id/detail_diary_title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.595" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/detail_diary_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.564"
+        android:tint="@color/orange_inactive"
+        app:srcCompat="@drawable/leftbtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

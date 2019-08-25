@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backscreen2"
+    android:background="@color/white"
     tools:context="com.example.myapplication.Activity.LoginActivity">
 
 
@@ -14,7 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="로그인"
-        android:textColor="@color/white"
+        android:textColor="@color/dark"
+        android:fontFamily="@font/netmarbleb"
         android:textSize="23dp"
         android:layout_marginTop="150dp"/>
 
@@ -22,12 +23,14 @@
         android:id="@+id/edit_email"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center_horizontal"
-        android:hint="Enter email"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/white"
-        android:inputType="textEmailAddress" />
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/orange_inactive"
+        android:hint="이메일"
+        android:fontFamily="@font/netmarblem"
+        android:textSize="15dp"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/dark" />
 
     <EditText
         android:id="@+id/edit_password"
@@ -35,17 +38,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
-        android:hint="Enter password"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/white"
+        android:hint="비밀번호"
+        android:textColor="@color/dark"
+        android:textSize="15dp"
+        android:fontFamily="@font/netmarblem"
+        android:backgroundTint="@color/orange_inactive"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/signin_btn"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="15dp"
+        android:backgroundTint="@color/orange_inactive"
+        android:fontFamily="@font/netmarblem"
+        android:textColor="@color/white"
         android:text="로그인" />
 
     <LinearLayout
@@ -60,8 +68,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="회원가입하기"
+            android:fontFamily="@font/netmarblem"
             android:layout_marginLeft="110dp"
-            android:textColor="@color/yellow" />
+            android:textColor="@color/dark" />
 
         <TextView
             android:id="@+id/find_password"
@@ -69,7 +78,8 @@
             android:layout_height="wrap_content"
             android:text="비밀번호 찾기"
             android:layout_marginLeft="35dp"
-            android:textColor="@color/red_pink" />
+            android:fontFamily="@font/netmarblem"
+            android:textColor="@color/red_inactive" />
 
     </LinearLayout>
 

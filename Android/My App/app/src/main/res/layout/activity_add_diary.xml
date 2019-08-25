@@ -6,26 +6,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backscreen3">
+    android:background="@color/white">
 
     <EditText
         android:id="@+id/edit_title"
         android:layout_width="300dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:backgroundTint="@color/orange_inactive"
         android:ems="30"
+        android:fontFamily="@font/netmarblem"
         android:gravity="center"
-        android:hint="Enter Title Here!"
-        android:textSize="15sp"
+        android:hint="제목"
         android:inputType="text"
+        android:textColor="@color/dark"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/edit_content"
@@ -37,10 +38,12 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="100dp"
         android:gravity="start|top"
-        android:hint="How was your day?"
+        android:hint="오늘 하루 어땠어요?"
         android:textSize="15sp"
         android:inputType="textMultiLine"
-        android:minLines="1"
+        android:textColor="@color/dark"
+        android:fontFamily="@font/netmarblem"
+        android:backgroundTint="@color/orange_inactive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -55,8 +58,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/yellow_inactive"
-        android:text="DONE"
+        android:backgroundTint="@color/orange_inactive"
+        android:text="저장하기"
+        android:fontFamily="@font/netmarbleb"
+        android:textSize="13dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,23 +71,19 @@
         app:layout_constraintVertical_bias="0.681" />
 
     <TextView
-        android:id="@+id/edit_titlebar"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/pensilgood "
-        android:text="Calendary"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/edit_title"
+        android:fontFamily="@font/netmarbleb"
+        android:text="일기"
+        android:textColor="@color/dark"
+        android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

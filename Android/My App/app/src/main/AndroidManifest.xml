@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/appicon1"
+        android:icon="@drawable/appicon"
         android:label="Calendary"
         android:supportsRtl="true"
         android:theme="@style/Splash">

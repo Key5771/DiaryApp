@@ -21,10 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Feeling"
-        android:fontFamily="@font/pensilgood"
-        android:textColor="@color/white"
-        android:background="@drawable/backscreen2"
+        android:text="SEARCHING"
+        android:textSize="25dp"
+        android:fontFamily="@font/netmarbleb"
+        android:textColor="@color/orange_inactive"
+        android:background="@color/white"
          />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
