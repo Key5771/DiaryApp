@@ -101,6 +101,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+
+
     public void init(){
         edit_new_email = (EditText) findViewById(R.id.edit_new_email);
         edit_new_nickname = (EditText) findViewById(R.id.edit_new_nickname);

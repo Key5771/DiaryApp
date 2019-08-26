@@ -155,11 +155,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }
         if(view == signup_tv) {
-            finish();
             startActivity(new Intent(this, SignupActivity.class));
         }
         if(view == find_password){
-            finish();
             startActivity(new Intent(this, FindActivity.class));
         }
     }

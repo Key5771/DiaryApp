@@ -61,4 +61,9 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
                     });
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }
