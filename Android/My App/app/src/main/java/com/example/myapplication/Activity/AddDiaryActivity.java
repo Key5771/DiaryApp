@@ -28,11 +28,13 @@ public class AddDiaryActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private EditText edit_title, edit_content;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_diary);
         init();
+
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 

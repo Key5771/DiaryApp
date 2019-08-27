@@ -2,13 +2,10 @@ package com.example.myapplication.Model;
 
 public class DiaryContent {
 
-    private int ID;
-
     private String title;
     private String content;
 
-    public int getID(){ return ID;}
-    public void setID(int ID){this.ID = ID;}
+
 
     public DiaryContent(){
 
@@ -18,7 +15,6 @@ public class DiaryContent {
         this.title = title;
         this.content = content;
     }
-
     public String getTitle() {
         return title;
     }
@@ -33,5 +29,13 @@ public class DiaryContent {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "DiaryContent{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }

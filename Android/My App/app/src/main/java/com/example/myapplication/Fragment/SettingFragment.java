@@ -31,6 +31,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
 
     private FirebaseAuth firebaseAuth;
 
+
     @Override
     @Nullable
 
@@ -48,9 +49,8 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
             startActivity(intent);
         }
 
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        userEmail_tv.setText("반갑습니다!\n" +user.getEmail() + "으로 로그인 하고 있습니다");
+        userEmail_tv.setText("반갑습니다!\n" + user.getEmail() + "으로 로그인 하고 있습니다");
 
         logout_btn.setOnClickListener(this);
         deleteUser_tv.setOnClickListener(this);

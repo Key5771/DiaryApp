@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Fragment.DiaryFragment;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +26,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonSignup;
     private TextView textViewMessage;
     private ProgressDialog progressDialog;
+
+    public String nickname, email, password;
 
     private FirebaseAuth firebaseAuth;
 
@@ -45,9 +48,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void registerUser(){
-        String nickname = edit_new_nickname.getText().toString().trim();
-        String email = edit_new_email.getText().toString().trim();
-        String password = edit_new_password.getText().toString().trim();
+        nickname = edit_new_nickname.getText().toString().trim();
+        email = edit_new_email.getText().toString().trim();
+        password = edit_new_password.getText().toString().trim();
         String password_check = edit_new_password_check.getText().toString().trim();
 
         if(TextUtils.isEmpty(nickname)){
@@ -73,6 +76,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "비밀번호를 확인해주세요!", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         progressDialog.setMessage("등록중입니다. 잠시만 기다려주세요!");
         progressDialog.show();

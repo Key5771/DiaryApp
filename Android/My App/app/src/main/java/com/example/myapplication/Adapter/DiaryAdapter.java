@@ -6,51 +6,63 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-public class DiaryAdapter extends BaseAdapter {
+public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
     private List<DiaryContent> diaryContentList;
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        // each data item is just a string in this case
+        public TextView titleTextView;
+        public TextView contentTextView;
+        public ViewHolder(View v) {
+            super(v);
+            titleTextView = v.findViewById(R.id.diary_item_title);
+            contentTextView = v.findViewById(R.id.diary_item_content);
+        }
+    }
+
+    @Override
+    public DiaryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                     int viewType) {
+        // create a new view
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.diary_list_item, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
+    }
     public DiaryAdapter(){
-        diaryContentList = new ArrayList<DiaryContent>(3);
-        diaryContentList.add(new DiaryContent("가", "1"));
-        diaryContentList.add(new DiaryContent("나", "2"));
-        diaryContentList.add(new DiaryContent("다", "3"));
+        this.diaryContentList = new LinkedList<>();
     }
 
     public DiaryAdapter(List<DiaryContent> diaryContentList) {
         this.diaryContentList = diaryContentList;
     }
 
+    public void addContent(DiaryContent content) {
+        diaryContentList.add(content);
+    }
+
     @Override
-    public int getCount() {
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
+
+        holder.titleTextView.setText(diaryContentList.get(position).getTitle());
+        holder.contentTextView.setText(diaryContentList.get(position).getContent());
+
+    }
+
+    @Override
+    public int getItemCount() {
         return diaryContentList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return diaryContentList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        if(convertView == null)
-            convertView = inflater.inflate(R.layout.diary_list_item, parent, false);
-
-        TextView title = convertView.findViewById(R.id.diary_item_title);
-        title.setText(diaryContentList.get(position).getTitle());
-        TextView content = convertView.findViewById(R.id.diary_item_content);
-        content.setText(diaryContentList.get(position).getContent());
-        return convertView;
     }
 }
