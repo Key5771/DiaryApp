@@ -10,7 +10,7 @@
         android:label="Calendary"
         android:supportsRtl="true"
         android:theme="@style/Splash">
-        <activity android:name=".Activity.SimpleDetailActivity"></activity>
+        <activity android:name=".Activity.SimpleDetailActivity" />
         <activity android:name=".Activity.FindActivity" />
         <activity android:name=".Activity.AddDiaryActivity" />
         <activity android:name=".Activity.DetailActivity" />
@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.MainActivity" />
     </application>
 
 </manifest>

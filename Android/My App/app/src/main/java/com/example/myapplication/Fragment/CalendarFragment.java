@@ -1,18 +1,12 @@
 package com.example.myapplication.Fragment;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,12 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Activity.AddDiaryActivity;
 import com.example.myapplication.Activity.SimpleDetailActivity;
-import com.example.myapplication.Activity.SimpleDetailActivity;
 import com.example.myapplication.Database.TaskDbHelper;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.Date;
 
 
 public class CalendarFragment extends Fragment {
@@ -34,6 +25,7 @@ public class CalendarFragment extends Fragment {
     private SimpleDetailActivity simpleDetailActivity = new SimpleDetailActivity();
     private CalendarView calendarView;
     private float scale = 1.05f;
+    private int select_year, select_month, select_day;
 
 
     @Override
@@ -55,12 +47,25 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+//                Toast.makeText(getActivity(),dayOfMonth+"/"+(month+1)+"/"+year,Toast.LENGTH_SHORT).show();
+                select_day = dayOfMonth;
+                select_month = month +1;
+                select_year = year;
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Intent transferIntent = new Intent(getActivity(), AddDiaryActivity.class);
+                transferIntent.putExtra("year",select_year);
+                transferIntent.putExtra("month",select_month);
+                transferIntent.putExtra("day",select_day);
                 startActivity(transferIntent);
             }
         });
