@@ -17,6 +17,7 @@
 		EAB75624230FC76600467C3A /* CalendaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB75623230FC76600467C3A /* CalendaryTests.swift */; };
 		EAB7562F230FC76600467C3A /* CalendaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7562E230FC76600467C3A /* CalendaryUITests.swift */; };
 		EAB7563E231506CB00467C3A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAB7563D231506CB00467C3A /* GoogleService-Info.plist */; };
+		EAB756402315254100467C3A /* AddDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7563F2315254100467C3A /* AddDiaryViewController.swift */; };
 		EF86E0140DE0FF31104ED248 /* Pods_CalendaryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF411884A0BF9B1B1E7BE23 /* Pods_CalendaryTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +63,7 @@
 		EAB75630230FC76600467C3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAB7563C230FD36E00467C3A /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objc-Bridge-Header.h"; sourceTree = "<group>"; };
 		EAB7563D231506CB00467C3A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EAB7563F2315254100467C3A /* AddDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				EAB7561A230FC76600467C3A /* Info.plist */,
 				EAB7563C230FD36E00467C3A /* Objc-Bridge-Header.h */,
 				EAB7563D231506CB00467C3A /* GoogleService-Info.plist */,
+				EAB7563F2315254100467C3A /* AddDiaryViewController.swift */,
 			);
 			path = Calendary;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAB75611230FC76400467C3A /* ViewController.swift in Sources */,
+				EAB756402315254100467C3A /* AddDiaryViewController.swift in Sources */,
 				EAB7560F230FC76400467C3A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
