@@ -15,9 +15,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        editButton.layer.masksToBounds = false
-        editButton.layer.shadowColor = UIColor.blue.cgColor
-        editButton.layer.shadowRadius = 10
         editButton.layer.cornerRadius = 35
     }
 
