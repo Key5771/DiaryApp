@@ -8,6 +8,7 @@ target 'Calendary' do
   # Pods for Calendary
   pod 'FSCalendar'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Firestore'
   
 
   target 'CalendaryTests' do

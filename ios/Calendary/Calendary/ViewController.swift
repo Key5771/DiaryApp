@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import FSCalendar
 
 class ViewController: UIViewController {
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var calendar: FSCalendar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,14 @@ class ViewController: UIViewController {
         editButton.layer.cornerRadius = 35
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "addDiary" {
+            let addDiaryViewContollrer = segue.destination as? AddDiaryViewController
+            addDiaryViewContollrer?.date = calendar.selectedDate ?? Date()
+        }
+    }
 
 }
 

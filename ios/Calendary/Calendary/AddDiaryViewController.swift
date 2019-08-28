@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class AddDiaryViewController: UIViewController {
     @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var titleTextfield: UITextField!
     @IBOutlet weak var saveButton: UIButton!
+    
+    var date: Date = Date()
+    
+    var diaryId: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +30,63 @@ class AddDiaryViewController: UIViewController {
         contentTextview.layer.cornerRadius = 10
         
         saveButton.layer.cornerRadius = 10
+        
+        if diaryId != "" {
+            let db = Firestore.firestore()
+            let data = db.collection("diarys").document(diaryId)
+            data.getDocument { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    if let title = querySnapshot!.get("title") as? String {
+                        self.titleTextfield.text = title
+                    }
+                    if let content = querySnapshot!.get("content") as? String {
+                        self.contentTextview.text = content
+                    }
+                }
+            }
+        }
+        
 
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func backgroundClick(_ sender: UITapGestureRecognizer) {
+        contentTextview.resignFirstResponder()
+        titleTextfield.resignFirstResponder()
+    }
+    
+    @IBAction func save() {
+        contentTextview.resignFirstResponder()
+        titleTextfield.resignFirstResponder()
+        
+        var ref: DocumentReference? = nil
+        let calendar = Calendar.current
+        let db = Firestore.firestore()
+        ref = db.collection("diarys").addDocument(data: [
+            "content": contentTextview.text ?? "",
+            "date": "\(calendar.component(.year, from: date))/\(calendar.component(.month, from: date))/\(calendar.component(.day, from: date))",
+            "title": titleTextfield.text ?? ""
+        ]) { err in
+            var alertTitle = "저장되었습니다."
+            var alertMessage = "성공적으로 저장되었습니다."
+            if err != nil {
+                alertTitle = "실패하였습니다."
+                alertMessage = "저장에 실패하였습니다."
+            }
+            
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "확인", style: .default, handler: { (_) in
+                self.navigationController?.popViewController(animated: true)
+            })
+            alertController.addAction(okButton)
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
 
+    }
+    
     /*
     // MARK: - Navigation
 
