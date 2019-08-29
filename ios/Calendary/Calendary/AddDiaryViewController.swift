@@ -13,6 +13,7 @@ class AddDiaryViewController: UIViewController {
     @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var titleTextfield: UITextField!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     
     var date: Date = Date()
     
@@ -31,6 +32,9 @@ class AddDiaryViewController: UIViewController {
         
         saveButton.layer.cornerRadius = 10
         
+        let calendar = Calendar.current
+        dateLabel.text = "\(calendar.component(.year, from: date))년 \(calendar.component(.month, from: date))월 \(calendar.component(.day, from: date))일"
+        
         if diaryId != "" {
             let db = Firestore.firestore()
             let data = db.collection("diarys").document(diaryId)
@@ -44,6 +48,9 @@ class AddDiaryViewController: UIViewController {
                     if let content = querySnapshot!.get("content") as? String {
                         self.contentTextview.text = content
                     }
+//                    if let date = querySnapshot!.get("date") as? String {
+//                        self.contentTextview.text = content
+//                    }
                 }
             }
         }

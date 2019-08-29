@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		69C8C899A96483B08CB84ED6 /* Pods_Calendary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD78CFE52E0B391FE1ABC4E1 /* Pods_Calendary.framework */; };
 		8DE30918EEF5EC603888AF43 /* Pods_CalendaryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AC3E41D5518D9ADCFBB85E /* Pods_CalendaryUITests.framework */; };
+		EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */; };
+		EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF7B2317DC6600821122 /* JoinViewController.swift */; };
+		EA1EF927231789320097EAFA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1EF926231789320097EAFA /* LoginViewController.swift */; };
 		EAB7560F230FC76400467C3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7560E230FC76400467C3A /* AppDelegate.swift */; };
 		EAB75611230FC76400467C3A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB75610230FC76400467C3A /* ViewController.swift */; };
 		EAB75614230FC76400467C3A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAB75612230FC76400467C3A /* Main.storyboard */; };
@@ -52,6 +55,9 @@
 		B77E5DC74CF4910737BF57C3 /* Pods-CalendaryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalendaryTests.release.xcconfig"; path = "Target Support Files/Pods-CalendaryTests/Pods-CalendaryTests.release.xcconfig"; sourceTree = "<group>"; };
 		CD78CFE52E0B391FE1ABC4E1 /* Pods_Calendary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calendary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9AC3E41D5518D9ADCFBB85E /* Pods_CalendaryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalendaryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFindViewController.swift; sourceTree = "<group>"; };
+		EA1BDF7B2317DC6600821122 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		EA1EF926231789320097EAFA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EAB7560B230FC76400467C3A /* Calendary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calendary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB7560E230FC76400467C3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EAB75610230FC76400467C3A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,7 +74,7 @@
 		EAB7563C230FD36E00467C3A /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objc-Bridge-Header.h"; sourceTree = "<group>"; };
 		EAB7563F2315254100467C3A /* AddDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryViewController.swift; sourceTree = "<group>"; };
 		EAB756452316503400467C3A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EAB756472316545500467C3A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		EAB756472316545500467C3A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EAB756492316764900467C3A /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		EAB7564D2316798300467C3A /* DiaryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryContent.swift; sourceTree = "<group>"; };
@@ -163,6 +169,9 @@
 				EAB756492316764900467C3A /* DiaryViewController.swift */,
 				EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */,
 				EAB7564D2316798300467C3A /* DiaryContent.swift */,
+				EA1EF926231789320097EAFA /* LoginViewController.swift */,
+				EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */,
+				EA1BDF7B2317DC6600821122 /* JoinViewController.swift */,
 			);
 			path = Calendary;
 			sourceTree = "<group>";
@@ -197,6 +206,7 @@
 				EAB75608230FC76400467C3A /* Frameworks */,
 				EAB75609230FC76400467C3A /* Resources */,
 				A8BA4989689E5C4D01F60C95 /* [CP] Embed Pods Frameworks */,
+				ACB127549E8B71325FA03CDD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -357,6 +367,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Calendary/Pods-Calendary-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		ACB127549E8B71325FA03CDD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Calendary/Pods-Calendary-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Calendary/Pods-Calendary-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Calendary/Pods-Calendary-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C65408C6C8676DA47948590C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -408,9 +435,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA1EF927231789320097EAFA /* LoginViewController.swift in Sources */,
 				EAB7564A2316764900467C3A /* DiaryViewController.swift in Sources */,
 				EAB7564C231677C800467C3A /* DiaryTableViewCell.swift in Sources */,
 				EAB75611230FC76400467C3A /* ViewController.swift in Sources */,
+				EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */,
+				EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */,
 				EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */,
 				EAB756402315254100467C3A /* AddDiaryViewController.swift in Sources */,
 				EAB7560F230FC76400467C3A /* AppDelegate.swift in Sources */,
@@ -590,6 +620,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U53BLS7M93;
 				INFOPLIST_FILE = Calendary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -608,6 +639,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U53BLS7M93;
 				INFOPLIST_FILE = Calendary/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

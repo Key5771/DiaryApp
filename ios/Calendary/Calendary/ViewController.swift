@@ -18,6 +18,14 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         editButton.layer.cornerRadius = 35
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        imageView.contentMode = .scaleAspectFill
+        let image = UIImage(named: "CalendaryLogo.png")
+        imageView.image = image
+        navigationItem.titleView = imageView
+        
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

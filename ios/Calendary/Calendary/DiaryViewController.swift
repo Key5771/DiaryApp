@@ -39,7 +39,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 print("Error getting documents: \(err)")
             } else {
                 for document in querySnapshot!.documents {
-                    var diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, date: document.get("date") as! String)
+                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, date: document.get("date") as! String)
                     self.diarys.append(diaryContent)
                 }
                 
@@ -63,6 +63,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if let row = tableView.indexPathForSelectedRow {
                 let vc = segue.destination as? AddDiaryViewController
                 vc?.diaryId = diarys[row.row].id
+                
             }
         }
     }

@@ -9,6 +9,8 @@ target 'Calendary' do
   pod 'FSCalendar'
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
   
 
   target 'CalendaryTests' do
