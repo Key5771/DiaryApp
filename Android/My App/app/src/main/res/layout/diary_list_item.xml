@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@color/dark"
-        android:textSize="14dp"/>
+        android:textSize="15dp"/>
 
 
 </LinearLayout>

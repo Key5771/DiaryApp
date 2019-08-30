@@ -15,9 +15,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,6 +37,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     public String nickname, email, password;
 
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -36,6 +45,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_signup);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
 
         if(firebaseAuth.getCurrentUser() != null){
             finish();
@@ -44,7 +55,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         init();
         buttonSignup.setOnClickListener(this);
+
+
+
     }
+
+
 
     private void registerUser(){
         nickname = edit_new_nickname.getText().toString().trim();
@@ -95,12 +111,40 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         progressDialog.dismiss();
                     }
                 });
+
     }
+
+//    private void storeUser(){
+//
+//        FirebaseUser user = firebaseAuth.getCurrentUser();
+//
+//        Map<String, String> user_info = new HashMap<>();
+//        user_info.put("name",nickname);
+//        user_info.put("Email",email);
+//        user_info.put("password",password);
+//
+//        firebaseFirestore.collection("diary").document(user.getEmail()).collection("info")
+//                .add(user_info)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Toast.makeText(SignupActivity.this, "가입되었습니다!", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        String error = e.getMessage();
+//                        Toast.makeText(SignupActivity.this,"Error :" + error, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
 
     @Override
     public void onClick(View view){
         if(view == buttonSignup) {
             registerUser();
+//            storeUser();
         }
     }
 

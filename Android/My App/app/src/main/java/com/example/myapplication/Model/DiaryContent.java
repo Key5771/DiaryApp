@@ -5,13 +5,11 @@ public class DiaryContent {
     private String title;
     private String content;
 
-
-
     public DiaryContent(){
 
     }
 
-    public DiaryContent(String title, String content) {
+    public DiaryContent(String title, String content ) {
         this.title = title;
         this.content = content;
     }

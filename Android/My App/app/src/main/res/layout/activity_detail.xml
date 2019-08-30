@@ -11,10 +11,9 @@
         android:id="@+id/detail_diary_title"
         android:layout_width="331dp"
         android:layout_height="42dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="96dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/netmarblem"
+        android:layout_marginEnd="16dp"
         android:text="title"
         android:textColor="@color/dark"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,20 +23,15 @@
 
     <TextView
         android:id="@+id/detail_diary_content"
-        android:layout_width="332dp"
-        android:layout_height="466dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="330dp"
+        android:layout_height="368dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="104dp"
-        android:fontFamily="@font/netmarblem"
+        android:layout_marginEnd="16dp"
         android:text="content"
         android:textColor="@color/dark"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintHorizontal_bias="0.338"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_diary_title" />
 
@@ -45,8 +39,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="320dp"
+        android:layout_marginEnd="284dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/netmarbleb"
         android:text="일기"
@@ -54,6 +49,8 @@
         android:textSize="23dp"
         app:layout_constraintBottom_toTopOf="@+id/detail_diary_title"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toEndOf="@+id/left_btn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.595" />
 
@@ -61,16 +58,43 @@
         android:id="@+id/left_btn"
         android:layout_width="21dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:tint="@color/orange_inactive"
         app:layout_constraintBottom_toTopOf="@+id/detail_diary_title"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.409"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.672"
         app:srcCompat="@drawable/leftbtn" />
+
+    <Button
+        android:id="@+id/replace_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="180dp"
+        android:text="수정"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_diary_content"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="180dp"
+        android:text="삭제"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/replace_btn"
+        app:layout_constraintTop_toBottomOf="@+id/detail_diary_content"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

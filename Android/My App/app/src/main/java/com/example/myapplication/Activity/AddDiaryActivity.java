@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +18,10 @@ import com.example.myapplication.Fragment.CalendarFragment;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -28,10 +33,13 @@ public class AddDiaryActivity extends AppCompatActivity {
     Button save_btn;
     EditText title, content;
     TextView cur_year, cur_month, cur_day;
+    Switch show_swt;
 
     private FirebaseFirestore firebaseFirestore;
     private EditText edit_title, edit_content;
-    private CalendarFragment calendarFragment;
+    private FirebaseAuth firebaseAuth;
+    private String public_ch;
+
 
 
     @Override
@@ -39,22 +47,29 @@ public class AddDiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_diary);
         init();
-        calendarFragment = new CalendarFragment();
 
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        edit_title = (EditText) findViewById(R.id.edit_title);
-        edit_content = (EditText) findViewById(R.id.edit_content);
-        cur_year = (TextView) findViewById(R.id.cur_year_tv);
-        cur_month = (TextView) findViewById(R.id.cur_month_tv);
-        cur_day = (TextView) findViewById(R.id.cur_day_tv);
 
         Intent intent = getIntent();
 
         int year = intent.getIntExtra("year", 1);
         int month = intent.getIntExtra("month", 1);
         int day = intent.getIntExtra("day", 1);
+
+        show_swt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    public_ch = show_swt.getTextOn().toString();
+                } else{
+                    public_ch = show_swt.getTextOff().toString();
+                }
+            }
+        });
+
 
 
         cur_day.setText(String.valueOf(day));
@@ -68,13 +83,20 @@ public class AddDiaryActivity extends AppCompatActivity {
                 String title = edit_title.getText().toString();
                 String content = edit_content.getText().toString();
 
-                Map<String, String> user_diary = new HashMap<>();
+                if(title.isEmpty() || content.isEmpty()){
+                    Toast.makeText(AddDiaryActivity.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                Map<String, String> user_diary = new HashMap<>();
                 user_diary.put("date", String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(day));
                 user_diary.put("title", title);
                 user_diary.put("content", content);
+                user_diary.put("show",public_ch);
 
-                firebaseFirestore.collection("diarys").add(user_diary)
+
+                firebaseFirestore.collection("diary").document(user.getEmail()).collection(user.getEmail()+"'s diary")
+                        .add(user_diary)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
@@ -98,7 +120,16 @@ public class AddDiaryActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.edit_title);
         content = (EditText) findViewById(R.id.edit_content);
         save_btn = (Button) findViewById(R.id.save_button);
+
+        edit_title = (EditText) findViewById(R.id.edit_title);
+        edit_content = (EditText) findViewById(R.id.edit_content);
+        cur_year = (TextView) findViewById(R.id.cur_year_tv);
+        cur_month = (TextView) findViewById(R.id.cur_month_tv);
+        cur_day = (TextView) findViewById(R.id.cur_day_tv);
+
+        show_swt = (Switch) findViewById(R.id.show_swt);
     }
 
 
 }
+
