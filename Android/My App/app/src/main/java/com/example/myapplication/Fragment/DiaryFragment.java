@@ -37,6 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.List;
 import java.util.Map;
 
 public class DiaryFragment extends Fragment {
@@ -48,7 +49,7 @@ public class DiaryFragment extends Fragment {
     private GestureDetector gestureDetector;
     private FirebaseAuth firebaseAuth;
     private ArrayList arrayList;
-
+    List<DiaryContent> contents;
 
     @Override
     @Nullable
@@ -61,8 +62,7 @@ public class DiaryFragment extends Fragment {
          mDiaryList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
 
 //         arrayList = new ArrayList<>();
-         mDiaryAdaptor = new DiaryAdapter();
-         mDiaryList.setAdapter(mDiaryAdaptor);
+
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -82,8 +82,9 @@ public class DiaryFragment extends Fragment {
                     public void onClick(View view, int position) {
 //                        Dictionary dict = arrayList.get(position);
                         Intent diaryIntent = new Intent(getActivity().getBaseContext(),DetailActivity.class);
-                        diaryIntent.putExtra("title",getId());
-                        diaryIntent.putExtra("content",getId());
+                        diaryIntent.putExtra("diary", contents.get(position));
+//                        diaryIntent.putExtra("title",contents.get(position).getTitle());
+//                        diaryIntent.putExtra("content",contents.get(position).getContent());
                         startActivity(diaryIntent);
                     }
 
@@ -125,26 +126,26 @@ public class DiaryFragment extends Fragment {
 
         //일기 가져오기
         CollectionReference docRef = firebaseFirestore.collection("diary").document(user.getEmail()).collection(user.getEmail()+"'s diary");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
-                    QuerySnapshot documents = task.getResult();
+        docRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                QuerySnapshot documents = task.getResult();
+                contents = new ArrayList<>();
+                for (QueryDocumentSnapshot document : documents) {
+                    Map<String, Object> content1 = document.getData();
+                    String title = (String)content1.getOrDefault("title", "제목");
+                    String diaryContent = (String)content1.getOrDefault("content", "내용");
+                    DiaryContent content = new DiaryContent(title, diaryContent);
 
-                    for (QueryDocumentSnapshot document : documents) {
-                        Map<String, Object> content1 = document.getData();
-                        String title = (String)content1.getOrDefault("title", "제목");
-                        String diaryContent = (String)content1.getOrDefault("content", "내용");
-                        DiaryContent content = new DiaryContent(title, diaryContent);
-
-                        Log.i(TAG, content.toString());
-                        mDiaryAdaptor.addContent(content);
-                    }
-
-                    mDiaryAdaptor.notifyDataSetChanged();
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.i(TAG, content.toString());
+//                    mDiaryAdaptor.addContent(content);
+                    contents.add(content);
                 }
+                mDiaryAdaptor = new DiaryAdapter(contents);
+                mDiaryList.setAdapter(mDiaryAdaptor);
+
+//                mDiaryAdaptor.notifyDataSetChanged();
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
         });
         return view;

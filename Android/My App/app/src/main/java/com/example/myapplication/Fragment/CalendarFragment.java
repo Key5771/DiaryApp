@@ -50,7 +50,6 @@ public class CalendarFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//                Toast.makeText(getActivity(),dayOfMonth+"/"+(month+1)+"/"+year,Toast.LENGTH_SHORT).show();
                 select_day = dayOfMonth;
                 select_month = month +1;
                 select_year = year;

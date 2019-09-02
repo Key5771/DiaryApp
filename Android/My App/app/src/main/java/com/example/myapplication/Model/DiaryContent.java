@@ -1,6 +1,8 @@
 package com.example.myapplication.Model;
 
-public class DiaryContent {
+import java.io.Serializable;
+
+public class DiaryContent implements Serializable {
 
     private String title;
     private String content;

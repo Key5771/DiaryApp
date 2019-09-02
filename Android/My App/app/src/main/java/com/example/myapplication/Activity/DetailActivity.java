@@ -41,19 +41,16 @@ public class DetailActivity extends AppCompatActivity {
 
         left_btn.setOnClickListener(this::onClick);
 
-        String title_st = "";
-        String content_st = "";
+        String title_st;
+        String content_st;
 
-        Bundle extras = getIntent().getExtras();
-
-        title_st = extras.getString("title");
-        content_st = extras.getString("content");
+        DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("diary");
+        title_st = diaryContent.getTitle();
+        content_st = diaryContent.getContent() ;
 
         title_text.setText(title_st);
         content_text.setText(content_st);
 
-//        title_text.setText(diaryContent.getTitle());
-//        content_text.setText(diaryContent.getContent());
     }
 
 

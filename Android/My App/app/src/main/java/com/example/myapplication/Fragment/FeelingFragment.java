@@ -55,7 +55,7 @@ public class FeelingFragment extends Fragment {
         mDiaryAdaptor = new DiaryAdapter();
         mDiaryList.setAdapter(mDiaryAdaptor);
 
-       firebaseFirestore.collection("diary")
+       firebaseFirestore.collection("diary").document(user.getEmail()).collection(user.getEmail()+"'s diary")
                .whereEqualTo("show","공개")
                .get()
                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
