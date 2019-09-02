@@ -25,6 +25,7 @@
 		EAB7564A2316764900467C3A /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB756492316764900467C3A /* DiaryViewController.swift */; };
 		EAB7564C231677C800467C3A /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */; };
 		EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7564D2316798300467C3A /* DiaryContent.swift */; };
+		EAF0A34C231D0CE30034494F /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */; };
 		EF86E0140DE0FF31104ED248 /* Pods_CalendaryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF411884A0BF9B1B1E7BE23 /* Pods_CalendaryTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		EAB756492316764900467C3A /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		EAB7564D2316798300467C3A /* DiaryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryContent.swift; sourceTree = "<group>"; };
+		EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				EA1EF926231789320097EAFA /* LoginViewController.swift */,
 				EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */,
 				EA1BDF7B2317DC6600821122 /* JoinViewController.swift */,
+				EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */,
 			);
 			path = Calendary;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				EAB7564A2316764900467C3A /* DiaryViewController.swift in Sources */,
 				EAB7564C231677C800467C3A /* DiaryTableViewCell.swift in Sources */,
 				EAB75611230FC76400467C3A /* ViewController.swift in Sources */,
+				EAF0A34C231D0CE30034494F /* SettingTableViewController.swift in Sources */,
 				EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */,
 				EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */,
 				EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */,

@@ -47,6 +47,12 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
         
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        imageView.contentMode = .scaleAspectFill
+        let image = UIImage(named: "CalendaryLogo.png")
+        imageView.image = image
+        navigationItem.titleView = imageView
+        
         // Do any additional setup after loading the view.
     }
     
@@ -63,7 +69,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if let row = tableView.indexPathForSelectedRow {
                 let vc = segue.destination as? AddDiaryViewController
                 vc?.diaryId = diarys[row.row].id
-                
+                tableView.deselectRow(at: row, animated: true)
             }
         }
     }
