@@ -1,6 +1,7 @@
 package com.example.myapplication.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         title_st = diaryContent.getTitle();
         content_st = diaryContent.getContent() ;
 
+        title_text.setTypeface(null, Typeface.BOLD);
         title_text.setText(title_st);
         content_text.setText(content_st);
 
