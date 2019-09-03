@@ -114,31 +114,35 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-//    private void storeUser(){
-//
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//
-//        Map<String, String> user_info = new HashMap<>();
-//        user_info.put("name",nickname);
-//        user_info.put("Email",email);
-//        user_info.put("password",password);
-//
-//        firebaseFirestore.collection("diary").document(user.getEmail()).collection("info")
-//                .add(user_info)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Toast.makeText(SignupActivity.this, "가입되었습니다!", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        String error = e.getMessage();
-//                        Toast.makeText(SignupActivity.this,"Error :" + error, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
+    private void storeUser(){
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        nickname = edit_new_nickname.getText().toString().trim();
+        email = edit_new_email.getText().toString().trim();
+        password = edit_new_password.getText().toString().trim();
+
+        Map<String, String> user_info = new HashMap<>();
+        user_info.put("name",nickname);
+        user_info.put("Email",email);
+        user_info.put("password",password);
+
+        firebaseFirestore.collection("diary")
+                .add(user_info)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(SignupActivity.this, "가입되었습니다!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String error = e.getMessage();
+                        Toast.makeText(SignupActivity.this,"Error :" + error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     @Override
     public void onClick(View view){

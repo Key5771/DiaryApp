@@ -95,7 +95,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                 user_diary.put("show",public_ch);
 
 
-                firebaseFirestore.collection("diary").document(user.getEmail()).collection(user.getEmail()+"'s diary")
+                firebaseFirestore.collection("diarys")
                         .add(user_diary)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override

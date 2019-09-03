@@ -63,8 +63,6 @@ public class DetailActivity extends AppCompatActivity {
     public void init(){
         title_text = (TextView) findViewById(R.id.detail_diary_title);
         content_text = (TextView) findViewById(R.id.detail_diary_content);
-        delete_btn = (Button) findViewById(R.id.delete_btn);
-        replace_btn = (Button) findViewById(R.id.replace_btn);
         left_btn = (ImageView) findViewById(R.id.left_btn);
     }
 

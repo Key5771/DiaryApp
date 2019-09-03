@@ -1,16 +1,19 @@
 package com.example.myapplication.Fragment;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,15 +22,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.myapplication.Activity.DetailActivity;
 import com.example.myapplication.Adapter.DiaryAdapter;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,7 +38,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
 
@@ -48,8 +49,10 @@ public class DiaryFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private GestureDetector gestureDetector;
     private FirebaseAuth firebaseAuth;
-    private ArrayList arrayList;
     List<DiaryContent> contents;
+    private Handler handler;
+    private ProgressDialog progressDialog;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     @Nullable
@@ -57,12 +60,39 @@ public class DiaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diary_fragment, container, false);
 
+        //로딩 dialog
+//        handler = new Handler();
+//         new Thread (new Runnable(){
+//            @Override
+//            public void run(){
+//                progressDialog = ProgressDialog.show(getActivity(),"","잠시만 기다려주세요!",true);
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try{
+//                            if (progressDialog != null && progressDialog.isShowing()) {
+//                                progressDialog.dismiss();
+//                            }
+//                        }
+//                        catch (Exception e){
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                },3000);
+//            }
+//        });
+
+         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
+         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+             @Override
+             public void onRefresh() {
+
+             }
+         });
+
          mDiaryList = view.findViewById(R.id.diary_list);
          mDiaryList.setLayoutManager(new LinearLayoutManager(this.getContext()));
          mDiaryList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
-
-//         arrayList = new ArrayList<>();
-
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -80,11 +110,8 @@ public class DiaryFragment extends Fragment {
         mDiaryList.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mDiaryList, new ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-//                        Dictionary dict = arrayList.get(position);
                         Intent diaryIntent = new Intent(getActivity().getBaseContext(),DetailActivity.class);
                         diaryIntent.putExtra("diary", contents.get(position));
-//                        diaryIntent.putExtra("title",contents.get(position).getTitle());
-//                        diaryIntent.putExtra("content",contents.get(position).getContent());
                         startActivity(diaryIntent);
                     }
 
@@ -96,7 +123,7 @@ public class DiaryFragment extends Fragment {
                         alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                firebaseFirestore.collection("diary").document(user.getEmail()).collection(user.getEmail()+"'s diary").document()
+                                firebaseFirestore.collection("diary").document()
                                         .delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -125,7 +152,7 @@ public class DiaryFragment extends Fragment {
 
 
         //일기 가져오기
-        CollectionReference docRef = firebaseFirestore.collection("diary").document(user.getEmail()).collection(user.getEmail()+"'s diary");
+        CollectionReference docRef = firebaseFirestore.collection("diarys");
         docRef.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 QuerySnapshot documents = task.getResult();
@@ -137,13 +164,10 @@ public class DiaryFragment extends Fragment {
                     DiaryContent content = new DiaryContent(title, diaryContent);
 
                     Log.i(TAG, content.toString());
-//                    mDiaryAdaptor.addContent(content);
                     contents.add(content);
                 }
                 mDiaryAdaptor = new DiaryAdapter(contents);
                 mDiaryList.setAdapter(mDiaryAdaptor);
-
-//                mDiaryAdaptor.notifyDataSetChanged();
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
             }

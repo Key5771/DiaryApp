@@ -27,7 +27,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class SettingFragment extends Fragment implements View.OnClickListener{
 
     private TextView userEmail_tv, deleteUser_tv;
-    private Button logout_btn;
 
     private FirebaseAuth firebaseAuth;
 
@@ -40,7 +39,6 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
 
         userEmail_tv = (TextView) view.findViewById(R.id.userEmail_tv);
         deleteUser_tv = (TextView) view.findViewById(R.id.deleteUser_tv);
-        logout_btn = (Button) view.findViewById(R.id.logout_btn);
 
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null) {
@@ -50,9 +48,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
         }
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        userEmail_tv.setText("반갑습니다!\n" + user.getEmail() + "으로 로그인 하고 있습니다");
+        userEmail_tv.setText(user.getEmail() + "에서 로그아웃 하기");
 
-        logout_btn.setOnClickListener(this);
+        userEmail_tv.setOnClickListener(this);
         deleteUser_tv.setOnClickListener(this);
 
         return view;
@@ -60,7 +58,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(v == logout_btn) {
+        if(v == userEmail_tv) {
             firebaseAuth.signOut();
             getActivity().finish();
             startActivity(new Intent(getActivity(), LoginActivity.class));
