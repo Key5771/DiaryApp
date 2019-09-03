@@ -77,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signup_tv.setOnClickListener(this);
         find_password.setOnClickListener(this);
 
+
+
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()

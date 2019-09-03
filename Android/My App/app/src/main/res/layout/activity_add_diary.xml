@@ -34,7 +34,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/edit_text_stroke"
         android:gravity="start|top"
-        android:hint="오늘 하루 어땠어요?"
+        android:hint="\n\t 오늘 하루 어땠어요?"
         android:inputType="textMultiLine"
         android:textColor="@color/dark"
         android:textSize="15sp"
