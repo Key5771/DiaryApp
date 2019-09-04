@@ -127,11 +127,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         user_info.put("Email",email);
         user_info.put("password",password);
 
-        firebaseFirestore.collection("diary")
-                .add(user_info)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        firebaseFirestore.collection("Users").document(user.getEmail())
+                .set(user_info)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void documentReference) {
                         Toast.makeText(SignupActivity.this, "가입되었습니다!", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -148,7 +148,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view){
         if(view == buttonSignup) {
             registerUser();
-//            storeUser();
+            storeUser();
         }
     }
 

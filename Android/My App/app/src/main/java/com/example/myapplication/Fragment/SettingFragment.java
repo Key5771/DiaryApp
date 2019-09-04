@@ -59,9 +59,23 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v == userEmail_tv) {
-            firebaseAuth.signOut();
-            getActivity().finish();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getActivity());
+            alert_confirm.setMessage("로그아웃 하시겠습니까?").setCancelable(false).setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    firebaseAuth.signOut();
+                    Toast.makeText(getActivity(),"로그아웃 되었습니다!",Toast.LENGTH_LONG).show();
+                    getActivity().finish();
+                    startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
+                }
+            });
+            alert_confirm.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(getActivity(),"취소되었습니다",Toast.LENGTH_LONG).show();
+                }
+            });
+            alert_confirm.show();
         }
 
         if(v == deleteUser_tv) {

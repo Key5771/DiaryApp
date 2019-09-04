@@ -20,26 +20,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.825">
 
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/netmarblem"
-            android:text="제목"
-            android:textColor="@color/default_inactive"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/text_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="55dp"
-            android:fontFamily="@font/netmarblem"
-            android:text="내용"
-            android:textColor="@color/dark"
-            android:textSize="17dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cal_diaryList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

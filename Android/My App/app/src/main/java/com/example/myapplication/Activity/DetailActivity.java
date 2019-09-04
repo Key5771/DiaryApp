@@ -24,9 +24,8 @@ import org.jetbrains.annotations.Nullable;
 public class DetailActivity extends AppCompatActivity {
 
     private Intent intent;
-    private TextView title_text, content_text;
+    private TextView title_text, content_text, name_text;
     private DiaryContent diaryContent;
-    private Button delete_btn, replace_btn;
     private FirebaseFirestore firebaseFirestore;
     private ImageView left_btn;
 
@@ -44,6 +43,11 @@ public class DetailActivity extends AppCompatActivity {
 
         String title_st;
         String content_st;
+        String name_st;
+
+
+
+
 
         DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("diary");
         title_st = diaryContent.getTitle();

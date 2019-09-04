@@ -50,35 +50,36 @@ public class CalendarFragment extends Fragment {
                 simpleDetailActivity.setVisible(true);
             }
         });
-//        calendarView.setOnLongClickListener(new View.OnLongClickListener(){
-//            @Override
-//            public void onLongClick(View view1){
-//                LayoutInflater layoutInflater = LayoutInflater.from(context);
-//                View todoView = layoutInflater.inflate(R.layout.todo_popup,null);
-//
-//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-//                alertDialogBuilder.setView(todoView);
-//
-//                final EditText todoText = (EditText) todoView.findViewById(R.id.todo);
-//                alertDialogBuilder.setTitle("할일응 입력해주세요!");
-//
-//                alertDialogBuilder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//
-//                AlertDialog alertDialog = alertDialogBuilder.create();
-//                alertDialog.show();
-//            }
-//        });
+        calendarView.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View view1){
+                LayoutInflater layoutInflater = LayoutInflater.from(context);
+                View todoView = layoutInflater.inflate(R.layout.todo_popup,null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setView(todoView);
+
+                final EditText todoText = (EditText) todoView.findViewById(R.id.todo);
+                alertDialogBuilder.setTitle("할일을 입력해주세요!");
+
+                alertDialogBuilder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                return true;
+            }
+        });
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

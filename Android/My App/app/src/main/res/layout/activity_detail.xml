@@ -12,7 +12,7 @@
         android:layout_width="22dp"
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:tint="@color/orange_inactive"
@@ -21,16 +21,17 @@
         app:layout_constraintHorizontal_bias="0.976"
         app:layout_constraintStart_toEndOf="@+id/left_btn"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.857"
+        app:layout_constraintVertical_bias="0.714"
         app:srcCompat="@drawable/more" />
 
     <TextView
         android:id="@+id/detail_diary_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="32dp"
         android:text="내용"
+        android:textSize="13dp"
         android:textColor="@color/dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -41,11 +42,12 @@
         android:id="@+id/detail_diary_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="제목"
         android:textColor="@color/dark"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,17 +71,16 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="8dp"
         android:background="@color/dark"
-        app:layout_constraintTop_toBottomOf="@+id/heart_btn"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heart_btn" />
 
     <View
         android:id="@+id/view4"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_centerInParent="true"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:background="@color/dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +91,7 @@
         android:layout_width="21dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="16dp"
         android:tint="@color/orange_inactive"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -138,19 +139,29 @@
         android:id="@+id/heart_btn"
         android:layout_width="38dp"
         android:layout_height="26dp"
-        app:srcCompat="@drawable/heart"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:tint="@color/red_inactive"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="248dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:srcCompat="@drawable/heart" />
 
     <ImageView
         android:id="@+id/comment_btn"
         android:layout_width="37dp"
         android:layout_height="26dp"
-        app:srcCompat="@drawable/comment"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:tint="@color/canyon_clay"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="248dp" />
+        app:layout_constraintBottom_toTopOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toEndOf="@+id/heart_btn"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/comment" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,9 +31,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
     }
 
     @Override
-    public DiaryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
-        // create a new view
+    public DiaryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.diary_list_item, parent, false);
         ViewHolder vh = new ViewHolder(v);
@@ -53,9 +51,6 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-
         holder.titleTextView.setText(diaryContentList.get(position).getTitle());
         holder.contentTextView.setText(diaryContentList.get(position).getContent());
 
