@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Fragment.CalendarFragment;
+import com.example.myapplication.Fragment.DiaryFragment;
+import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,7 +82,7 @@ public class AddDiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String title = edit_title.getText().toString();
+                    String title = edit_title.getText().toString();
                 String content = edit_content.getText().toString();
 
                 if(title.isEmpty() || content.isEmpty()){
@@ -110,7 +112,12 @@ public class AddDiaryActivity extends AppCompatActivity {
                                 Toast.makeText(AddDiaryActivity.this,"Error :" + error, Toast.LENGTH_SHORT).show();
                             }
                         });
-                finish();
+
+                Intent intent1 = new Intent(AddDiaryActivity.this, DiaryFragment.class);
+                intent1.putExtra("year",year);
+                intent1.putExtra("month",month);
+                intent1.putExtra("day",day);
+                startActivity(intent1);
             }
         });
 

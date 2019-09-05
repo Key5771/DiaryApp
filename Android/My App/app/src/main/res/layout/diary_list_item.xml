@@ -22,5 +22,13 @@
         android:maxLines="1"
         android:textSize="15dp"/>
 
+    <TextView
+        android:id="@+id/diary_item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/dark"
+        android:textSize="11dp"/>
+
 
 </LinearLayout>

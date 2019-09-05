@@ -60,35 +60,16 @@ public class DiaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diary_fragment, container, false);
 
-        //로딩 dialog
-//        handler = new Handler();
-//         new Thread (new Runnable(){
-//            @Override
-//            public void run(){
-//                progressDialog = ProgressDialog.show(getActivity(),"","잠시만 기다려주세요!",true);
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try{
-//                            if (progressDialog != null && progressDialog.isShowing()) {
-//                                progressDialog.dismiss();
-//                            }
-//                        }
-//                        catch (Exception e){
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },3000);
-//            }
-//        });
-
+        //당겨서 새로고침
          swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
          swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
              @Override
              public void onRefresh() {
-
+                 select_diary();
+                 swipeRefreshLayout.setRefreshing(false);
              }
          });
+         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange_inactive));
 
          mDiaryList = view.findViewById(R.id.diary_list);
          mDiaryList.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -97,6 +78,23 @@ public class DiaryFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+//로딩 dialog
+        ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("잠시만 기다려주세요..");
+        progressDialog.setCancelable(true);
+        progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Horizontal);
+        progressDialog.show();
+
+        select_diary();
+
+        progressDialog.dismiss();
+
+        return view;
+    }
+
+    private void select_diary(){
 
         //일기 선택
         gestureDetector = new GestureDetector(getActivity().getApplicationContext(), new GestureDetector.SimpleOnGestureListener(){
@@ -108,50 +106,50 @@ public class DiaryFragment extends Fragment {
 
         //선택한 일기 보내주기
         mDiaryList.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mDiaryList, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent diaryIntent = new Intent(getActivity().getBaseContext(),DetailActivity.class);
+                diaryIntent.putExtra("diary", contents.get(position));
+                startActivity(diaryIntent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("삭제하겠습니까?");
+                alert.setMessage("삭제된 일기는 복구할 수 없습니다.");
+                alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View view, int position) {
-                        Intent diaryIntent = new Intent(getActivity().getBaseContext(),DetailActivity.class);
-                        diaryIntent.putExtra("diary", contents.get(position));
-                        startActivity(diaryIntent);
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseFirestore.collection("diarys").document()
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getActivity(),"삭제되었습니다",Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(),"실패",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
-
+                });
+                alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onLongClick(View view, int position) {
-                        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                        alert.setTitle("삭제하겠습니까?");
-                        alert.setMessage("삭제된 일기는 복구할 수 없습니다.");
-                        alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                firebaseFirestore.collection("diary").document()
-                                        .delete()
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(getActivity(),"삭제되었습니다",Toast.LENGTH_SHORT).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(getActivity(),"실패",Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
-                        });
-                        alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        }).show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
                     }
-                }));
+                }).show();
+            }
+        }));
 
 
 
 
-        //일기 가져오기
+        //일기 불러오기
         CollectionReference docRef = firebaseFirestore.collection("diarys");
         docRef.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
@@ -172,8 +170,8 @@ public class DiaryFragment extends Fragment {
                 Log.d(TAG, "get failed with ", task.getException());
             }
         });
-        return view;
     }
+
 
     public interface ClickListener{
         void onClick(View view, int position);
