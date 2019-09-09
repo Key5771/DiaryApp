@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/orange_inactive</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
 
@@ -27,11 +27,11 @@
         <item name="android:textColorPrimary">@color/default_inactive</item>
     </style>
 
-    <style name="CalendarViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="CalendarViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Large">
         <item name="android:textColor">@color/dark</item>
     </style>
 
-    <style name="CalendarViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="CalendarViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Large">
         <item name="android:textColor">@color/orange_inactive</item>
     </style>
 

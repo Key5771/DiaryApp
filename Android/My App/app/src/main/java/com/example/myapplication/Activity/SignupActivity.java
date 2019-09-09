@@ -127,7 +127,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         user_info.put("Email",email);
         user_info.put("password",password);
 
-        firebaseFirestore.collection("Users").document(user.getEmail())
+        firebaseFirestore.collection("User").document()
                 .set(user_info)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

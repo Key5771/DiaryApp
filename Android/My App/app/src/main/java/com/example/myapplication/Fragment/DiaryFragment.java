@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +56,7 @@ public class DiaryFragment extends Fragment {
     private Handler handler;
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView writing_first, date_first, todo_list;
 
     @Override
     @Nullable
@@ -60,18 +64,34 @@ public class DiaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diary_fragment, container, false);
 
-        //당겨서 새로고침
-         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+
+         writing_first = (TextView) view.findViewById(R.id.writing_fist);
+         date_first = (TextView) view.findViewById(R.id.date_first);
+         todo_list = (TextView) view.findViewById(R.id.todo_list);
+
+         writing_first.setOnClickListener(new View.OnClickListener() {
              @Override
-             public void onRefresh() {
-                 select_diary();
-                 swipeRefreshLayout.setRefreshing(false);
+             public void onClick(View v) {
+//                 writing_first.setTextColor();
+                 mDiaryList = view.findViewById(R.id.writing_fist_list);
              }
          });
-         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange_inactive));
 
-         mDiaryList = view.findViewById(R.id.diary_list);
+
+
+//당겨서 새로고침
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                select_diary();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange_inactive));
+
+
          mDiaryList.setLayoutManager(new LinearLayoutManager(this.getContext()));
          mDiaryList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
 
