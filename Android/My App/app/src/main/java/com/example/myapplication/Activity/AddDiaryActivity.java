@@ -23,9 +23,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +56,10 @@ public class AddDiaryActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
 
 
+        DiaryContent diaryContent = new DiaryContent();
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         Intent intent = getIntent();
 
         int year = intent.getIntExtra("year", 1);
@@ -82,22 +87,30 @@ public class AddDiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    String title = edit_title.getText().toString();
-                String content = edit_content.getText().toString();
+                diaryContent.timestamp = simpleDateFormat.format(date);
+                diaryContent.user_id = firebaseAuth.getCurrentUser().getEmail();
+                diaryContent.title = edit_title.getText().toString();
+                diaryContent.content = edit_content.getText().toString();
 
-                if(title.isEmpty() || content.isEmpty()){
+//                String title = edit_title.getText().toString();
+//                String content = edit_content.getText().toString();
+
+                if(diaryContent.title.isEmpty() || diaryContent.content.isEmpty()){
                     Toast.makeText(AddDiaryActivity.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 Map<String, String> user_diary = new HashMap<>();
                 user_diary.put("date", String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(day));
-                user_diary.put("title", title);
-                user_diary.put("content", content);
-                user_diary.put("show",public_ch);
+//                user_diary.put("title", title);
+//                user_diary.put("content", content);
+//                user_diary.put("show",public_ch);
+                user_diary.put("user id",diaryContent.user_id);
+                user_diary.put("timestamp",diaryContent.timestamp);
+                user_diary.put("title",diaryContent.title);
+                user_diary.put("content",diaryContent.content);
 
-
-                firebaseFirestore.collection("diarys")
+                firebaseFirestore.collection("NEW DIARY")
                         .add(user_diary)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override

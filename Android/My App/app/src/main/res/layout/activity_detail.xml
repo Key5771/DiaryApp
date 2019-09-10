@@ -49,6 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view2">
 
         <LinearLayout
@@ -112,15 +114,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
                     android:text="내용"
                     android:textColor="@color/dark"
                     android:textSize="13dp"
-                    app:layout_constraintBottom_toTopOf="@+id/view4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_diary_title" />
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/view4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_diary_content"
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <View
                     android:id="@+id/view4"
@@ -140,6 +152,15 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/heart_btn"
+                    android:layout_width="38dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:tint="@color/red_inactive"
+                    app:srcCompat="@drawable/heart" />
+
+                <ImageView
                     android:id="@+id/comment_btn"
                     android:layout_width="37dp"
                     android:layout_height="26dp"
@@ -149,15 +170,6 @@
                     android:layout_marginBottom="8dp"
                     android:tint="@color/canyon_clay"
                     app:srcCompat="@drawable/comment" />
-
-                <ImageView
-                    android:id="@+id/heart_btn"
-                    android:layout_width="38dp"
-                    android:layout_height="26dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:tint="@color/red_inactive"
-                    app:srcCompat="@drawable/heart" />
 
             </LinearLayout>
 

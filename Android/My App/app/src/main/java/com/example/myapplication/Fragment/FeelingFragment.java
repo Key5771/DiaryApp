@@ -66,7 +66,7 @@ public class FeelingFragment extends Fragment {
                                Map<String, Object> content1 = documentSnapshot.getData();
                                String title = (String)content1.getOrDefault("title", "제목");
                                String diaryContent = (String)content1.getOrDefault("content", "내용");
-                               DiaryContent content = new DiaryContent(title, diaryContent);
+                               DiaryContent content = new DiaryContent();
 
                                Log.i(TAG, content.toString());
                                mDiaryAdaptor.addContent(content);

@@ -5,37 +5,52 @@ import java.util.Map;
 
 public class DiaryContent implements Serializable {
 
-    private String title;
-    private String content;
-    private String user_id;
-    private String uid;
-    private Long timestamp, select_timestamp;
-    private int fav_count;
-    private Map<String, Boolean> favorites;
+    public String title;
+    public String content;
+    public String user_id;
+    public String uid;
+    public String timestamp, select_timestamp;
+    public int fav_count;
+    public Map<String, Boolean> favorites;
 
-    public DiaryContent(){
+
+    public static class Comment{
+        public String user_id;
+        public String uid;
+        public String comment;
 
     }
 
-    public DiaryContent(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-    public String getTitle() {
-        return title;
+    @Override
+    public String toString(){
+        return "uid =" + uid + ", user_id = " + user_id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public String getContent() {
-        return content;
-    }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+//    public DiaryContent(){
+//
+//    }
+//
+//    public DiaryContent(String title, String content) {
+//        this.title = title;
+//        this.content = content;
+//    }
+//    public String getTitle() {
+//        return title;
+//    }
+//
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public String getContent() {
+//        return content;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
 
 //    public String getUserId() { return user_id;}
 //
@@ -62,20 +77,20 @@ public class DiaryContent implements Serializable {
 //    public void setFavorites(Map<String,Boolean> favorites){this.favorites = favorites;}
 
 
-    @Override
-    public String toString() {
-        return "DiaryContent{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "DiaryContent{" +
+//                "title='" + title + '\'' +
+//                ", content='" + content + '\'' +
+//                '}';
+//    }
 }
 
 /*
     title = 일기 제목
     content = 일기 내용
-    user_id = 글 올릴때 현 작성자 아이디
-    uid = 글 올린 유저 아이디
+    uid = 글 올릴때 현 작성자 아이디
+    user_id = 글 올린 유저 아이디
     timestamp = 글 올린 시간 (작성시간)
     select_timestamp = 선택한 날짜
     fav_count = 좋아요 카운터

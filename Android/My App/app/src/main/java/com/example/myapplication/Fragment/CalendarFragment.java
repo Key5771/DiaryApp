@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Activity.AddDiaryActivity;
-import com.example.myapplication.Activity.SimpleDetailActivity;
 import com.example.myapplication.Database.TaskDbHelper;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +24,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CalendarFragment extends Fragment {
 
     private TaskDbHelper mHelper;
-    private SimpleDetailActivity simpleDetailActivity = new SimpleDetailActivity();
     private CalendarView calendarView;
     private float scale = 1.05f;
     private int select_year, select_month, select_day;
@@ -47,7 +44,7 @@ public class CalendarFragment extends Fragment {
         calendarView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simpleDetailActivity.setVisible(true);
+
             }
         });
         calendarView.setOnLongClickListener(new View.OnLongClickListener(){

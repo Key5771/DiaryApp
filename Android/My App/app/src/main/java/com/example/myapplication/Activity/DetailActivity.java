@@ -43,19 +43,18 @@ public class DetailActivity extends AppCompatActivity {
 
         String title_st;
         String content_st;
-        String name_st;
+        String date_st;
 
 
-
-
-
-        DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("diary");
-        title_st = diaryContent.getTitle();
-        content_st = diaryContent.getContent() ;
+        DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("NEW DIARY");
+        title_st = diaryContent.title;
+        content_st = diaryContent.content ;
+        date_st = diaryContent.timestamp;
 
         title_text.setTypeface(null, Typeface.BOLD);
         title_text.setText(title_st);
         content_text.setText(content_st);
+        name_text.setText(date_st);
 
     }
 
@@ -69,6 +68,7 @@ public class DetailActivity extends AppCompatActivity {
     public void init(){
         title_text = (TextView) findViewById(R.id.detail_diary_title);
         content_text = (TextView) findViewById(R.id.detail_diary_content);
+        name_text = (TextView) findViewById(R.id.time_tv);
         left_btn = (ImageView) findViewById(R.id.left_btn);
     }
 

@@ -31,6 +31,7 @@ import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -47,7 +48,7 @@ import java.util.Map;
 public class DiaryFragment extends Fragment {
     private static final String TAG = "DiaryFragment";
 
-    private RecyclerView mDiaryList;
+    private RecyclerView mWritingList, mDateList, mTodoList;
     private DiaryAdapter mDiaryAdaptor;
     private FirebaseFirestore firebaseFirestore;
     private GestureDetector gestureDetector;
@@ -56,7 +57,6 @@ public class DiaryFragment extends Fragment {
     private Handler handler;
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView writing_first, date_first, todo_list;
 
     @Override
     @Nullable
@@ -64,20 +64,26 @@ public class DiaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_diary_fragment, container, false);
 
+        //탭 레이아웃 설정
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int pos = tab.getPosition();
+                changeView(pos);
+            }
 
-         writing_first = (TextView) view.findViewById(R.id.writing_fist);
-         date_first = (TextView) view.findViewById(R.id.date_first);
-         todo_list = (TextView) view.findViewById(R.id.todo_list);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-         writing_first.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-//                 writing_first.setTextColor();
-                 mDiaryList = view.findViewById(R.id.writing_fist_list);
-             }
-         });
+            }
 
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
 
 //당겨서 새로고침
@@ -91,9 +97,17 @@ public class DiaryFragment extends Fragment {
         });
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange_inactive));
 
+        mWritingList = (RecyclerView) view.findViewById(R.id.writing_fist_list);
+        mWritingList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mWritingList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
 
-         mDiaryList.setLayoutManager(new LinearLayoutManager(this.getContext()));
-         mDiaryList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
+        mDateList = (RecyclerView) view.findViewById(R.id.date_first_list);
+        mDateList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mDateList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
+
+        mTodoList = (RecyclerView) view.findViewById(R.id.todo_list);
+        mTodoList.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mTodoList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -125,7 +139,7 @@ public class DiaryFragment extends Fragment {
         });
 
         //선택한 일기 보내주기
-        mDiaryList.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mDiaryList, new ClickListener() {
+        mWritingList.addOnItemTouchListener(new RecyclerTouchListener(getActivity().getApplicationContext(), mWritingList, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Intent diaryIntent = new Intent(getActivity().getBaseContext(),DetailActivity.class);
@@ -176,16 +190,16 @@ public class DiaryFragment extends Fragment {
                 QuerySnapshot documents = task.getResult();
                 contents = new ArrayList<>();
                 for (QueryDocumentSnapshot document : documents) {
+                    DiaryContent content = new DiaryContent();
                     Map<String, Object> content1 = document.getData();
-                    String title = (String)content1.getOrDefault("title", "제목");
-                    String diaryContent = (String)content1.getOrDefault("content", "내용");
-                    DiaryContent content = new DiaryContent(title, diaryContent);
+                    content.title = (String)content1.getOrDefault("title", "제목");
+                    content.content = (String)content1.getOrDefault("content", "내용");
 
                     Log.i(TAG, content.toString());
                     contents.add(content);
                 }
                 mDiaryAdaptor = new DiaryAdapter(contents);
-                mDiaryList.setAdapter(mDiaryAdaptor);
+                mWritingList.setAdapter(mDiaryAdaptor);
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
             }
@@ -236,6 +250,30 @@ public class DiaryFragment extends Fragment {
 
         @Override
         public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept){}
+    }
+
+    private void changeView(int index){
+        RecyclerView writing_first = (RecyclerView) getView().findViewById(R.id.writing_fist_list);
+        RecyclerView date_first = (RecyclerView)getView().findViewById(R.id.date_first_list);
+        RecyclerView todo_first = (RecyclerView) getView().findViewById(R.id.todo_list);
+
+        switch (index){
+            case 0 :
+                writing_first.setVisibility(View.VISIBLE);
+                date_first.setVisibility(View.INVISIBLE);
+                todo_first.setVisibility(View.INVISIBLE);
+                break;
+            case 1 :
+                writing_first.setVisibility(View.INVISIBLE);
+                date_first.setVisibility(View.VISIBLE);
+                todo_first.setVisibility(View.INVISIBLE);
+                break;
+            case 2 :
+                writing_first.setVisibility(View.INVISIBLE);
+                date_first.setVisibility(View.INVISIBLE);
+                todo_first.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }
 

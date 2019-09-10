@@ -51,8 +51,8 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.titleTextView.setText(diaryContentList.get(position).getTitle());
-        holder.contentTextView.setText(diaryContentList.get(position).getContent());
+        holder.titleTextView.setText(diaryContentList.get(position).title);
+        holder.contentTextView.setText(diaryContentList.get(position).content);
 
     }
 

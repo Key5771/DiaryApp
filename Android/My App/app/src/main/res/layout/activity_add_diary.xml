@@ -46,17 +46,17 @@
     <Switch
         android:id="@+id/show_swt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:checked="false"
+        android:layout_height="19dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="8dp"
+        android:checked="true"
         android:textOff="false"
         android:textOn="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.901"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_content" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_content"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/save_button"
@@ -150,5 +150,21 @@
         android:text="일"
         app:layout_constraintStart_toEndOf="@+id/cur_day_tv"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/image_plus_btn"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/show_swt"
+        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_content"
+        app:layout_constraintVertical_bias="0.045"
+        app:srcCompat="@drawable/add"
+        android:tint="@color/orange_inactive"
+        android:clickable="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
