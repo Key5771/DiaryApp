@@ -88,7 +88,7 @@ public class AddDiaryActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 diaryContent.timestamp = simpleDateFormat.format(date);
-                diaryContent.user_id = firebaseAuth.getCurrentUser().getEmail();
+                diaryContent.user_id = user.getEmail();
                 diaryContent.title = edit_title.getText().toString();
                 diaryContent.content = edit_content.getText().toString();
 
@@ -126,11 +126,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                             }
                         });
 
-                Intent intent1 = new Intent(AddDiaryActivity.this, DiaryFragment.class);
-                intent1.putExtra("year",year);
-                intent1.putExtra("month",month);
-                intent1.putExtra("day",day);
-                startActivity(intent1);
+
             }
         });
 

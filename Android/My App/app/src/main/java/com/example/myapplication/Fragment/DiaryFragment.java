@@ -87,15 +87,15 @@ public class DiaryFragment extends Fragment {
 
 
 //당겨서 새로고침
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                select_diary();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange_inactive));
+//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                select_diary();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
+//        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange_inactive));
 
         mWritingList = (RecyclerView) view.findViewById(R.id.writing_fist_list);
         mWritingList.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -254,8 +254,10 @@ public class DiaryFragment extends Fragment {
 
     private void changeView(int index){
         RecyclerView writing_first = (RecyclerView) getView().findViewById(R.id.writing_fist_list);
-        RecyclerView date_first = (RecyclerView)getView().findViewById(R.id.date_first_list);
+        RecyclerView date_first = (RecyclerView) getView().findViewById(R.id.date_first_list);
         RecyclerView todo_first = (RecyclerView) getView().findViewById(R.id.todo_list);
+
+        Log.i("ChangeViewTest", String.format("change view index : %d", index));
 
         switch (index){
             case 0 :
