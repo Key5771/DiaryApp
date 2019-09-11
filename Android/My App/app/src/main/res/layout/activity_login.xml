@@ -38,7 +38,6 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/orange_inactive"
         android:hint="이메일"
-        android:fontFamily="@font/netmarblem"
         android:textSize="15dp"
         android:inputType="textEmailAddress"
         android:textColor="@color/dark" />
@@ -52,7 +51,6 @@
         android:hint="비밀번호"
         android:textColor="@color/dark"
         android:textSize="15dp"
-        android:fontFamily="@font/netmarblem"
         android:backgroundTint="@color/orange_inactive"
         android:inputType="textPassword" />
 

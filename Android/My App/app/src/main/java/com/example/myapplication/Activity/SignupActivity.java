@@ -120,12 +120,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         nickname = edit_new_nickname.getText().toString().trim();
         email = edit_new_email.getText().toString().trim();
-        password = edit_new_password.getText().toString().trim();
 
         Map<String, String> user_info = new HashMap<>();
         user_info.put("name",nickname);
         user_info.put("Email",email);
-        user_info.put("password",password);
 
         firebaseFirestore.collection("User").document()
                 .set(user_info)

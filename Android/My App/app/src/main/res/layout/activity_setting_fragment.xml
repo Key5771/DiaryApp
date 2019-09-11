@@ -30,56 +30,14 @@
             android:layout_centerInParent="true"
             android:layout_margin="2dp"/>
 
-        <TextView
-            android:id="@+id/notice"
+        <ListView
+            android:id="@+id/setting_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="알림"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:fontFamily="@font/netmarblem"
-            android:layout_margin="1dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/dark"
-            android:layout_centerInParent="true"
-            android:layout_margin="2dp"/>
-
-        <TextView
-            android:id="@+id/appPrivate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:fontFamily="@font/netmarblem"
-            android:text="어플잠금"
-            android:layout_margin="1dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/dark"
-            android:layout_centerInParent="true"
-            android:layout_margin="2dp"/>
-
-        <TextView
-            android:id="@+id/screen_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:fontFamily="@font/netmarblem"
-            android:text="화면"
-            android:layout_margin="1dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.2dp"
-            android:background="@color/dark"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="150dp"/>
+            android:layout_height="match_parent"
+            android:divider="@color/dark"
+            android:dividerHeight="0.5dp"
+            android:choiceMode="singleChoice"
+            />
 
         <TextView
             android:id="@+id/userEmail_tv"
@@ -105,11 +63,5 @@
 
 
     </LinearLayout>
-
-
-
-
-
-
 
 </RelativeLayout>

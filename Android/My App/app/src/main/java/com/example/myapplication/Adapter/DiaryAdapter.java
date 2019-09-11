@@ -3,7 +3,6 @@ package com.example.myapplication.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
     private List<DiaryContent> diaryContentList;

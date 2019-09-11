@@ -44,6 +44,7 @@
         android:backgroundTint="@color/orange_inactive"
         android:src="@drawable/edit"
         android:tint="@color/white"
+        app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent" />
 

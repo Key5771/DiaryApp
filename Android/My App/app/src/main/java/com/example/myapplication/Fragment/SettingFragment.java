@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,11 +18,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Activity.LoginActivity;
 import com.example.myapplication.Activity.SignupActivity;
+import com.example.myapplication.Adapter.ListViewAdapter;
+import com.example.myapplication.Model.SettingListViewitem;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 
 public class SettingFragment extends Fragment implements View.OnClickListener{
@@ -39,6 +44,22 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
 
         userEmail_tv = (TextView) view.findViewById(R.id.userEmail_tv);
         deleteUser_tv = (TextView) view.findViewById(R.id.deleteUser_tv);
+
+        ListView listView = (ListView) view.findViewById(R.id.setting_list);
+        ArrayList<SettingListViewitem> data = new ArrayList<>();
+        SettingListViewitem myInfo = new SettingListViewitem("프로필 수정");
+        SettingListViewitem alarm = new SettingListViewitem("알림 설정");
+        SettingListViewitem appInfo = new SettingListViewitem("어플 정보");
+        SettingListViewitem screen = new SettingListViewitem("화면 설정");
+
+        data.add(myInfo);
+        data.add(alarm);
+        data.add(screen);
+        data.add(appInfo);
+
+        ListViewAdapter adapter = new ListViewAdapter(getActivity(), R.layout.setting_item, data);
+        listView.setAdapter(adapter);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null) {

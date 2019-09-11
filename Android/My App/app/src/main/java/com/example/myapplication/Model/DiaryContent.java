@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 public class DiaryContent implements Serializable {
-
     public String title;
     public String content;
     public String user_id;
@@ -104,3 +103,4 @@ public class DiaryContent implements Serializable {
 //        this.select_timestamp = select_timestamp;
 //        this.fav_count = fav_count;
 //        this.favorites = favorites;
+

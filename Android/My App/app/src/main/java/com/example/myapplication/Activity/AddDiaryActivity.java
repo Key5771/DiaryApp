@@ -2,7 +2,6 @@ package com.example.myapplication.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -13,9 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplication.Fragment.CalendarFragment;
-import com.example.myapplication.Fragment.DiaryFragment;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,8 +52,7 @@ public class AddDiaryActivity extends AppCompatActivity {
 
 
         DiaryContent diaryContent = new DiaryContent();
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 
         Intent intent = getIntent();
 
@@ -76,21 +70,26 @@ public class AddDiaryActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
         cur_day.setText(String.valueOf(day));
         cur_month.setText(String.valueOf(month));
         cur_year.setText(String.valueOf(year));
+
+        Date currentTime = new Date();
+        Date selectTime = new Date(year,month,day);
+
+
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                diaryContent.timestamp = simpleDateFormat.format(date);
+
                 diaryContent.user_id = user.getEmail();
                 diaryContent.title = edit_title.getText().toString();
                 diaryContent.content = edit_content.getText().toString();
+                diaryContent.timestamp = currentTime.toString();
+                diaryContent.select_timestamp = selectTime.toString();
+
 
 //                String title = edit_title.getText().toString();
 //                String content = edit_content.getText().toString();
@@ -101,21 +100,26 @@ public class AddDiaryActivity extends AppCompatActivity {
                 }
 
                 Map<String, String> user_diary = new HashMap<>();
-                user_diary.put("date", String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(day));
+//                user_diary.put("date", String.valueOf(year)+"/"+String.valueOf(month)+"/"+String.valueOf(day));
 //                user_diary.put("title", title);
 //                user_diary.put("content", content);
-//                user_diary.put("show",public_ch);
+                user_diary.put("show",public_ch);
                 user_diary.put("user id",diaryContent.user_id);
+                user_diary.put("select timestamp",diaryContent.select_timestamp);
                 user_diary.put("timestamp",diaryContent.timestamp);
                 user_diary.put("title",diaryContent.title);
                 user_diary.put("content",diaryContent.content);
 
-                firebaseFirestore.collection("NEW DIARY")
+
+
+
+                firebaseFirestore.collection("Content")
                         .add(user_diary)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(AddDiaryActivity.this, "저장되었습니다!", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

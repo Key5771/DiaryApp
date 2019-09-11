@@ -16,14 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Activity.AddDiaryActivity;
-import com.example.myapplication.Database.TaskDbHelper;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class CalendarFragment extends Fragment {
 
-    private TaskDbHelper mHelper;
     private CalendarView calendarView;
     private float scale = 1.05f;
     private int select_year, select_month, select_day;
@@ -35,7 +33,6 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
         View view = inflater.inflate(R.layout.activity_calendar_fragment,container,false);
-        mHelper = new TaskDbHelper(getContext());
 
         calendarView = (CalendarView) view.findViewById(R.id.calendarView);
         calendarView.setScaleY(scale);
@@ -102,9 +99,5 @@ public class CalendarFragment extends Fragment {
 
         return view;
     }
-
-
-
-
 }
 

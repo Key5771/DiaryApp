@@ -13,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,8 +37,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +49,8 @@ public class DiaryFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private GestureDetector gestureDetector;
     private FirebaseAuth firebaseAuth;
-    List<DiaryContent> contents;
     private Handler handler;
+    List<DiaryContent> contents;
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -143,7 +139,7 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent diaryIntent = new Intent(getActivity().getBaseContext(),DetailActivity.class);
-                diaryIntent.putExtra("diary", contents.get(position));
+                diaryIntent.putExtra("Content", contents.get(position));
                 startActivity(diaryIntent);
             }
 
@@ -184,7 +180,7 @@ public class DiaryFragment extends Fragment {
 
 
         //일기 불러오기
-        CollectionReference docRef = firebaseFirestore.collection("diarys");
+        CollectionReference docRef = firebaseFirestore.collection("Content");
         docRef.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 QuerySnapshot documents = task.getResult();
@@ -198,7 +194,7 @@ public class DiaryFragment extends Fragment {
                     Log.i(TAG, content.toString());
                     contents.add(content);
                 }
-                mDiaryAdaptor = new DiaryAdapter(contents);
+//                mDiaryAdaptor = new DiaryAdapter(contents);
                 mWritingList.setAdapter(mDiaryAdaptor);
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
