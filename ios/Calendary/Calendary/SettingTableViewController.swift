@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SettingTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +25,21 @@ class SettingTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    
+    @IBAction func logoutButtonTouches() {
+        let firebaseAuth = Auth.auth()
+         print(firebaseAuth.currentUser)
+        do {
+            try firebaseAuth.signOut()
+            print(firebaseAuth.currentUser)
+            if firebaseAuth.currentUser == nil {
+                self.dismiss(animated: true, completion: nil)
+            }
+        } catch let signOutError as NSError {
+            print("Error signing out : %@", signOutError)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

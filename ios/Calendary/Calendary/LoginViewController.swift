@@ -64,10 +64,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         
-//        if Auth.auth().currentUser != nil {
-//            let viewController: UIViewController = self.storyboard!.instantiateViewController(withIdentifier: "tabbar")
-//            self.present(viewController, animated: true, completion: nil)
-//        }
+        if Auth.auth().currentUser != nil {
+            let viewController: UIViewController = self.storyboard!.instantiateViewController(withIdentifier: "tabbar")
+            self.present(viewController, animated: true, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -20,12 +20,13 @@
 		EAB75624230FC76600467C3A /* CalendaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB75623230FC76600467C3A /* CalendaryTests.swift */; };
 		EAB7562F230FC76600467C3A /* CalendaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7562E230FC76600467C3A /* CalendaryUITests.swift */; };
 		EAB756402315254100467C3A /* AddDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7563F2315254100467C3A /* AddDiaryViewController.swift */; };
-		EAB756462316503400467C3A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAB756452316503400467C3A /* GoogleService-Info.plist */; };
 		EAB756482316545500467C3A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = EAB756472316545500467C3A /* Podfile */; };
 		EAB7564A2316764900467C3A /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB756492316764900467C3A /* DiaryViewController.swift */; };
 		EAB7564C231677C800467C3A /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */; };
 		EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7564D2316798300467C3A /* DiaryContent.swift */; };
 		EAF0A34C231D0CE30034494F /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */; };
+		EAF0A350231DF3370034494F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAF0A34F231DF3370034494F /* GoogleService-Info.plist */; };
+		EAF0A352231FA9840034494F /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF0A351231FA9840034494F /* ContentViewController.swift */; };
 		EF86E0140DE0FF31104ED248 /* Pods_CalendaryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF411884A0BF9B1B1E7BE23 /* Pods_CalendaryTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,12 +75,13 @@
 		EAB75630230FC76600467C3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAB7563C230FD36E00467C3A /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Objc-Bridge-Header.h"; sourceTree = "<group>"; };
 		EAB7563F2315254100467C3A /* AddDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryViewController.swift; sourceTree = "<group>"; };
-		EAB756452316503400467C3A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAB756472316545500467C3A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EAB756492316764900467C3A /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		EAB7564D2316798300467C3A /* DiaryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryContent.swift; sourceTree = "<group>"; };
 		EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		EAF0A34F231DF3370034494F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EAF0A351231FA9840034494F /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,8 +167,8 @@
 				EAB75617230FC76600467C3A /* LaunchScreen.storyboard */,
 				EAB7561A230FC76600467C3A /* Info.plist */,
 				EAB7563C230FD36E00467C3A /* Objc-Bridge-Header.h */,
-				EAB756452316503400467C3A /* GoogleService-Info.plist */,
 				EAB7563F2315254100467C3A /* AddDiaryViewController.swift */,
+				EAF0A34F231DF3370034494F /* GoogleService-Info.plist */,
 				EAB756472316545500467C3A /* Podfile */,
 				EAB756492316764900467C3A /* DiaryViewController.swift */,
 				EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */,
@@ -175,6 +177,7 @@
 				EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */,
 				EA1BDF7B2317DC6600821122 /* JoinViewController.swift */,
 				EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */,
+				EAF0A351231FA9840034494F /* ContentViewController.swift */,
 			);
 			path = Calendary;
 			sourceTree = "<group>";
@@ -308,7 +311,7 @@
 			files = (
 				EAB756482316545500467C3A /* Podfile in Resources */,
 				EAB75619230FC76600467C3A /* LaunchScreen.storyboard in Resources */,
-				EAB756462316503400467C3A /* GoogleService-Info.plist in Resources */,
+				EAF0A350231DF3370034494F /* GoogleService-Info.plist in Resources */,
 				EAB75616230FC76600467C3A /* Assets.xcassets in Resources */,
 				EAB75614230FC76400467C3A /* Main.storyboard in Resources */,
 			);
@@ -446,6 +449,7 @@
 				EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */,
 				EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */,
 				EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */,
+				EAF0A352231FA9840034494F /* ContentViewController.swift in Sources */,
 				EAB756402315254100467C3A /* AddDiaryViewController.swift in Sources */,
 				EAB7560F230FC76400467C3A /* AppDelegate.swift in Sources */,
 			);
@@ -626,6 +630,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U53BLS7M93;
 				INFOPLIST_FILE = Calendary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -645,6 +650,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U53BLS7M93;
 				INFOPLIST_FILE = Calendary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

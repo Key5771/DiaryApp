@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         let image = UIImage(named: "CalendaryLogo.png")
         imageView.image = image
         navigationItem.titleView = imageView
-        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
     }
 

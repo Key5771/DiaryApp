@@ -11,12 +11,14 @@ import Firebase
 import FirebaseAuth
 
 class JoinViewController: UIViewController {
-//    @IBOutlet weak var nickNameTextfield: UITextField!
+    @IBOutlet weak var nickNameTextfield: UITextField!
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var pwTextfield: UITextField!
     @IBOutlet weak var pwOkTextfield: UITextField!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    var joinId: String = ""
     
     @IBAction func signUpAction(_ sender: Any) {
         doSignUp()
@@ -126,6 +128,8 @@ extension JoinViewController {
                 }
             } else {
                 print("회원가입 성공")
+                
+                   
                 
                 dump(user)
             }
