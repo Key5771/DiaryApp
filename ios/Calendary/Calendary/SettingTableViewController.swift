@@ -30,7 +30,17 @@ class SettingTableViewController: UITableViewController {
     
     @IBAction func logoutButtonTouches() {
         let firebaseAuth = Auth.auth()
-         print(firebaseAuth.currentUser)
+        print(firebaseAuth.currentUser)
+        
+        let alertTitle = "로그아웃"
+        let alertMessage = "로그아웃 하시겠습니까?"
+
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: {alertAction in print("확인")}))
+        
+        self.present(alertController, animated: true, completion: nil)
+        
         do {
             try firebaseAuth.signOut()
             print(firebaseAuth.currentUser)
@@ -41,6 +51,7 @@ class SettingTableViewController: UITableViewController {
             print("Error signing out : %@", signOutError)
         }
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

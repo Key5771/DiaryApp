@@ -157,6 +157,7 @@
                         <outlet property="contentTextviewBottomConstraint" destination="12w-MG-c82" id="GjT-1N-G0L"/>
                         <outlet property="dateLabel" destination="Ojd-kc-Ig2" id="Am6-8C-8FR"/>
                         <outlet property="saveButton" destination="7bp-AI-o6i" id="57q-P4-IFS"/>
+                        <outlet property="switchButton" destination="x7s-yh-ngG" id="h79-Fh-R5H"/>
                         <outlet property="titleTextfield" destination="xLB-co-Tdt" id="Y7K-wO-E3V"/>
                     </connections>
                 </viewController>
@@ -431,12 +432,17 @@
                                 <rect key="frame" x="50" y="705" width="314" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="VjW-rn-h0a">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="TfH-bS-GIT" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="50" id="1nY-yB-gyP"/>
                             <constraint firstItem="URo-OS-p1J" firstAttribute="trailing" secondItem="FIp-ee-vPE" secondAttribute="trailing" constant="50" id="21C-T9-MaL"/>
                             <constraint firstItem="M2C-tL-hx7" firstAttribute="top" secondItem="FIp-ee-vPE" secondAttribute="bottom" constant="32" id="4IL-8B-3jP"/>
+                            <constraint firstItem="VjW-rn-h0a" firstAttribute="centerY" secondItem="mvB-5k-pcK" secondAttribute="centerY" id="8QA-U4-trQ"/>
                             <constraint firstItem="YKF-7G-Fey" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="50" id="Aoi-f1-QNb"/>
                             <constraint firstItem="Fpk-GX-vUG" firstAttribute="centerX" secondItem="mvB-5k-pcK" secondAttribute="centerX" id="F3e-s0-Dc3"/>
                             <constraint firstItem="FIp-ee-vPE" firstAttribute="top" secondItem="TfH-bS-GIT" secondAttribute="bottom" constant="30" id="GSF-oa-lap"/>
@@ -447,6 +453,7 @@
                             <constraint firstItem="URo-OS-p1J" firstAttribute="trailing" secondItem="YKF-7G-Fey" secondAttribute="trailing" constant="50" id="XtD-g8-ECP"/>
                             <constraint firstItem="YNX-zG-7il" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="50" id="cKk-Vn-Hg0"/>
                             <constraint firstItem="URo-OS-p1J" firstAttribute="trailing" secondItem="fFE-im-X1R" secondAttribute="trailing" constant="100" id="gOa-Tv-YHM"/>
+                            <constraint firstItem="VjW-rn-h0a" firstAttribute="centerX" secondItem="mvB-5k-pcK" secondAttribute="centerX" id="i0d-gt-aEE"/>
                             <constraint firstItem="YKF-7G-Fey" firstAttribute="top" secondItem="M2C-tL-hx7" secondAttribute="bottom" constant="32" id="iTd-Fc-OHq"/>
                             <constraint firstItem="afm-sL-w7N" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="150" id="jEp-XE-iXq"/>
                             <constraint firstItem="M2C-tL-hx7" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="100" id="n0I-Bq-SPz"/>
@@ -460,6 +467,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ibH-Ew-Ggx"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="VjW-rn-h0a" id="edF-Sd-Cfm"/>
                         <outlet property="emailTextfield" destination="YNX-zG-7il" id="BjO-YS-OZw"/>
                         <outlet property="googleLogin" destination="YKF-7G-Fey" id="5bq-rs-3qN"/>
                         <outlet property="pwTextfield" destination="TfH-bS-GIT" id="84u-cQ-DiF"/>
@@ -669,6 +677,7 @@
                     </view>
                     <connections>
                         <outlet property="emailTextfield" destination="xaH-O8-mrC" id="8lI-ce-CXX"/>
+                        <outlet property="nickNameTextfield" destination="zvo-hl-9Bj" id="taP-Uz-rZY"/>
                         <outlet property="pwOkTextfield" destination="BB7-hU-Dcw" id="GFo-Nc-w1X"/>
                         <outlet property="pwTextfield" destination="sOf-5Q-0xR" id="Vf7-mR-uKq"/>
                         <outlet property="scrollView" destination="7Hy-Za-zd6" id="42u-1a-RSn"/>

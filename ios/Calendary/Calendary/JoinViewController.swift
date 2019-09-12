@@ -22,6 +22,32 @@ class JoinViewController: UIViewController {
     
     @IBAction func signUpAction(_ sender: Any) {
         doSignUp()
+        
+        var ref: DocumentReference? = nil
+        let db = Firestore.firestore()
+        if joinId == "" {
+            ref = db.collection("User").addDocument(data: [
+                "Email": emailTextfield.text ?? "",
+                "name": nickNameTextfield.text ?? ""
+            ]) { err in
+                var alertTitle = "회원가입 완료"
+                var alertMessage = "회원가입이 완료되었습니다."
+                if err != nil {
+                    alertTitle = "회원가입 실패"
+                    alertMessage = "회원가입에 실패하였습니다."
+                }
+                
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                let okButton = UIAlertAction(title: "확인", style: .default, handler: { (_) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                alertController.addAction(okButton)
+                self.present(alertController, animated: true, completion: nil)
+                
+            }
+        } else {
+            
+        }
     }
     
     @IBAction func gesture(_ sender: UITapGestureRecognizer) {
@@ -128,9 +154,6 @@ extension JoinViewController {
                 }
             } else {
                 print("회원가입 성공")
-                
-                   
-                
                 dump(user)
             }
         })

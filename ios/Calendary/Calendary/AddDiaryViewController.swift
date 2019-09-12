@@ -16,6 +16,7 @@ class AddDiaryViewController: UIViewController {
     @IBOutlet weak var contentTextviewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var switchButton: UISwitch!
     
     var date: Date = Date()
     

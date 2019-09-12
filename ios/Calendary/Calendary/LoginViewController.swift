@@ -15,7 +15,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var pwTextfield: UITextField!
     @IBOutlet weak var googleLogin: GIDSignInButton!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
@@ -80,9 +80,13 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     }
     
     @IBAction func loginButtonTouched(_ sender: Any) {
+        
+        activityIndicator.startAnimating()
+        
         Auth.auth().signIn(withEmail: emailTextfield.text!, password: pwTextfield.text!) { (user, error) in
 
             if user != nil {
+                self.activityIndicator.stopAnimating()
                 print("Login Success")
                 let viewController: UIViewController = self.storyboard!.instantiateViewController(withIdentifier: "tabbar")
                 self.present(viewController, animated: true, completion: nil)

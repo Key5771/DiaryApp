@@ -93,10 +93,10 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func edit(_ sender: Any) {
         if tableView.isEditing {
             tableView.setEditing(false, animated: true)
-            editButton.title = "완료"
+            editButton.title = "편집"
         } else {
             tableView.setEditing(true, animated: true)
-            editButton.title = "편집"
+            editButton.title = "완료"
         }
         
         
