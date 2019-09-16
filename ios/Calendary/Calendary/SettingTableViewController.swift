@@ -17,11 +17,11 @@ class SettingTableViewController: UITableViewController {
         
         let firebaseAuth = Auth.auth()
         
-        logoutButton.setTitle("\((firebaseAuth.currentUser?.email)!) 로그아웃", for: .normal)
+        logoutButton.setTitle("\((firebaseAuth.currentUser?.email)!)에서 로그아웃하기", for: .normal)
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         imageView.contentMode = .scaleAspectFill
-        let image = UIImage(named: "CalendaryLogo.png")
+        let image = UIImage(named: "Calendary.png")
         imageView.image = image
         navigationItem.titleView = imageView
 

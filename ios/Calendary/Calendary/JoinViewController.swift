@@ -43,7 +43,6 @@ class JoinViewController: UIViewController {
                 })
                 alertController.addAction(okButton)
                 self.present(alertController, animated: true, completion: nil)
-                
             }
         } else {
             

@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         imageView.contentMode = .scaleAspectFill
-        let image = UIImage(named: "CalendaryLogo.png")
+        let image = UIImage(named: "Calendary.png")
         imageView.image = image
         navigationItem.titleView = imageView
         self.navigationController?.navigationBar.shadowImage = UIImage()

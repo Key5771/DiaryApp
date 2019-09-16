@@ -19,11 +19,10 @@ class AddDiaryViewController: UIViewController {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var switchButton: UISwitch!
     
-    
-    
     var date: Date = Date()
     
     var diaryId: String = ""
+    var switchText: String = ""
     
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo ?? [:]
@@ -126,6 +125,7 @@ class AddDiaryViewController: UIViewController {
             
         }
     }
+    
     
     /*
     // MARK: - Navigation
