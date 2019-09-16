@@ -657,11 +657,17 @@
                                             <outletCollection property="gestureRecognizers" destination="lpe-dR-4fg" appends="YES" id="Zeh-lr-T8r"/>
                                         </connections>
                                     </view>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="yxf-tP-ehs">
+                                        <rect key="frame" x="188.5" y="368.5" width="37" height="37"/>
+                                        <color key="color" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <gestureRecognizers/>
                                 <constraints>
+                                    <constraint firstItem="yxf-tP-ehs" firstAttribute="centerY" secondItem="7Hy-Za-zd6" secondAttribute="centerY" id="1Nr-po-RdD"/>
                                     <constraint firstAttribute="bottom" secondItem="TZD-km-zPW" secondAttribute="bottom" id="Fcd-uT-07a"/>
                                     <constraint firstItem="TZD-km-zPW" firstAttribute="top" secondItem="7Hy-Za-zd6" secondAttribute="top" id="L3L-TI-GGQ"/>
+                                    <constraint firstItem="yxf-tP-ehs" firstAttribute="centerX" secondItem="7Hy-Za-zd6" secondAttribute="centerX" id="Z26-TJ-tuQ"/>
                                     <constraint firstAttribute="trailing" secondItem="TZD-km-zPW" secondAttribute="trailing" id="uEI-X3-B1T"/>
                                     <constraint firstItem="TZD-km-zPW" firstAttribute="leading" secondItem="7Hy-Za-zd6" secondAttribute="leading" id="ubj-65-ur9"/>
                                 </constraints>
@@ -679,6 +685,7 @@
                         <viewLayoutGuide key="safeArea" id="jTR-Ms-MvF"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="yxf-tP-ehs" id="Twb-Ah-q3l"/>
                         <outlet property="emailTextfield" destination="xaH-O8-mrC" id="8lI-ce-CXX"/>
                         <outlet property="nickNameTextfield" destination="zvo-hl-9Bj" id="taP-Uz-rZY"/>
                         <outlet property="pwOkTextfield" destination="BB7-hU-Dcw" id="GFo-Nc-w1X"/>

@@ -17,19 +17,21 @@ class JoinViewController: UIViewController {
     @IBOutlet weak var pwOkTextfield: UITextField!
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var joinId: String = ""
     
     @IBAction func signUpAction(_ sender: Any) {
-        doSignUp()
-        
+        activityIndicator.startAnimating()
         var ref: DocumentReference? = nil
         let db = Firestore.firestore()
         if joinId == "" {
+            doSignUp()
             ref = db.collection("User").addDocument(data: [
                 "Email": emailTextfield.text ?? "",
                 "name": nickNameTextfield.text ?? ""
             ]) { err in
+                self.activityIndicator.stopAnimating()
                 var alertTitle = "회원가입 완료"
                 var alertMessage = "회원가입이 완료되었습니다."
                 if err != nil {
