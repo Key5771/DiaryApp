@@ -26,7 +26,10 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "diaryCell", for: indexPath) as! DiaryTableViewCell
         cell.titleLabel.text = diarys[indexPath.row].title
         cell.contentLabel.text = diarys[indexPath.row].content
-        cell.dateLabel.text = diarys[indexPath.row].date
+        
+        let dateFormat: DateFormatter = DateFormatter()
+        dateFormat.dateFormat = "yyyy년 MM월 dd일"
+        cell.dateLabel.text = dateFormat.string(from: diarys[indexPath.row].selectTimestamp)
         return cell
     }
 
@@ -34,7 +37,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if editingStyle == .delete {
             let diary = self.diarys.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            db.collection("diarys").document(diary.id).delete() { err in
+            db.collection("Content").document(diary.id).delete() { err in
                 if let err = err {
                     print("Error removing document: \(err)")
                     self.diarys.insert(diary, at: indexPath.row)
@@ -52,14 +55,14 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func getDocumentFromNetwork() {
-        db.collection("diarys").getDocuments(source: .default) { (querySnapshot, err) in
+        db.collection("Content").getDocuments(source: .default) { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 self.diarys = []
                 
                 for document in querySnapshot!.documents {
-                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, date: document.get("date") as! String)
+                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
                     self.diarys.append(diaryContent)
                 }
                 
@@ -84,7 +87,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //                }
                 
                 self.refreshControl.endRefreshing()
-//                self.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
@@ -108,13 +111,13 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
 
-        db.collection("diarys").getDocuments(source: .cache) { (querySnapshot, err) in
+        db.collection("Content").getDocuments(source: .cache) { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
                 self.diarys = []
                 for document in querySnapshot!.documents {
-                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, date: document.get("date") as! String)
+                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
                     self.diarys.append(diaryContent)
                 }
 

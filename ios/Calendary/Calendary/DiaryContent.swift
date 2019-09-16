@@ -12,7 +12,11 @@ struct DiaryContent {
     var id: String
     var title: String
     var content: String
-    var date: String
+//    var date: String
+    var timestamp: Date
+    var selectTimestamp: Date
+    var show: String
+    var userId: String
 }
 
 extension DiaryContent: Equatable {

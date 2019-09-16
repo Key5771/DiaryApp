@@ -10,9 +10,14 @@ import UIKit
 import FirebaseAuth
 
 class SettingTableViewController: UITableViewController {
+    @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let firebaseAuth = Auth.auth()
+        
+        logoutButton.setTitle("\((firebaseAuth.currentUser?.email)!) 로그아웃", for: .normal)
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         imageView.contentMode = .scaleAspectFill

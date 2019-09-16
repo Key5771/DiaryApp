@@ -350,6 +350,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="cOi-Lk-zda"/>
+                    <connections>
+                        <outlet property="logoutButton" destination="iJ9-AG-19k" id="Pvd-oE-aR6"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7l-SS-vZZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -902,15 +905,15 @@
                                     <constraint firstAttribute="height" constant="60" id="qta-XN-ytZ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아몰랑" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpE-8c-Chv">
-                                <rect key="frame" x="108" y="120" width="44.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpE-8c-Chv">
+                                <rect key="frame" x="108" y="120" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcR-Fn-djb">
-                                <rect key="frame" x="108" y="159" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="108" y="138" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -987,6 +990,7 @@
                         <outlet property="contentTextview" destination="S1D-Nz-D6O" id="qjh-DN-fma"/>
                         <outlet property="dateLabel" destination="bcR-Fn-djb" id="S7h-8W-gJM"/>
                         <outlet property="titleLabel" destination="mau-Ar-Cem" id="S0z-Oo-yaA"/>
+                        <outlet property="userId" destination="wpE-8c-Chv" id="MqB-MZ-vcb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="id4-ts-qye" userLabel="First Responder" sceneMemberID="firstResponder"/>

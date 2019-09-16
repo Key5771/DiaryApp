@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class AddDiaryViewController: UIViewController {
     @IBOutlet weak var contentTextview: UITextView!
@@ -17,6 +18,8 @@ class AddDiaryViewController: UIViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var switchButton: UISwitch!
+    
+    
     
     var date: Date = Date()
     
@@ -92,13 +95,16 @@ class AddDiaryViewController: UIViewController {
         activityIndicatorView.startAnimating()
         
         var ref: DocumentReference? = nil
-        let calendar = Calendar.current
+//        let calendar = Calendar.current
         let db = Firestore.firestore()
+        let firebaseAuth = Auth.auth()
         if diaryId == "" {
-            ref = db.collection("diarys").addDocument(data: [
+            ref = db.collection("Content").addDocument(data: [
                 "content": contentTextview.text ?? "",
-                "date": "\(calendar.component(.year, from: date))/\(calendar.component(.month, from: date))/\(calendar.component(.day, from: date))",
-                "title": titleTextfield.text ?? ""
+                "select timestamp": date,
+                "title": titleTextfield.text ?? "",
+                "timestamp": Date(),
+                "user id": firebaseAuth.currentUser?.email
             ]) { err in
                 self.activityIndicatorView.stopAnimating()
                 var alertTitle = "저장되었습니다."
