@@ -73,6 +73,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        emailTextfield.text = ""
+        pwTextfield.text = ""
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

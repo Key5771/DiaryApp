@@ -37,19 +37,19 @@ class SettingTableViewController: UITableViewController {
 
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: {alertAction in print("확인")}))
+        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: {alertAction in
+            do {
+                try firebaseAuth.signOut()
+                if firebaseAuth.currentUser == nil {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } catch let signOutError as NSError {
+                print("Error signing out : %@", signOutError)
+            }}))
         
         self.present(alertController, animated: true, completion: nil)
         
-        do {
-            try firebaseAuth.signOut()
-            print(firebaseAuth.currentUser)
-            if firebaseAuth.currentUser == nil {
-                self.dismiss(animated: true, completion: nil)
-            }
-        } catch let signOutError as NSError {
-            print("Error signing out : %@", signOutError)
-        }
+        
     }
     
     
