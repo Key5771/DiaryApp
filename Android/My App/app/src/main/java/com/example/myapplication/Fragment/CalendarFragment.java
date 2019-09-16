@@ -79,7 +79,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 select_day = dayOfMonth;
-                select_month = month +1;
+                select_month = month;
                 select_year = year;
 
             }

@@ -9,7 +9,7 @@ import com.example.myapplication.Fragment.DiaryFragment;
 public class PagerAdapter {
 
     private int tabCount;
-    private DiaryFragment diaryFragment = new DiaryFragment();;
+    private DiaryFragment diaryFragment = new DiaryFragment();
     private FragmentManager fragmentManager;
 
     public PagerAdapter(FragmentManager fragmentManager, int tabCount) {

@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
-
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/appicon"
         android:label="Calendary"
         android:supportsRtl="true"
-        android:theme="@style/Splash">
-        <activity android:name=".Activity.TodoListActivity"></activity>
-        <activity android:name=".Activity.WriteFirstActivity" />
-        <activity android:name=".Activity.FindActivity" />
-        <activity android:name=".Activity.AddDiaryActivity" />
-        <activity android:name=".Activity.DetailActivity" />
-        <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".Activity.LoginActivity">
+        android:theme="@style/AppTheme">
+        <activity android:name=".Activity.SplashActivity"
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity" />
-    </application>
 
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.FindActivity" />
+        <activity android:name=".Activity.AddDiaryActivity" />
+        <activity android:name=".Activity.DetailActivity" />
+        <activity android:name=".Activity.SignupActivity" />
+        <activity android:name=".Activity.LoginActivity"/>
+    </application>
 </manifest>

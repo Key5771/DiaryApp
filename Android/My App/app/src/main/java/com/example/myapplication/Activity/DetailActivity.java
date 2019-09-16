@@ -15,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Date;
+
 public class DetailActivity extends AppCompatActivity {
 
     private Intent intent;
@@ -37,10 +39,10 @@ public class DetailActivity extends AppCompatActivity {
 
         String title_st;
         String content_st;
-        String date_st;
+        Date date_st;
 
 
-        DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("NEW DIARY");
+        DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("Content");
         title_st = diaryContent.title;
         content_st = diaryContent.content ;
         date_st = diaryContent.timestamp;
@@ -48,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         title_text.setTypeface(null, Typeface.BOLD);
         title_text.setText(title_st);
         content_text.setText(content_st);
-        name_text.setText(date_st);
+        name_text.setText(date_st.toString());
 
     }
 

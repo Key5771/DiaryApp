@@ -6,20 +6,73 @@
     android:background="@color/white">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/public_diary_list"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/orange_inactive"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/orange_inactive"
+        app:tabTextColor="@color/dark">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인기순" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜순" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="작성순" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:layout_width="395dp"
+        android:layout_height="782dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/writing_fist_list2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/date_first_list2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/todo_list2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

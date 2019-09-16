@@ -6,7 +6,9 @@
         <item name="colorPrimary">@color/orange_inactive</item>
         <item name="colorPrimaryDark">@color/orange_inactive</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@drawable/splashscreen</item>
 
     </style>
 

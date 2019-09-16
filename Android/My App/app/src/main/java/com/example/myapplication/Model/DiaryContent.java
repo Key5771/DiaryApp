@@ -1,6 +1,7 @@
 package com.example.myapplication.Model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 public class DiaryContent implements Serializable {
@@ -8,7 +9,7 @@ public class DiaryContent implements Serializable {
     public String content;
     public String user_id;
     public String uid;
-    public String timestamp, select_timestamp;
+    public Date timestamp, select_timestamp;
     public int fav_count;
     public Map<String, Boolean> favorites;
 
