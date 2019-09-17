@@ -103,7 +103,8 @@ class AddDiaryViewController: UIViewController {
                 "select timestamp": date,
                 "title": titleTextfield.text ?? "",
                 "timestamp": Date(),
-                "user id": firebaseAuth.currentUser?.email
+                "user id": firebaseAuth.currentUser?.email,
+                "show": switchButton.isOn
             ]) { err in
                 self.activityIndicatorView.stopAnimating()
                 var alertTitle = "저장되었습니다."

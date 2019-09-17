@@ -157,6 +157,7 @@
                         <outlet property="contentTextviewBottomConstraint" destination="12w-MG-c82" id="GjT-1N-G0L"/>
                         <outlet property="dateLabel" destination="Ojd-kc-Ig2" id="Am6-8C-8FR"/>
                         <outlet property="saveButton" destination="7bp-AI-o6i" id="57q-P4-IFS"/>
+                        <outlet property="switchButton" destination="x7s-yh-ngG" id="tjQ-cn-zZ1"/>
                         <outlet property="titleTextfield" destination="xLB-co-Tdt" id="Y7K-wO-E3V"/>
                     </connections>
                 </viewController>
