@@ -10,7 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class AddDiaryViewController: UIViewController {
+class AddDiaryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var titleTextfield: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
@@ -40,6 +40,28 @@ class AddDiaryViewController: UIViewController {
         contentTextview.scrollIndicatorInsets.bottom -= height
     }
     
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewSetupView()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textViewSetupView()
+        }
+    }
+    
+    func textViewSetupView() {
+        if contentTextview.text == "내용입력" {
+            contentTextview.text = ""
+            contentTextview.textColor = UIColor.black
+        } else if contentTextview.text == "" {
+            contentTextview.text = "내용입력"
+            contentTextview.textColor = UIColor.lightGray
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +72,8 @@ class AddDiaryViewController: UIViewController {
         contentTextview.layer.borderWidth = 1
         contentTextview.layer.borderColor = UIColor.lightGray.cgColor
         contentTextview.layer.cornerRadius = 10
+        
+        contentTextview.delegate = self
         
         let calendar = Calendar.current
         dateLabel.text = "\(calendar.component(.year, from: date))년 \(calendar.component(.month, from: date))월 \(calendar.component(.day, from: date))일"
@@ -79,6 +103,8 @@ class AddDiaryViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    
     
     @IBAction func backgroundClick(_ sender: UITapGestureRecognizer) {
         contentTextview.resignFirstResponder()

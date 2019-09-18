@@ -14,6 +14,7 @@ class ContentViewController: UIViewController {
     @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var userId: UILabel!
+    @IBOutlet weak var dateLabel2: UILabel!
     
     var diaryId: String = ""
     
@@ -35,14 +36,24 @@ class ContentViewController: UIViewController {
                     if let content = querySnapshot!.get("content") as? String {
                         self.contentTextview.text = content
                     }
+                    
                     if let date = querySnapshot!.get("select timestamp") as? Timestamp {
                         let dateFormat: DateFormatter = DateFormatter()
                         dateFormat.dateFormat = "yyyy년 MM월 dd일"
                         let timestamp: String = dateFormat.string(from: date.dateValue())
                         self.dateLabel.text = timestamp
+                    }
                     if let user = querySnapshot!.get("user id") as? String {
                         self.userId.text = user
                     }
+                    
+                    if let currnetDate = querySnapshot?.get("timestamp") as? Timestamp {
+                        let dateFormat: DateFormatter = DateFormatter()
+                        dateFormat.dateFormat = "yyyy년 MM월 dd일 hh시 mm분"
+                        let timestamp: String = dateFormat.string(from: currnetDate.dateValue())
+                        self.dateLabel2.text = timestamp
+                    }
+                        
                     //                    if let date = querySnapshot!.get("date") as? String {
                     //                        self.contentTextview.text = content
                     //                    }
@@ -63,5 +74,5 @@ class ContentViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    }
 }
+

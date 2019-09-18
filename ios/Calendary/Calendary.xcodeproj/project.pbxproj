@@ -12,6 +12,7 @@
 		EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */; };
 		EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF7B2317DC6600821122 /* JoinViewController.swift */; };
 		EA1EF927231789320097EAFA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1EF926231789320097EAFA /* LoginViewController.swift */; };
+		EAABCBAD2332121D00D8264F /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAABCBAC2332121D00D8264F /* UserDocument.swift */; };
 		EAB7560F230FC76400467C3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7560E230FC76400467C3A /* AppDelegate.swift */; };
 		EAB75611230FC76400467C3A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB75610230FC76400467C3A /* ViewController.swift */; };
 		EAB75614230FC76400467C3A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAB75612230FC76400467C3A /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFindViewController.swift; sourceTree = "<group>"; };
 		EA1BDF7B2317DC6600821122 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		EA1EF926231789320097EAFA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EAABCBAC2332121D00D8264F /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		EAB7560B230FC76400467C3A /* Calendary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calendary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAB7560E230FC76400467C3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EAB75610230FC76400467C3A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				EA1BDF7B2317DC6600821122 /* JoinViewController.swift */,
 				EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */,
 				EAF0A351231FA9840034494F /* ContentViewController.swift */,
+				EAABCBAC2332121D00D8264F /* UserDocument.swift */,
 			);
 			path = Calendary;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				EAF0A34C231D0CE30034494F /* SettingTableViewController.swift in Sources */,
 				EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */,
 				EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */,
+				EAABCBAD2332121D00D8264F /* UserDocument.swift in Sources */,
 				EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */,
 				EAF0A352231FA9840034494F /* ContentViewController.swift in Sources */,
 				EAB756402315254100467C3A /* AddDiaryViewController.swift in Sources */,

@@ -23,29 +23,9 @@ class JoinViewController: UIViewController {
     
     @IBAction func signUpAction(_ sender: Any) {
         activityIndicator.startAnimating()
-        var ref: DocumentReference? = nil
-        let db = Firestore.firestore()
+        
         if joinId == "" {
             doSignUp()
-            ref = db.collection("User").addDocument(data: [
-                "Email": emailTextfield.text ?? "",
-                "name": nickNameTextfield.text ?? ""
-            ]) { err in
-                self.activityIndicator.stopAnimating()
-                var alertTitle = "회원가입 완료"
-                var alertMessage = "회원가입이 완료되었습니다."
-                if err != nil {
-                    alertTitle = "회원가입 실패"
-                    alertMessage = "회원가입에 실패하였습니다."
-                }
-                
-                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                let okButton = UIAlertAction(title: "확인", style: .default, handler: { (_) in
-                    self.navigationController?.popViewController(animated: true)
-                })
-                alertController.addAction(okButton)
-                self.present(alertController, animated: true, completion: nil)
-            }
         } else {
             
         }
@@ -104,36 +84,43 @@ extension JoinViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    // 사용자가 입력하지 않은 경우
     func doSignUp() {
-//        if nickNameTextfield.text! == "" {
-//            showAlert(message: "닉네임")
-//            return
-//        }
+        if nickNameTextfield.text! == "" {
+            showAlert(message: "닉네임을 입력해주세요")
+            return
+        }
         
         if emailTextfield.text! == "" {
-            showAlert(message: "이메일")
+            showAlert(message: "이메일을 입력해주세요")
             return
         }
         
         if pwTextfield.text! == "" {
-            showAlert(message: "비밀번호")
+            showAlert(message: "비밀번호를 입력해주세요")
             return
         }
         
         if pwOkTextfield.text! == "" {
-            showAlert(message: "비밀번호 확인")
+            showAlert(message: "비밀번호 확인을 입력해주세요")
             return
         }
         
-        signUp(email: emailTextfield.text!, password: pwTextfield.text!, passwordConfirm: pwOkTextfield.text!)
-    }
-    
-    func signUp(email: String, password: String, passwordConfirm: String) {
-        if password != passwordConfirm {
+        if pwTextfield.text != pwOkTextfield.text {
             self.showAlert(message: "비밀번호가 다릅니다.")
             return
         }
+        
+        signUp(email: emailTextfield.text!, password: pwTextfield.text!)
+    }
+    
+    func signUp(email: String, password: String) {
+        var ref: DocumentReference? = nil
+        let db = Firestore.firestore()
+        
+        
         Auth.auth().createUser(withEmail: email, password: password, completion: {(user, error) in
+            
             if error != nil {
                 if let errorCode = AuthErrorCode(rawValue: (error?._code)!) {
                     switch errorCode {
@@ -146,16 +133,35 @@ extension JoinViewController {
                     case AuthErrorCode.weakPassword:
                         self.showAlert(message: "비밀번호는 6자리 이상 입력해주세요.")
                         
-                    case AuthErrorCode.wrongPassword:
-                        self.showAlert(message: "비밀번호가 다릅니다.")
+//                    case AuthErrorCode.wrongPassword:
+//                        self.showAlert(message: "비밀번호가 다릅니다.")
                         
                     default:
                         print(errorCode)
                     }
                 }
+                self.activityIndicator.stopAnimating()
             } else {
-                print("회원가입 성공")
-                dump(user)
+                ref = db.collection("User").addDocument(data: [
+                    "Email": self.emailTextfield.text ?? "",
+                    "name": self.nickNameTextfield.text ?? ""
+                ]) { err in
+                    var alertTitle = "회원가입 완료"
+                    var alertMessage = "회원가입이 완료되었습니다."
+                    if err != nil {
+                        alertTitle = "회원가입 실패"
+                        alertMessage = "회원가입에 실패하였습니다."
+                    }
+                    
+                    self.activityIndicator.stopAnimating()
+                    
+                    let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                    let okButton = UIAlertAction(title: "확인", style: .default, handler: { (_) in
+                        self.navigationController?.popViewController(animated: true)
+                    })
+                    alertController.addAction(okButton)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         })
     }

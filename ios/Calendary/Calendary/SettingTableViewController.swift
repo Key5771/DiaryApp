@@ -8,9 +8,13 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class SettingTableViewController: UITableViewController {
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var deleteUserButton: UIButton!
+    
+    var userArray: [UserDocument] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +57,50 @@ class SettingTableViewController: UITableViewController {
             }}))
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteUserButtonTouches(_ sender: Any) {
+        let db = Firestore.firestore()
+        let user = Auth.auth().currentUser
         
+        let alertTitle = "회원탈퇴"
+        let alertMessage = "회원탈퇴 하시겠습니까?"
         
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: {alertAction in
+            db.collection("User").whereField("Email", isEqualTo: user?.email).getDocuments(completion: { (snapshot, error) in
+                guard let snapshot = snapshot else {
+                    print(error)
+                    return }
+                print(snapshot.documents.count)
+                let name = snapshot.documents.first?.get("name") as? String
+                snapshot.documents.first?.reference.delete() { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("Document successfully removed!")
+                            print(name)
+                            user?.delete(completion: { (error) in
+                                if error == nil {
+                                    self.dismiss(animated: true, completion: nil)
+                                } else {
+                                    print(error?.localizedDescription)
+                                    db.collection("User").addDocument(data: [
+                                        "Email": user?.email,
+                                        "name": name
+                                    ]) { error in
+                                        print(error)
+                                    }
+                                }
+                            })
+                            
+                        }
+                    }
+                })
+            }))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     
