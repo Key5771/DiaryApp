@@ -5,6 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/view_pager2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout2"
@@ -19,60 +32,17 @@
         app:tabSelectedTextColor="@color/orange_inactive"
         app:tabTextColor="@color/dark">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="인기순" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="날짜순" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="작성순" />
     </com.google.android.material.tabs.TabLayout>
 
-    <FrameLayout
-        android:layout_width="395dp"
-        android:layout_height="782dp"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager2"
+        android:layout_width="411dp"
+        android:layout_height="795dp"
+        android:layout_below="@+id/tab_layout2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/writing_fist_list2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/date_first_list2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/todo_list2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,10 +21,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -49,7 +51,6 @@ public class AddDiaryActivity extends AppCompatActivity {
         init();
 
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
 
@@ -62,26 +63,26 @@ public class AddDiaryActivity extends AppCompatActivity {
         int month = intent.getIntExtra("month", 1);
         int day = intent.getIntExtra("day", 1);
 
-        Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
 
-        date_tv.setText(dateFormat.format(date));
+        Date currentTime = Calendar.getInstance().getTime();
 
-        Date currentTime = new Date();
+//        String currentTime = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(new Date());
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
         Date selectTime = cal.getTime();
+        date_tv.setText(dateFormat.format(selectTime));
 
 
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         show_check = show_swt.isChecked();
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 diaryContent.user_id = user.getEmail();
                 diaryContent.title = edit_title.getText().toString();

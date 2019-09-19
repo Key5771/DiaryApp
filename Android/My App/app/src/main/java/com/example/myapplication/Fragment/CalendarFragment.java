@@ -19,6 +19,9 @@ import com.example.myapplication.Activity.AddDiaryActivity;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class CalendarFragment extends Fragment {
 
@@ -75,13 +78,21 @@ public class CalendarFragment extends Fragment {
             }
         });
 
+        Date currentTime = new Date();
+        SimpleDateFormat dateFormatYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MM");
+        SimpleDateFormat dateFormatDay = new SimpleDateFormat("dd");
+        select_year = Integer.parseInt(dateFormatYear.format(currentTime));
+        select_month = Integer.parseInt(dateFormatMonth.format(currentTime)) - 1;
+        select_day = Integer.parseInt(dateFormatDay.format(currentTime));
+
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 select_day = dayOfMonth;
                 select_month = month;
                 select_year = year;
-
             }
         });
 

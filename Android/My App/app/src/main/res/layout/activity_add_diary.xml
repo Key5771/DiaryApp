@@ -46,14 +46,11 @@
 
     <Switch
         android:id="@+id/show_swt"
-        android:layout_width="46dp"
+        android:layout_width="65dp"
         android:layout_height="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:checked="false"
-        android:textOff="false"
-        android:textOn="true"
         android:thumb="@drawable/switch_thumb"
         android:track="@drawable/switch_track_selector"
         app:layout_constraintBottom_toBottomOf="parent"
