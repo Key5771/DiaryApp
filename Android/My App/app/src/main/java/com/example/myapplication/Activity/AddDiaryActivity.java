@@ -3,9 +3,11 @@ package com.example.myapplication.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +34,10 @@ import java.util.Map;
 
 public class AddDiaryActivity extends AppCompatActivity {
     
-    Button save_btn;
-    EditText title, content;
-    TextView date_tv;
-    Switch show_swt;
-
+    private Button save_btn;
+    private TextView date_tv;
+    private Switch show_swt;
+    private ImageView backbtn;
     private FirebaseFirestore firebaseFirestore;
     private EditText edit_title, edit_content;
     private FirebaseAuth firebaseAuth;
@@ -56,6 +57,7 @@ public class AddDiaryActivity extends AppCompatActivity {
 
         DiaryContent diaryContent = new DiaryContent();
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         Intent intent = getIntent();
 
@@ -66,8 +68,6 @@ public class AddDiaryActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
 
         Date currentTime = Calendar.getInstance().getTime();
-
-//        String currentTime = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(new Date());
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
@@ -80,6 +80,14 @@ public class AddDiaryActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         show_check = show_swt.isChecked();
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,15 +136,13 @@ public class AddDiaryActivity extends AppCompatActivity {
     }
 
     public void init() {
-        title = (EditText) findViewById(R.id.edit_title);
-        content = (EditText) findViewById(R.id.edit_content);
         save_btn = (Button) findViewById(R.id.save_button);
 
         edit_title = (EditText) findViewById(R.id.edit_title);
         edit_content = (EditText) findViewById(R.id.edit_content);
 
         date_tv = (TextView) findViewById(R.id.date_tv);
-
+        backbtn = (ImageView) findViewById(R.id.backbtn);
         show_swt = (Switch) findViewById(R.id.show_swt);
     }
 

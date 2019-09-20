@@ -3,6 +3,7 @@ package com.example.myapplication.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.myapplication.Adapter.DiaryAdapter;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -24,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,26 +49,28 @@ public class PrivateDateFirstFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_private_date_first, container, false);
+        View view = inflater.inflate(R.layout.fragment_private_date_first, container, false);
 
-        init();
+        init(view);
         read_diary();
 //        select_diary();
 
-//        layoutManager = new LinearLayoutManager(getActivity());
-//        mDateList.setLayoutManager(layoutManager);
+
 //        mDateList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
 
 
         return view;
     }
 
-    private void init(){
-        mDateList = (RecyclerView) getActivity().findViewById(R.id.date_first_list);
+    private void init(View view){
+        mDateList = (RecyclerView) view.findViewById(R.id.date_first_list);
 
-        titleTextview = (TextView) getActivity().findViewById(R.id.diary_item_title);
-        contentTextview = (TextView) getActivity().findViewById(R.id.diary_item_content);
-        timeTextview = (TextView) getActivity().findViewById(R.id.diary_item_date);
+        titleTextview = (TextView) view.findViewById(R.id.diary_item_title);
+        contentTextview = (TextView) view.findViewById(R.id.diary_item_content);
+        timeTextview = (TextView) view.findViewById(R.id.diary_item_date);
+
+        layoutManager = new LinearLayoutManager(getActivity());
+        mDateList.setLayoutManager(layoutManager);
     }
 
     private void read_diary(){
@@ -78,26 +83,25 @@ public class PrivateDateFirstFragment extends Fragment {
 
         //일기 불러오기
         CollectionReference collectionReference = firebaseFirestore.collection("Content");
-        collectionReference.whereEqualTo("show",true).get().addOnCompleteListener(task -> {
-            DiaryContent diaryData = new DiaryContent();
+        collectionReference.whereEqualTo("user id",user.getEmail()).get().addOnCompleteListener(task -> {
+
             if(task.isSuccessful()){
                 QuerySnapshot documentSnapshots = task.getResult();
                 diaryContentList = new ArrayList<>();
-                contentMap = new HashMap<String, Object>();
+                contentMap = new HashMap<>();
                 for(QueryDocumentSnapshot document : documentSnapshots) {
+                    DiaryContent diaryData = new DiaryContent();
                     contentMap = document.getData();
 
                     diaryData.title = (String) contentMap.getOrDefault("title","제목");
                     diaryData.content = (String) contentMap.getOrDefault("content","내용");
-//                    diary.timestamp = (Date)contentMap.getOrDefault("timestamp",0);
+//                    Log.i("PrivateDateFirstFragment", String.format("class of timestamp : %s",contentMap.getOrDefault("timestamp",0).getClass().getCanonicalName()));
+                   diaryData.timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
 
-//                    diaryContentList.add(contentMap);
-
-
-//                    mDiaryAdaptor.addContent(diary);
+                    diaryContentList.add(diaryData);
                     Log.i(TAG, contentMap.toString());
                 }
-//                mDiaryAdaptor = new DiaryAdapter(diaryContentList);
+                mDiaryAdaptor = new DiaryAdapter(diaryContentList);
                 mDateList.setAdapter(mDiaryAdaptor);
             } else{
                 Log.d(TAG, "get failed with ", task.getException());

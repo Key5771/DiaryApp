@@ -19,9 +19,16 @@
 
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.FindActivity" />
-        <activity android:name=".Activity.AddDiaryActivity" />
+        <activity
+            android:name=".Activity.AddDiaryActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
         <activity android:name=".Activity.DetailActivity" />
-        <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".Activity.LoginActivity"/>
+        <activity
+            android:name=".Activity.SignupActivity"
+            />
+        <activity
+            android:name=".Activity.LoginActivity"
+            />
     </application>
 </manifest>

@@ -40,13 +40,15 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
-//    public DiaryAdapter(){
-//        this.diaryContentList = new LinkedList<>();
-//    }
 
-//    public DiaryAdapter(List<DiaryContent> diaryContentList) {
-//        this.diaryContentList = diaryContentList;
-//    }
+
+    public DiaryAdapter(){
+        this.diaryContentList = new LinkedList<>();
+    }
+
+    public DiaryAdapter(List<DiaryContent> diaryContentList) {
+        this.diaryContentList = diaryContentList;
+    }
 
     public DiaryAdapter(Map<String, DiaryContent> diaryMap) {
         this.diaryMap = diaryMap;
