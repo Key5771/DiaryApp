@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Activity.LoginActivity;
+import com.example.myapplication.Activity.ProfileActivity;
 import com.example.myapplication.Activity.SignupActivity;
 import com.example.myapplication.Adapter.ListViewAdapter;
 import com.example.myapplication.Model.SettingListViewitem;
@@ -47,7 +49,7 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
 
         ListView listView = (ListView) view.findViewById(R.id.setting_list);
         ArrayList<SettingListViewitem> data = new ArrayList<>();
-        SettingListViewitem myInfo = new SettingListViewitem("프로필 수정");
+        SettingListViewitem myInfo = new SettingListViewitem("개인정보 수정");
         SettingListViewitem alarm = new SettingListViewitem("알림 설정");
         SettingListViewitem appInfo = new SettingListViewitem("어플 정보");
         SettingListViewitem screen = new SettingListViewitem("화면 설정");
@@ -59,6 +61,19 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
 
         ListViewAdapter adapter = new ListViewAdapter(getActivity(), R.layout.setting_item, data);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    Intent intent1 = new Intent(view.getContext(), ProfileActivity.class);
+                    startActivity(intent1);
+                }
+//                if(position == 1){
+//                    Intent intent2 = new Intent(view.getContext(), );
+//                }
+            }
+        });
 
 
         firebaseAuth = FirebaseAuth.getInstance();

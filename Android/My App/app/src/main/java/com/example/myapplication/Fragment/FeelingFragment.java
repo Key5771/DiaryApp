@@ -73,8 +73,6 @@ public class FeelingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_feeling_fragment, container, false);
 
-        androidx.appcompat.widget.Toolbar toolbar = view.findViewById(R.id.toolbar3);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 //탭 레이아웃 설정
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout2);

@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/dark"
         app:layout_constraintTop_toBottomOf="@+id/left_btn" />
 
@@ -50,8 +50,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view2">
+        app:layout_constraintTop_toBottomOf="@id/view2"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,12 +64,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="64dp"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/appicon" />
+
                 <TextView
                     android:id="@+id/detail_diary_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:text="제목"
                     android:textColor="@color/dark"
@@ -75,7 +87,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
                 <TextView
                     android:id="@+id/time_tv"
@@ -84,18 +96,8 @@
                     android:layout_marginStart="8dp"
                     android:text="날짜"
                     android:textSize="12dp"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/profileImage"
                     app:layout_constraintTop_toBottomOf="@+id/user_name" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="66dp"
-                    android:layout_height="52dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="28dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/user_name"
@@ -105,7 +107,7 @@
                     android:layout_marginTop="36dp"
                     android:text="이름"
                     android:textSize="15dp"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/profileImage"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -122,27 +124,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_diary_title" />
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/view4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/detail_diary_content"
-                    tools:srcCompat="@tools:sample/avatars" />
-
                 <View
                     android:id="@+id/view4"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_centerInParent="true"
+                    android:layout_marginTop="16dp"
                     android:background="@color/dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_diary_content" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -160,16 +152,6 @@
                     android:tint="@color/red_inactive"
                     app:srcCompat="@drawable/heart" />
 
-                <ImageView
-                    android:id="@+id/comment_btn"
-                    android:layout_width="37dp"
-                    android:layout_height="26dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:tint="@color/canyon_clay"
-                    app:srcCompat="@drawable/comment" />
 
             </LinearLayout>
 
@@ -178,9 +160,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
                 android:background="@color/dark" />
         </LinearLayout>
     </ScrollView>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="341dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/orange_inactive"
+        android:hint="댓글을 입력하세요!"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/comment_btn"
+        android:layout_width="42dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:tint="@color/canyon_clay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:srcCompat="@drawable/comment" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

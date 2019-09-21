@@ -102,9 +102,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            storeUser();
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            storeUser();
                         } else{
                             textViewMessage.setText("에러유형\n -이미 등록된 이메일 \n -암호 최소 6자리 이상\n -서버 에러");
                             Toast.makeText(SignupActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
