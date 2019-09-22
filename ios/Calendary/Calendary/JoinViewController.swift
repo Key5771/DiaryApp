@@ -55,9 +55,25 @@ class JoinViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        // Do any additional setup after loading the view.
+        
+        nickNameTextfield.layer.borderColor = UIColor(displayP3Red: 243/255, green: 177/255, blue: 90/255, alpha: 1).cgColor
+        nickNameTextfield.layer.borderWidth = 1
+//        nickNameTextfield.layer.cornerRadius = 5
+        
+        emailTextfield.layer.borderColor = UIColor(displayP3Red: 243/255, green: 177/255, blue: 90/255, alpha: 1).cgColor
+        emailTextfield.layer.borderWidth = 1
+        
+        pwTextfield.layer.borderWidth = 1
+        pwTextfield.layer.borderColor = UIColor(displayP3Red: 243/255, green: 177/255, blue: 90/255, alpha: 1).cgColor
+//        pwTextfield.layer.cornerRadius = 5
+        
+        pwOkTextfield.layer.borderWidth = 1
+        pwOkTextfield.layer.borderColor = UIColor(displayP3Red: 243/255, green: 177/255, blue: 90/255, alpha: 1).cgColor
     }
     
     override func didReceiveMemoryWarning() {

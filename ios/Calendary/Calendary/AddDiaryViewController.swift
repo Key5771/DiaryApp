@@ -22,7 +22,6 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     var date: Date = Date()
     
     var diaryId: String = ""
-    var switchText: String = ""
     
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo ?? [:]

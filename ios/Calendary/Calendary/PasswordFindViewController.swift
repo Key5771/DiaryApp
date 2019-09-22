@@ -9,11 +9,15 @@
 import UIKit
 
 class PasswordFindViewController: UIViewController {
-
+    @IBOutlet weak var emailTextfield: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        emailTextfield.layer.borderColor = UIColor(displayP3Red: 243/255, green: 177/255, blue: 90/255, alpha: 1).cgColor
+        emailTextfield.layer.borderWidth = 1
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -50,11 +50,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         
         emailTextfield.layer.borderWidth = 1
         emailTextfield.layer.borderColor = UIColor(displayP3Red: 243/255, green: 177/255, blue: 90/255, alpha: 1).cgColor
-        emailTextfield.layer.cornerRadius = 5
+//        emailTextfield.layer.cornerRadius = 5
         
         pwTextfield.layer.borderWidth = 1
         pwTextfield.layer.borderColor = UIColor(displayP3Red: 243/255, green: 177/255, blue: 90/255, alpha: 1).cgColor
-        pwTextfield.layer.cornerRadius = 5
+//        pwTextfield.layer.cornerRadius = 5
         
 
         // Do any additional setup after loading the view.
