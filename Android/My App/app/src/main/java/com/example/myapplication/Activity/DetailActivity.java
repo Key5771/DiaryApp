@@ -57,6 +57,7 @@ public class DetailActivity extends AppCompatActivity {
             if(task.isSuccessful()){
                 QuerySnapshot snapshots = task.getResult();
                 for(QueryDocumentSnapshot queryDocumentSnapshot : snapshots){
+
                     name_text.setText(queryDocumentSnapshot.getData().get("name").toString());
                 }
             } else{

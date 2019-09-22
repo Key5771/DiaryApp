@@ -10,7 +10,8 @@
         android:label="Calendary"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ProfileActivity"></activity>
+        <activity android:name=".Activity.PasswordChangeActivity"></activity>
+        <activity android:name=".Activity.ProfileActivity" />
         <activity
             android:name=".Activity.SplashActivity"
             android:theme="@style/Splash">
