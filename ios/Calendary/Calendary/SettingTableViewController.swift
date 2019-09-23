@@ -13,6 +13,7 @@ import FirebaseFirestore
 class SettingTableViewController: UITableViewController {
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var deleteUserButton: UIButton!
+    @IBOutlet weak var personalInfoCell: UITableViewCell!
     
     var userArray: [UserDocument] = []
     
@@ -103,7 +104,6 @@ class SettingTableViewController: UITableViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -120,15 +120,15 @@ class SettingTableViewController: UITableViewController {
 //        return 0
 //    }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
+    
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+//
+////         Configure the cell...
+//
+//        return cell
+//    }
+    
 
     /*
     // Override to support conditional editing of the table view.
