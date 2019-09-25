@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListTableViewCell: UITableViewCell, UITableViewDelegate {
+class ListTableViewCell: UITableViewCell {
     @IBOutlet weak var workLabel: UILabel!
     
     override func awakeFromNib() {

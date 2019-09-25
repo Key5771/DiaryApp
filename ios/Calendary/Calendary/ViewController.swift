@@ -9,14 +9,30 @@
 import UIKit
 import FSCalendar
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var listTableView: UITableView!
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell =  listTableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
+        
+        cell.workLabel.text = "안녕하세요"
+        
+        return cell
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        listTableView.delegate = self
+        listTableView.dataSource = self
         
         editButton.layer.cornerRadius = 35
         

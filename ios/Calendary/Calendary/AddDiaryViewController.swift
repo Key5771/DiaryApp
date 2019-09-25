@@ -15,9 +15,9 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var titleTextfield: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var contentTextviewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var switchButton: UISwitch!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     var date: Date = Date()
     
@@ -103,19 +103,12 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    
-    
-    @IBAction func backgroundClick(_ sender: UITapGestureRecognizer) {
+    @IBAction func save(_ sender: Any) {
         contentTextview.resignFirstResponder()
         titleTextfield.resignFirstResponder()
-    }
-    
-    @IBAction func save() {
-        contentTextview.resignFirstResponder()
-        titleTextfield.resignFirstResponder()
-        
+                
         saveButton.isEnabled = false
-        
+                
         activityIndicatorView.startAnimating()
         
         var ref: DocumentReference? = nil
@@ -141,7 +134,8 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
                 
                 let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
                 let okButton = UIAlertAction(title: "확인", style: .default, handler: { (_) in
-                    self.navigationController?.popViewController(animated: true)
+//                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
                 })
                 alertController.addAction(okButton)
                 self.present(alertController, animated: true, completion: nil)
@@ -151,6 +145,17 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
             
         }
     }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func backgroundClick(_ sender: UITapGestureRecognizer) {
+        contentTextview.resignFirstResponder()
+        titleTextfield.resignFirstResponder()
+    }
+    
+    
     
     
     /*
