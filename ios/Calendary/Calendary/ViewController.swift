@@ -16,13 +16,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var listTableView: UITableView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  listTableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
         
-        cell.workLabel.text = "안녕하세요"
+        cell.workLabel.text = "완성하고싶어요"
         
         return cell
     }
@@ -51,6 +51,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "addDiary" {
             let addDiaryViewContollrer = segue.destination as? AddDiaryViewController
             addDiaryViewContollrer?.date = calendar.selectedDate ?? Date()
+            print(calendar.selectedDate)
         }
     }
 

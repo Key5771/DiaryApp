@@ -11,10 +11,10 @@ import FirebaseFirestore
 
 class ContentViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var userId: UILabel!
     @IBOutlet weak var dateLabel2: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
     
     var diaryId: String = ""
     
@@ -33,8 +33,9 @@ class ContentViewController: UIViewController {
                     if let title = querySnapshot!.get("title") as? String {
                         self.titleLabel.text = title
                     }
+                    
                     if let content = querySnapshot!.get("content") as? String {
-                        self.contentTextview.text = content
+                        self.contentLabel.text = content
                     }
                     
                     if let date = querySnapshot!.get("select timestamp") as? Timestamp {
@@ -43,6 +44,7 @@ class ContentViewController: UIViewController {
                         let timestamp: String = dateFormat.string(from: date.dateValue())
                         self.dateLabel.text = timestamp
                     }
+                    
                     if let user = querySnapshot!.get("user id") as? String {
                         self.userId.text = user
                     }

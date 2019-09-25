@@ -9,9 +9,16 @@
 import UIKit
 
 class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var data: [String] = []
+    var datas = [["dasdas", "sssss", "qqqq"], ["!212", "#2323", "4334", "4343"], ["ㄴㅁㄴㄴㅁㄴ", "ㅇㄴㅇㄴ"]]
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    
     var diarys: [DiaryContent] = []
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return diarys.count
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -25,8 +32,20 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
+    @IBAction func selectSegment(_ sender: UISegmentedControl) {
+        data = datas[sender.selectedSegmentIndex]
+        tableView.reloadData()
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        data = datas[0]
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         imageView.contentMode = .scaleAspectFill
@@ -37,6 +56,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Do any additional setup after loading the view.
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
     /*
     // MARK: - Navigation

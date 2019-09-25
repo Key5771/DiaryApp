@@ -76,7 +76,6 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
         
         let calendar = Calendar.current
         dateLabel.text = "\(calendar.component(.year, from: date))년 \(calendar.component(.month, from: date))월 \(calendar.component(.day, from: date))일"
-        
 //        if diaryId != "" {
 //            let db = Firestore.firestore()
 //            let data = db.collection("diarys").document(diaryId)
@@ -123,6 +122,7 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
                 "timestamp": Date(),
                 "user id": firebaseAuth.currentUser?.email,
                 "show": switchButton.isOn
+//                "user name": db.collection("User").whereField("Email", isEqualTo: firebaseAuth.currentUser?.email) as! String
             ]) { err in
                 self.activityIndicatorView.stopAnimating()
                 var alertTitle = "저장되었습니다."
