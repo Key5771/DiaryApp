@@ -18,6 +18,7 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var switchButton: UISwitch!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var onoffLabel: UILabel!
     
     var date: Date = Date()
     
@@ -156,6 +157,13 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     }
     
     
+    @IBAction func switchButtonClick(_ sender: Any) {
+        if switchButton.isOn {
+            onoffLabel.text = "공개"
+        } else {
+            onoffLabel.text = "비공개"
+        }
+    }
     
     
     /*

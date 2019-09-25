@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class PasswordFindViewController: UIViewController {
     @IBOutlet weak var emailTextfield: UITextField!
+    @IBOutlet weak var sendButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,26 @@ class PasswordFindViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    @IBAction func send(_ sender: Any) {
+        let firebaseAuth = Auth.auth()
+        firebaseAuth.sendPasswordReset(withEmail: emailTextfield.text ?? "") { error in
+            var alertTitle = "이메일 발송"
+            var alertMessage = "이메일을 보냈습니다!"
+            if error != nil {
+                alertTitle = "이메일 발송 실패"
+                alertMessage = "메일 보내기 실패!"
+            }
+            
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "확인", style: .default, handler: {(_) in
+                self.navigationController?.popViewController(animated: true)
+//                self.dismiss(animated: true, completion: nil)
+            })
+            alertController.addAction(okButton)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
 
