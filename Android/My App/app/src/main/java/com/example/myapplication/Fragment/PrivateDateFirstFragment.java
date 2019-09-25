@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,8 @@ public class PrivateDateFirstFragment extends Fragment {
     private TextView titleTextview, contentTextview, timeTextview;
     Map<String, Object> contentMap;
 
+    private RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+
     RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -67,6 +71,8 @@ public class PrivateDateFirstFragment extends Fragment {
 
 
         mDateList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
+
+//        radioButton3.setChecked(true);
 
 
         return view;
@@ -81,6 +87,12 @@ public class PrivateDateFirstFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity());
         mDateList.setLayoutManager(layoutManager);
+
+        radioButton1 = (RadioButton) view.findViewById(R.id.radioButton1);
+        radioButton2 = (RadioButton) view.findViewById(R.id.radioButton2);
+        radioButton3 = (RadioButton) view.findViewById(R.id.radioButton3);
+        radioButton4 = (RadioButton) view.findViewById(R.id.radioButton4);
+
     }
 
     private void read_diary(){
@@ -106,6 +118,8 @@ public class PrivateDateFirstFragment extends Fragment {
                     diaryData.title = (String) contentMap.getOrDefault("title","제목");
                     diaryData.content = (String) contentMap.getOrDefault("content","내용");
                     diaryData.timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
+                    diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
+                    diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
 
                     diaryContentList.add(diaryData);
                     Log.i(TAG, contentMap.toString());

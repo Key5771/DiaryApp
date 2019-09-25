@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +20,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DetailActivity extends AppCompatActivity {
 
     private Intent intent;
-    private TextView title_text, content_text, time_text, name_text;
+    private TextView title_text, content_text, time_text, name_text, selecttime_text;
+    private EditText edit_comment;
     private DiaryContent diaryContent;
     private FirebaseFirestore firebaseFirestore;
     private ImageView left_btn;
@@ -44,33 +47,29 @@ public class DetailActivity extends AppCompatActivity {
         String title_st;
         String content_st;
         String name_st;
+        Date time_st;
         Date date_st;
 
 
         DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("Content");
         title_st = diaryContent.title;
         content_st = diaryContent.content ;
-        date_st = diaryContent.timestamp;
+        time_st = diaryContent.timestamp;
+        date_st = diaryContent.select_timestamp;
+        name_st = diaryContent.user_name;
 
-        CollectionReference reference = firebaseFirestore.collection("User");
-        reference.whereEqualTo("Email",diaryContent.user_id).get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                QuerySnapshot snapshots = task.getResult();
-                for(QueryDocumentSnapshot queryDocumentSnapshot : snapshots){
-
-                    name_text.setText(queryDocumentSnapshot.getData().get("name").toString());
-                }
-            } else{
-                Log.d("DetailActivity ","get failed with ", task.getException());
-            }
-        });
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
 
         title_text.setTypeface(null, Typeface.BOLD);
         title_text.setText(title_st);
         content_text.setText(content_st);
-        time_text.setText(date_st.toString());
+        time_text.setText(dateFormat2.format(time_st));
+        selecttime_text.setText(dateFormat.format(date_st)+" 일기");
+        name_text.setText(name_st);
 
+        String comment = edit_comment.getText().toString();
+        System.out.println(comment);
     }
 
 
@@ -85,6 +84,9 @@ public class DetailActivity extends AppCompatActivity {
         content_text = (TextView) findViewById(R.id.detail_diary_content);
         time_text = (TextView) findViewById(R.id.time_tv);
         name_text = (TextView) findViewById(R.id.user_name);
+        selecttime_text = (TextView) findViewById(R.id.select_time_tv);
+
+        edit_comment = (EditText) findViewById(R.id.edit_comment);
 
         left_btn = (ImageView) findViewById(R.id.left_btn);
 

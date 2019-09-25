@@ -124,9 +124,13 @@ public class SettingFragment extends Fragment implements View.OnClickListener{
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(getActivity(),"계정이 삭제되었습니다!",Toast.LENGTH_LONG).show();
-                                    getActivity().finish();
-                                    startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), "계정이 삭제되었습니다!", Toast.LENGTH_LONG).show();
+                                        getActivity().finish();
+                                        startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
+                                    } else{
+                                        Toast.makeText(getActivity(),"실패하였습니다. 다시 시도해주세요!",Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                 }

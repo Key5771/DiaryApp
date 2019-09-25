@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,6 +56,8 @@ public class CalendarFragment extends Fragment {
     private RecyclerView mDayList;
     private float scale = 1.05f;
 
+    private EditText todoText;
+
     private int select_year, select_month, select_day;
     final Context context = getActivity();
 
@@ -83,11 +86,11 @@ public class CalendarFragment extends Fragment {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
                 View todoView = layoutInflater.inflate(R.layout.todo_popup,null);
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setView(todoView);
 
-                final EditText todoText = (EditText) todoView.findViewById(R.id.todo);
-                alertDialogBuilder.setTitle("할일을 입력해주세요!");
+                todoText = (EditText) todoView.findViewById(R.id.todo);
+                alertDialogBuilder.setTitle("할일을 입력해주세요!").setCancelable(false);
 
                 alertDialogBuilder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
                     @Override
@@ -98,13 +101,13 @@ public class CalendarFragment extends Fragment {
                 alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Toast.makeText(getActivity(),"취소",Toast.LENGTH_LONG).show();
                     }
-                });
+                }); alertDialogBuilder.show();
 
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-                return true;
+//                AlertDialog alertDialog = alertDialogBuilder.create();
+//                alertDialog.show();
+               return true;
             }
         });
 

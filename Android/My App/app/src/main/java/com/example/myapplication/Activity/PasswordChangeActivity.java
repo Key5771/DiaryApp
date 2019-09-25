@@ -34,7 +34,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_password_change);
 
         init();
-        getNewPassword();
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -44,11 +44,18 @@ public class PasswordChangeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        changeBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getNewPassword();
+            }
+        });
     }
 
     private void getNewPassword(){
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+//        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         cPass = currentPassword.getText().toString().trim();
         nPass = newPassword.getText().toString().trim();

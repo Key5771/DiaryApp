@@ -44,16 +44,39 @@
         android:background="@color/dark"
         app:layout_constraintTop_toBottomOf="@+id/left_btn" />
 
+    <EditText
+        android:id="@+id/edit_comment"
+        android:layout_width="341dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/orange_inactive"
+        android:hint="댓글을 입력하세요!"
+        android:inputType="textLongMessage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/comment_btn"
+        android:layout_width="35dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:tint="@color/canyon_clay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_comment"
+        app:srcCompat="@drawable/comment" />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view2"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@id/view2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,28 +106,40 @@
                     android:layout_marginEnd="8dp"
                     android:text="제목"
                     android:textColor="@color/dark"
-                    android:textSize="15dp"
+                    android:textSize="17dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
                 <TextView
+                    android:id="@+id/select_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="몇일자 일기"
+                    android:textColor="@color/orange_active"
+                    android:textSize="13dp"
+                    app:layout_constraintStart_toEndOf="@+id/profileImage"
+                    app:layout_constraintTop_toBottomOf="@+id/user_name" />
+
+                <TextView
                     android:id="@+id/time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="날짜"
-                    android:textSize="12dp"
+                    android:text="작성시간"
+                    android:textSize="11dp"
                     app:layout_constraintStart_toEndOf="@+id/profileImage"
-                    app:layout_constraintTop_toBottomOf="@+id/user_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/select_time_tv" />
 
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="24dp"
                     android:text="이름"
                     android:textSize="15dp"
                     app:layout_constraintStart_toEndOf="@+id/profileImage"
@@ -118,7 +153,7 @@
                     android:layout_marginEnd="16dp"
                     android:text="내용"
                     android:textColor="@color/dark"
-                    android:textSize="13dp"
+                    android:textSize="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,6 +184,7 @@
                     android:layout_height="26dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:tint="@color/red_inactive"
                     app:srcCompat="@drawable/heart" />
 
@@ -165,29 +201,15 @@
         </LinearLayout>
     </ScrollView>
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="341dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/orange_inactive"
-        android:hint="댓글을 입력하세요!"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/comment_btn"
-        android:layout_width="42dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:tint="@color/canyon_clay"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:background="@color/dark"
+        app:layout_constraintBottom_toTopOf="@+id/edit_comment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText"
-        app:srcCompat="@drawable/comment" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

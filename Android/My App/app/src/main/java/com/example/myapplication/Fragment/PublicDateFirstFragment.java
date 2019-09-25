@@ -114,7 +114,8 @@ public class PublicDateFirstFragment extends Fragment {
 
                     diaryData.title = (String) contentMap.getOrDefault("title", "제목");
                     diaryData.content = (String) contentMap.getOrDefault("content", "내용");
-//                    Log.i("PrivateDateFirstFragment", String.format("class of timestamp : %s",contentMap.getOrDefault("timestamp",0).getClass().getCanonicalName()));
+                    diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
+                    diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
                     diaryData.timestamp = ((Timestamp) contentMap.getOrDefault("timestamp", 0)).toDate();
 
                     diaryContentList.add(diaryData);

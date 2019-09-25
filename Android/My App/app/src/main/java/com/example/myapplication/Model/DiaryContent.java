@@ -9,6 +9,7 @@ public class DiaryContent implements Serializable {
     public String content;
     public String user_id;
     public String uid;
+    public String user_name;
     public Date timestamp, select_timestamp;
     public int fav_count;
     public Map<String, Boolean> favorites;
@@ -36,6 +37,7 @@ public class DiaryContent implements Serializable {
     content = 일기 내용
     uid = 글 올릴때 현 작성자 아이디
     user_id = 글 올린 유저 아이디
+    user_name = 글 올린 유저 닉네임
     timestamp = 글 올린 시간 (작성시간)
     select_timestamp = 선택한 날짜
     fav_count = 좋아요 카운터
