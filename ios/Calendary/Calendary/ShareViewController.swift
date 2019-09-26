@@ -74,7 +74,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func getDocumentFromFirebase() {
-        db.collection("Content").whereField("show", isEqualTo: "true").getDocuments(completion: { (querySnapshot, error) in
+        db.collection("Content").whereField("show", isEqualTo: true).getDocuments(completion: { (querySnapshot, error) in
             if let error = error {
                 print("Error getting document: \(error)")
             } else {
