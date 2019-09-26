@@ -96,6 +96,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
                 viewController.modalPresentationStyle = .overFullScreen
                 self.present(viewController, animated: true, completion: nil)
             } else {
+                self.activityIndicator.stopAnimating()
                 let alertController = UIAlertController(title: "로그인 실패", message: "로그인에 실패하였습니다", preferredStyle: .alert)
                 let okButton = UIAlertAction(title: "확인", style: .default, handler: nil)
 

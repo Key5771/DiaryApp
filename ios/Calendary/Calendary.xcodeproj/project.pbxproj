@@ -27,7 +27,6 @@
 		EAB7564A2316764900467C3A /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB756492316764900467C3A /* DiaryViewController.swift */; };
 		EAB7564C231677C800467C3A /* DiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */; };
 		EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB7564D2316798300467C3A /* DiaryContent.swift */; };
-		EABECB742338F92C00DCFAE6 /* ChangeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABECB732338F92C00DCFAE6 /* ChangeInfoViewController.swift */; };
 		EABECB7C2339125D00DCFAE6 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABECB7B2339125D00DCFAE6 /* ListTableViewCell.swift */; };
 		EAF0A34C231D0CE30034494F /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */; };
 		EAF0A350231DF3370034494F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EAF0A34F231DF3370034494F /* GoogleService-Info.plist */; };
@@ -87,7 +86,6 @@
 		EAB756492316764900467C3A /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableViewCell.swift; sourceTree = "<group>"; };
 		EAB7564D2316798300467C3A /* DiaryContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryContent.swift; sourceTree = "<group>"; };
-		EABECB732338F92C00DCFAE6 /* ChangeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInfoViewController.swift; sourceTree = "<group>"; };
 		EABECB7B2339125D00DCFAE6 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		EAF0A34F231DF3370034494F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				EAABCBAC2332121D00D8264F /* UserDocument.swift */,
 				EAABCBAE2333D35600D8264F /* ShareViewController.swift */,
 				EAABCBB02333D6C900D8264F /* ShareTableViewCell.swift */,
-				EABECB732338F92C00DCFAE6 /* ChangeInfoViewController.swift */,
 			);
 			path = Calendary;
 			sourceTree = "<group>";
@@ -464,7 +461,6 @@
 				EAB75611230FC76400467C3A /* ViewController.swift in Sources */,
 				EAABCBAF2333D35600D8264F /* ShareViewController.swift in Sources */,
 				EAF0A34C231D0CE30034494F /* SettingTableViewController.swift in Sources */,
-				EABECB742338F92C00DCFAE6 /* ChangeInfoViewController.swift in Sources */,
 				EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */,
 				EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */,
 				EAABCBAD2332121D00D8264F /* UserDocument.swift in Sources */,

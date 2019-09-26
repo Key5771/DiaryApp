@@ -258,6 +258,7 @@
                                     <segment title="작성순"/>
                                 </segments>
                                 <color key="tintColor" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="selectedSegmentTintColor" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="selectSegment:" destination="ef3-2B-R90" eventType="valueChanged" id="btZ-Z4-Zhr"/>
                                 </connections>
@@ -921,7 +922,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C0I-AJ-sV3">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="685"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="diaryCell" id="bYE-Uv-Mo5" customClass="DiaryTableViewCell" customModule="Calendary" customModuleProvider="target">
@@ -972,13 +973,28 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="X1x-TT-alk">
+                                <rect key="frame" x="0.0" y="88" width="414" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="YUc-rW-hxc"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="작성순"/>
+                                    <segment title="날짜순"/>
+                                    <segment title="할일별"/>
+                                </segments>
+                                <color key="selectedSegmentTintColor" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="C0I-AJ-sV3" firstAttribute="top" secondItem="X1x-TT-alk" secondAttribute="bottom" id="0ht-M0-o9n"/>
                             <constraint firstItem="scx-fR-Qfc" firstAttribute="bottom" secondItem="C0I-AJ-sV3" secondAttribute="bottom" id="KGg-Py-LK1"/>
                             <constraint firstItem="scx-fR-Qfc" firstAttribute="trailing" secondItem="C0I-AJ-sV3" secondAttribute="trailing" id="My5-YM-hMG"/>
+                            <constraint firstItem="scx-fR-Qfc" firstAttribute="trailing" secondItem="X1x-TT-alk" secondAttribute="trailing" id="WEQ-FU-gyL"/>
                             <constraint firstItem="C0I-AJ-sV3" firstAttribute="leading" secondItem="scx-fR-Qfc" secondAttribute="leading" id="ddh-An-Y2Q"/>
-                            <constraint firstItem="C0I-AJ-sV3" firstAttribute="top" secondItem="scx-fR-Qfc" secondAttribute="top" id="iJo-xe-3ki"/>
+                            <constraint firstItem="X1x-TT-alk" firstAttribute="leading" secondItem="scx-fR-Qfc" secondAttribute="leading" id="l8G-Gt-Y4w"/>
+                            <constraint firstItem="X1x-TT-alk" firstAttribute="top" secondItem="scx-fR-Qfc" secondAttribute="top" id="uEA-lv-8Iy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="scx-fR-Qfc"/>
                     </view>
@@ -1142,6 +1158,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Fzl-BK-V3r"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Zsf-go-IZR"/>
                     <connections>
                         <outlet property="contentLabel" destination="fe2-j5-4xU" id="etM-Cu-IFd"/>
                         <outlet property="dateLabel" destination="bcR-Fn-djb" id="S7h-8W-gJM"/>
