@@ -135,6 +135,7 @@ public class PrivateDateFirstFragment extends Fragment {
                     diaryData.timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
                     diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
                     diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
+                    diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
                     Log.i(TAG, contentMap.toString());
@@ -178,7 +179,6 @@ public class PrivateDateFirstFragment extends Fragment {
                 alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        System.out.println("================================" +  PrivateDateFirstFragment.this.diaryContentList.get(position).id);
                         firebaseFirestore.collection("Content")
                                 .document(PrivateDateFirstFragment.this.diaryContentList.get(position).id)
                                 .delete()

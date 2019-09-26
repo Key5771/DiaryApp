@@ -57,7 +57,8 @@ public class DetailActivity extends AppCompatActivity {
         content_st = diaryContent.content ;
         time_st = diaryContent.timestamp;
         date_st = diaryContent.select_timestamp;
-        name_st = diaryContent.user_name;
+        name_st = diaryContent.user_id;
+        //name_st 자꾸 null...
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");

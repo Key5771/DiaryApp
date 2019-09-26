@@ -76,6 +76,8 @@ public class CalendarFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+
+
         calendarView.setScaleY(scale);
         calendarView.setClickable(true);
         calendarView.setOnClickListener(new View.OnClickListener() {
