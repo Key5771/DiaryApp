@@ -9,13 +9,14 @@
 import UIKit
 import FSCalendar
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FSCalendarDelegate {
     
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var listTableView: UITableView!
     
     var date: Date = Date()
+    var selectedDateObserver: NSKeyValueObservation? = nil
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -36,6 +37,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         listTableView.delegate = self
         listTableView.dataSource = self
         
+        calendar.delegate = self
+        
         editButton.layer.cornerRadius = 35
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
@@ -44,11 +47,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         imageView.image = image
         navigationItem.titleView = imageView
         self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-//        if calendar.selectedDate! > date {
-//            self.editButton.isHidden = true
-//        }
+        if date > self.date {
+            self.editButton.isHidden = true
+        } else {
+            self.editButton.isHidden = false
+        }
         
+    }
+    
+    deinit {
+        selectedDateObserver?.invalidate()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
