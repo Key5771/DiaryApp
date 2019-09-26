@@ -15,6 +15,7 @@ class ContentViewController: UIViewController {
     @IBOutlet weak var userId: UILabel!
     @IBOutlet weak var dateLabel2: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet var swipeGestureRecognizer: UISwipeGestureRecognizer!
     
     var diaryId: String = ""
     
@@ -66,7 +67,20 @@ class ContentViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func swipe(_ sender: Any) {
+        if swipeGestureRecognizer.state == .ended {
+            self.dismiss(animated: true, completion: nil)
+        } else if swipeGestureRecognizer.direction == .down {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

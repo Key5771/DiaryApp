@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var listTableView: UITableView!
     
+    var date: Date = Date()
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -22,7 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  listTableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
         
-        cell.workLabel.text = "완성하고싶어요"
+        cell.workLabel.text = "캘린더리"
         
         return cell
     }
@@ -42,6 +44,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         imageView.image = image
         navigationItem.titleView = imageView
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+//        if calendar.selectedDate! > date {
+//            self.editButton.isHidden = true
+//        }
         
     }
 

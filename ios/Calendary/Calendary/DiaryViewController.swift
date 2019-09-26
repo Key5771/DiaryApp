@@ -151,6 +151,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if segue.identifier == "editDiary" {
             if let row = tableView.indexPathForSelectedRow {
                 let vc = segue.destination as? ContentViewController
+                vc?.modalPresentationStyle = .overFullScreen
                 vc?.diaryId = diarys[row.row].id
                 tableView.deselectRow(at: row, animated: true)
             }
