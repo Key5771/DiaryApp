@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.GestureDetector;
@@ -56,10 +58,16 @@ public class PrivateDateFirstFragment extends Fragment {
     private DiaryAdapter mDiaryAdaptor;
     private TextView titleTextview, contentTextview, timeTextview;
     Map<String, Object> contentMap;
-
-    private RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     RecyclerView.LayoutManager layoutManager;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,8 +79,14 @@ public class PrivateDateFirstFragment extends Fragment {
 
 
         mDateList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                read_diary();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
-//        radioButton3.setChecked(true);
 
 
         return view;
@@ -85,15 +99,15 @@ public class PrivateDateFirstFragment extends Fragment {
         contentTextview = (TextView) view.findViewById(R.id.diary_item_content);
         timeTextview = (TextView) view.findViewById(R.id.diary_item_date);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout1);
+        swipeRefreshLayout.setColorSchemeResources(R.color.orange_inactive);
+
         layoutManager = new LinearLayoutManager(getActivity());
         mDateList.setLayoutManager(layoutManager);
 
-        radioButton1 = (RadioButton) view.findViewById(R.id.radioButton1);
-        radioButton2 = (RadioButton) view.findViewById(R.id.radioButton2);
-        radioButton3 = (RadioButton) view.findViewById(R.id.radioButton3);
-        radioButton4 = (RadioButton) view.findViewById(R.id.radioButton4);
 
     }
+
 
     private void read_diary(){
 
@@ -115,6 +129,7 @@ public class PrivateDateFirstFragment extends Fragment {
                     DiaryContent diaryData = new DiaryContent();
                     contentMap = document.getData();
 
+                    diaryData.id = (String) document.getId();
                     diaryData.title = (String) contentMap.getOrDefault("title","제목");
                     diaryData.content = (String) contentMap.getOrDefault("content","내용");
                     diaryData.timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
@@ -156,18 +171,22 @@ public class PrivateDateFirstFragment extends Fragment {
             //일기 삭제하기
             @Override
             public void onLongClick(View view, int position) {
+
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                 alert.setTitle("삭제하겠습니까?");
                 alert.setMessage("삭제된 일기는 복구할 수 없습니다.");
                 alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        firebaseFirestore.collection("diarys").document()
+                        System.out.println("================================" +  PrivateDateFirstFragment.this.diaryContentList.get(position).id);
+                        firebaseFirestore.collection("Content")
+                                .document(PrivateDateFirstFragment.this.diaryContentList.get(position).id)
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(getActivity(),"삭제되었습니다",Toast.LENGTH_SHORT).show();
+                                        read_diary();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

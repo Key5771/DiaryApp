@@ -55,7 +55,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
         firebaseAuth = FirebaseAuth.getInstance();
+
         edit_email = (EditText) findViewById(R.id.edit_email);
         edit_password = (EditText) findViewById(R.id.edit_password);
         signin_btn = (Button) findViewById(R.id.signin_btn);
@@ -68,19 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signup_tv.setOnClickListener(this);
         find_password.setOnClickListener(this);
 
-
-
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, null)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions)
-                .build();
-
-        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
 
         buttonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,31 +115,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void signIn(){
-//        Intent signInIntent = googleSignInClient.getSignInIntent();
-        Intent signInIntent2 = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(signInIntent2, RC_SIGN_IN);
+//        googleApiClient = new GoogleApiClient.Builder(this)
+//                .enableAutoManage(this, null)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions)
+//                .build();
+//        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if(requestCode == RC_SIGN_IN){
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//            try{
-//                GoogleSignInAccount account = task.getResult(ApiException.class);
-//                firebaseAuthWithGoogle(account);
-//            } catch (ApiException e){
-//            }
-//        }
-
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                GoogleSignInAccount account = result.getSignInAccount();
+        if(requestCode == RC_SIGN_IN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try{
+                GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+            } catch (ApiException e){
+                Log.w("Login Activity ","Google sign in failed", e);
             }
         }
+
     }
 
     @Override

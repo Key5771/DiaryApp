@@ -66,16 +66,7 @@ public class PublicDateFirstFragment extends Fragment {
         read_diary();
         select_diary();
 
-        //당겨서 새로고침
-//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout2);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                select_diary();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
-//        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.orange_inactive));
+
 
         pDateList.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
         return view;

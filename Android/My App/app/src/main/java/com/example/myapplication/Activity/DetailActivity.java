@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -68,8 +69,10 @@ public class DetailActivity extends AppCompatActivity {
         selecttime_text.setText(dateFormat.format(date_st)+" 일기");
         name_text.setText(name_st);
 
-        String comment = edit_comment.getText().toString();
-        System.out.println(comment);
+
+
+        CollectionReference collectionReference = firebaseFirestore.collection("Content");
+        collectionReference.document().collection("comment").get();
     }
 
 

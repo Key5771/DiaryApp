@@ -69,14 +69,37 @@ public class CalendarFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_calendar_fragment,container,false);
 
         calendarView = (CalendarView) view.findViewById(R.id.calendarView);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        mDayList = (RecyclerView) view.findViewById(R.id.day_list);
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
         calendarView.setScaleY(scale);
-
-
-
         calendarView.setClickable(true);
         calendarView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CollectionReference collectionReference = firebaseFirestore.collection("Content");
+                collectionReference.whereEqualTo("user id",user.getEmail()).get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        QuerySnapshot documentSnapshots = task.getResult();
+                        diaryContentList = new ArrayList<>();
+                        contentMap = new HashMap<>();
+                        for(QueryDocumentSnapshot document : documentSnapshots){
+                            DiaryContent diaryData = new DiaryContent();
+                            contentMap = document.getData();
+
+                            diaryData.title = (String) contentMap.get("title");
+                            diaryContentList.add(diaryData);
+                        }
+                        mDiaryAdaptor = new DiaryAdapter(diaryContentList);
+                        mDayList.setAdapter(mDiaryAdaptor);
+                    } else{
+                        Log.d(TAG,"get failed with",task.getException());
+                    }
+                });
 
             }
         });
@@ -123,13 +146,46 @@ public class CalendarFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                //선택한 날짜 넘겨주기
                 select_day = dayOfMonth;
                 select_month = month;
                 select_year = year;
+
+                //선택한 날짜 비교해서 미래일기 막기
+                Date selectDate = new Date(select_year,select_month,select_day);
+                if(selectDate.compareTo(currentTime) > 0 ){
+                    fab.hide();
+                    Toast.makeText(view.getContext(),"오늘 이후의 일기는 쓸 수 없습니다!",Toast.LENGTH_SHORT).show();
+                } else{
+                    fab.show();
+                }
+
+                //선택한 날짜에 저장된 목록 가져오기
+                CollectionReference collectionReference = firebaseFirestore.collection("Content");
+                collectionReference.whereEqualTo("select timestamp",selectDate).get().addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        QuerySnapshot documentSnapshots = task.getResult();
+                        diaryContentList = new ArrayList<>();
+                        contentMap = new HashMap<>();
+                        for(QueryDocumentSnapshot document : documentSnapshots){
+                            DiaryContent diaryData = new DiaryContent();
+                            contentMap = document.getData();
+
+                            diaryData.title = (String) contentMap.get("title");
+
+                            diaryContentList.add(diaryData);
+                        }
+                        mDiaryAdaptor = new DiaryAdapter(diaryContentList);
+                        mDayList.setAdapter(mDiaryAdaptor);
+                    } else{
+                        Log.d(TAG,"get failed with ", task.getException());
+                    }
+                });
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -143,6 +199,7 @@ public class CalendarFragment extends Fragment {
 
         return view;
     }
+
 
 }
 

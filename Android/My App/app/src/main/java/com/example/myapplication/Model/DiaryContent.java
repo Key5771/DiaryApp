@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 public class DiaryContent implements Serializable {
+    public String id;
     public String title;
     public String content;
     public String user_id;

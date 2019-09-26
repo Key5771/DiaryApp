@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,7 +59,8 @@ public class DiaryFragment extends Fragment {
     List<DiaryContent> contents;
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    private RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    private RadioGroup radioGroup;
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -99,7 +102,25 @@ public class DiaryFragment extends Fragment {
         });
 
 
+        radioGroup = (RadioGroup) view.findViewById(R.id.radio);
+        radioButton1 = (RadioButton) view.findViewById(R.id.radioButton1);
+        radioButton2 = (RadioButton) view.findViewById(R.id.radioButton2);
+        radioButton3 = (RadioButton) view.findViewById(R.id.radioButton3);
+        radioButton4 = (RadioButton) view.findViewById(R.id.radioButton4);
 
+//        radioButton1.setOnClickListener(radioButtonClickListener);
+//        radioButton2.setOnClickListener();
+//        radioButton3.setOnClickListener();
+//        radioButton4.setOnClickListener();
+//
+//        radioGroup.setOnCheckedChangeListener();
+
+        RadioButton.OnClickListener radioButtonClickListener = new RadioButton.OnClickListener(){
+            @Override
+            public void onClick(View view1){
+                Toast.makeText(view.getContext(), "최신순 "+radioButton3.isChecked(), Toast.LENGTH_SHORT).show();
+            }
+        };
 
 
 //로딩 dialog

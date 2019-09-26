@@ -114,65 +114,6 @@ public class FeelingFragment extends Fragment {
     }
 
 
-//    private void changeView(int index){
-//        RecyclerView writing_first = (RecyclerView) getView().findViewById(R.id.writing_fist_list);
-//        RecyclerView date_first = (RecyclerView) getView().findViewById(R.id.date_first_list);
-//        RecyclerView todo_first = (RecyclerView) getView().findViewById(R.id.todo_list);
-//
-//        Log.i("ChangeViewTest", String.format("change view index : %d", index));
-//
-//        switch (index){
-//            case 0 :
-//                writing_first.setVisibility(View.VISIBLE);
-//                date_first.setVisibility(View.INVISIBLE);
-//                todo_first.setVisibility(View.INVISIBLE);
-//                break;
-//            case 1 :
-//                writing_first.setVisibility(View.INVISIBLE);
-//                date_first.setVisibility(View.VISIBLE);
-//                todo_first.setVisibility(View.INVISIBLE);
-//                break;
-//            case 2 :
-//                writing_first.setVisibility(View.INVISIBLE);
-//                date_first.setVisibility(View.INVISIBLE);
-//                todo_first.setVisibility(View.VISIBLE);
-//                break;
-//        }
-//    }
-//        firebaseFirestore = FirebaseFirestore.getInstance();
-//        firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//
-//        mDiaryList = view.findViewById(R.id.public_diary_list);
-//        mDiaryList.setLayoutManager(new LinearLayoutManager(this.getContext()));
-//        mDiaryList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
-//
-//        mDiaryAdaptor = new DiaryAdapter();
-//        mDiaryList.setAdapter(mDiaryAdaptor);
-//        DiaryContent diaryContent = new DiaryContent();
-//
-//       firebaseFirestore.collection("Content")
-//               .whereEqualTo("show",true)
-//               .get()
-//               .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                   @Override
-//                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                       if (task.isSuccessful()) {
-//                           for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-//                               Map<String, Object> content1 = documentSnapshot.getData();
-//                               diaryContent.title = (String)content1.getOrDefault("title", "제목이 없습니다");
-//                               diaryContent.content = (String)content1.getOrDefault("content", "내용이 없습니다");
-//
-//                               mDiaryAdaptor.addContent(diaryContent);
-//                           }
-//                       } else {
-//                           Log.d(TAG, "Error getting documents : ", task.getException());
-//                       }
-//                   }
-//               });
-//        return view;
-//    }
-
     public interface ClickListener {
         void onClick(View view, int position);
 
