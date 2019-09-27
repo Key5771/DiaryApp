@@ -142,18 +142,14 @@ public class PrivateDateFirstFragment extends Fragment {
                     diaryContentList.add(diaryData);
                     Log.i(TAG, contentMap.toString());
 
-                    Comparator<Date> comparator = new Comparator<Date>() {
-                        @Override
-                        public int compare(Date o1, Date o2) {
-                            return o2.compareTo(diaryData.timestamp);
-                        }
-                    };
 
                     //정렬
-                    Collections.sort(diaryContentList,((o1, o2) -> {
-                        o2.timestamp.compareTo(diaryData.timestamp);
-                        return 0;
-                    }));
+                    Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
+                        @Override
+                        public int compare(DiaryContent o1, DiaryContent o2) {
+                            return o2.timestamp.compareTo(o1.timestamp);
+                        }
+                    });
 
                 }
                 mDiaryAdaptor = new DiaryAdapter(diaryContentList);

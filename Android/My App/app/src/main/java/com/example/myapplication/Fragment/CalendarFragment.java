@@ -199,7 +199,7 @@ public class CalendarFragment extends Fragment {
         todo_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date selectDate = new Date(select_year,select_month,select_day);
+                Date selectDate = new Date(select_year-3900,select_month,select_day);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
                 String todo_date = simpleDateFormat.format(selectDate);
 
