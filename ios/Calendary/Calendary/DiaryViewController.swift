@@ -96,19 +96,19 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         tableView.dataSource = self
 
-        db.collection("Content").getDocuments(source: .cache) { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                self.diarys = []
-                for document in querySnapshot!.documents {
-                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
-                    self.diarys.append(diaryContent)
-                }
-
-                self.tableView.reloadData()
-            }
-        }
+//        db.collection("Content").getDocuments(source: .cache) { (querySnapshot, err) in
+//            if let err = err {
+//                print("Error getting documents: \(err)")
+//            } else {
+//                self.diarys = []
+//                for document in querySnapshot!.documents {
+//                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
+//                    self.diarys.append(diaryContent)
+//                }
+//
+//                self.tableView.reloadData()
+//            }
+//        }
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)

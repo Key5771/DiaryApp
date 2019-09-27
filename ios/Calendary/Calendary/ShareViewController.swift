@@ -52,7 +52,11 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "yyyy년 MM월 dd일"
-        cell.dateLabel.text = dateFormat.string(from: filteredDiary[indexPath.row].selectTimestamp)
+        if segment.selectedSegmentIndex == 1 || segment.selectedSegmentIndex == 0 {
+            cell.dateLabel.text = dateFormat.string(from: filteredDiary[indexPath.row].selectTimestamp)
+        } else if segment.selectedSegmentIndex == 2 {
+            cell.dateLabel.text = dateFormat.string(from: filteredDiary[indexPath.row].timestamp)
+        }
         
         return cell
     }

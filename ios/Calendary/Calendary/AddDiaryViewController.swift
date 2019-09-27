@@ -140,8 +140,8 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
                 })
                 alertController.addAction(okButton)
                 self.present(alertController, animated: true, completion: nil)
-                
             }
+            
         } else {
             
         }

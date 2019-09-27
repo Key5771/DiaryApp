@@ -16,11 +16,14 @@ class ContentViewController: UIViewController {
     @IBOutlet weak var dateLabel2: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet var swipeGestureRecognizer: UISwipeGestureRecognizer!
+    @IBOutlet weak var heart: UIImageView!
     
     var diaryId: String = ""
+    var like: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        heart.image = UIImage(named: "heart")
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if diaryId != "" {
@@ -65,6 +68,19 @@ class ContentViewController: UIViewController {
         }
 
         // Do any additional setup after loading the view.
+    }
+    
+    
+    
+    @IBAction func likeClick(_ sender: UITapGestureRecognizer) {
+        if like == true {
+            heart.image = UIImage(named: "like")
+            like = false
+        } else {
+            heart.image = UIImage(named: "heart")
+            like = true
+        }
+        
     }
     
     

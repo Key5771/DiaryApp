@@ -37,12 +37,9 @@
                                     <constraint firstAttribute="width" constant="50" id="gFy-kj-86B"/>
                                     <constraint firstAttribute="height" constant="50" id="ml7-4r-h7w"/>
                                 </constraints>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="editImage">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
+                                <state key="normal" image="plus" catalog="system"/>
                                 <connections>
-                                    <segue destination="f0U-Px-UQh" kind="presentation" identifier="addDiary" id="2cW-8C-BI6"/>
+                                    <action selector="plusButtonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MZe-r1-ann"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eas-Oj-fBH">
@@ -53,14 +50,14 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listCell" id="LxK-QI-72V" customClass="ListTableViewCell" customModule="Calendary" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="366" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="366" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LxK-QI-72V" id="f7i-0S-TXC">
-                                            <rect key="frame" x="0.0" y="0.0" width="366" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="366" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="캘린더리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1g-4H-QmB">
-                                                    <rect key="frame" x="28" y="19" width="198" height="21.5"/>
+                                                    <rect key="frame" x="28" y="19" width="198" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -79,16 +76,41 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsY-V9-hL6">
+                                <rect key="frame" x="348" y="747" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.51764705882352935" green="0.34901960784313724" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="LQW-sa-XSu"/>
+                                    <constraint firstAttribute="height" constant="50" id="q0t-nJ-Gw4"/>
+                                </constraints>
+                                <state key="normal" image="editImage"/>
+                                <connections>
+                                    <segue destination="f0U-Px-UQh" kind="presentation" identifier="addDiary" id="hFY-0J-h63"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mW-YC-cg1">
+                                <rect key="frame" x="348" y="747" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.8901960784313725" green="0.45490196078431372" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="U2w-3d-Goj"/>
+                                    <constraint firstAttribute="width" constant="50" id="vmn-sf-aQN"/>
+                                </constraints>
+                                <state key="normal" image="list"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4mW-YC-cg1" secondAttribute="trailing" constant="16" id="0hO-J1-DNB"/>
                             <constraint firstItem="eas-Oj-fBH" firstAttribute="top" secondItem="Ydd-e3-nf6" secondAttribute="bottom" constant="16" id="7Zj-NZ-HU0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ydd-e3-nf6" secondAttribute="trailing" id="8gT-pc-h2a"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wZX-EH-zwk" secondAttribute="bottom" constant="16" id="9KH-ng-ofg"/>
                             <constraint firstItem="eas-Oj-fBH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="B9x-31-NaS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WsY-V9-hL6" secondAttribute="trailing" constant="16" id="Cof-oY-NkK"/>
                             <constraint firstItem="Ydd-e3-nf6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="UA2-Uc-YPN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eas-Oj-fBH" secondAttribute="trailing" constant="32" id="VNP-11-fji"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="WsY-V9-hL6" secondAttribute="bottom" constant="16" id="bes-PO-xNl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wZX-EH-zwk" secondAttribute="trailing" constant="16" id="uuZ-NE-WrJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4mW-YC-cg1" secondAttribute="bottom" constant="16" id="v0c-xj-zbq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eas-Oj-fBH" secondAttribute="bottom" constant="80" id="wJt-Lm-pA1"/>
                             <constraint firstItem="Ydd-e3-nf6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wn9-hR-CPs"/>
                         </constraints>
@@ -98,7 +120,11 @@
                         <barButtonItem key="backBarButtonItem" title="뒤로" id="xNz-T8-liz"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButtonConstraint" destination="bes-PO-xNl" id="j62-kk-ZDY"/>
+                        <outlet property="addDiaryButton" destination="WsY-V9-hL6" id="Vo3-iO-sDT"/>
                         <outlet property="calendar" destination="Ydd-e3-nf6" id="Phk-gs-h02"/>
+                        <outlet property="doWorkButton" destination="4mW-YC-cg1" id="PNm-M5-Mjo"/>
+                        <outlet property="doWorkButtonConstraint" destination="v0c-xj-zbq" id="ZC6-vB-Zrd"/>
                         <outlet property="editButton" destination="wZX-EH-zwk" id="naC-Zy-3r8"/>
                         <outlet property="listTableView" destination="eas-Oj-fBH" id="x5O-HM-egH"/>
                     </connections>
@@ -1048,12 +1074,16 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-SA-IOt">
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" translatesAutoresizingMaskIntoConstraints="NO" id="RZt-SA-IOt">
                                                 <rect key="frame" x="32" y="207" width="24" height="24"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="jjT-gy-7X5"/>
                                                     <constraint firstAttribute="height" constant="24" id="mrK-u9-cfy"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="TE0-p2-jPH" appends="YES" id="Nbu-i0-w91"/>
+                                                </connections>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O6T-O1-jmS">
                                                 <rect key="frame" x="108" y="78" width="0.0" height="0.0"/>
@@ -1165,6 +1195,7 @@
                         <outlet property="contentLabel" destination="fe2-j5-4xU" id="etM-Cu-IFd"/>
                         <outlet property="dateLabel" destination="bcR-Fn-djb" id="S7h-8W-gJM"/>
                         <outlet property="dateLabel2" destination="O6T-O1-jmS" id="Fno-II-MJW"/>
+                        <outlet property="heart" destination="RZt-SA-IOt" id="OG7-U3-Kcy"/>
                         <outlet property="swipeGestureRecognizer" destination="gW1-rS-cIC" id="F41-o1-vR1"/>
                         <outlet property="titleLabel" destination="mau-Ar-Cem" id="S0z-Oo-yaA"/>
                         <outlet property="userId" destination="wpE-8c-Chv" id="MqB-MZ-vcb"/>
@@ -1176,6 +1207,11 @@
                         <action selector="swipe:" destination="eJI-aA-lcd" id="WdV-Zu-1eB"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer id="TE0-p2-jPH">
+                    <connections>
+                        <action selector="likeClick:" destination="eJI-aA-lcd" id="rQ8-4E-9kf"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2121.739130434783" y="762.72321428571422"/>
         </scene>
@@ -1225,7 +1261,9 @@
         <image name="editImage" width="30" height="30"/>
         <image name="group" width="23.5" height="23.5"/>
         <image name="heart" width="18" height="18"/>
+        <image name="list" width="30" height="30"/>
         <image name="logo" width="60" height="55"/>
+        <image name="plus" catalog="system" width="64" height="58"/>
         <image name="profile" width="20" height="20"/>
         <image name="share" width="18" height="18"/>
     </resources>
