@@ -107,8 +107,6 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
             tableView.setEditing(true, animated: true)
             editButton.title = "완료"
         }
-        
-        
     }
     
     override func viewDidLoad() {

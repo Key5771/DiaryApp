@@ -13,41 +13,88 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var originData: [String] = ["dasdas", "sssss", "sadasd", "qqqq", "323232"]
     var data: [String] = ["dasdas", "sssss", "sadasd", "qqqq", "323232"]
     
+    @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
     let db = Firestore.firestore()
-    var diary: [DiaryContent] = []
+    var diary: [DiaryContent] = [] {
+        didSet {
+            dataFilter()
+        }
+    }
+    
+    enum FilterMethod {
+        case popular
+        case newSelected
+        case oldSelected
+        case newWrite
+        case oldWrite
+    }
+    
+    var method: FilterMethod = .popular {
+        didSet {
+            dataFilter()
+        }
+    }
+    
+    var filteredDiary: [DiaryContent] = []
+    private let refreshControl = UIRefreshControl()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return diary.count
+        return filteredDiary.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shareCell", for: indexPath) as! ShareTableViewCell
         
-        cell.titleLabel.text = diary[indexPath.row].title
-        cell.contentLabel.text = diary[indexPath.row].content
+        cell.titleLabel.text = filteredDiary[indexPath.row].title
+        cell.contentLabel.text = filteredDiary[indexPath.row].content
         
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "yyyy년 MM월 dd일"
-        cell.dateLabel.text = dateFormat.string(from: diary[indexPath.row].selectTimestamp)
+        cell.dateLabel.text = dateFormat.string(from: filteredDiary[indexPath.row].selectTimestamp)
         
         return cell
     }
     
     
     @IBAction func selectSegment(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 {
-            data = originData.sorted(by: { (lhs, rhs) -> Bool in
-                return lhs > rhs
-            })
-        } else {
-            data = originData
+        if sender.selectedSegmentIndex == 0 {
+            method = .popular
+        } else if sender.selectedSegmentIndex == 1 {
+            method = .newSelected
+        } else if sender.selectedSegmentIndex == 2 {
+            method = .newWrite
         }
-        tableView.reloadData()
     }
     
-    
+    func dataFilter() {
+        
+        switch method {
+        case .popular:
+            filteredDiary = diary
+        case .newSelected:
+            filteredDiary = diary.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.selectTimestamp > rhs.selectTimestamp
+            })
+        case .oldSelected:
+            filteredDiary = diary.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.selectTimestamp < rhs.selectTimestamp
+            })
+        case .newWrite:
+            filteredDiary = diary.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.timestamp > rhs.timestamp
+            })
+        case .oldWrite:
+            filteredDiary = diary.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.timestamp < rhs.timestamp
+            })
+        @unknown default:
+            filteredDiary = diary
+        }
+        
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,8 +107,15 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let image = UIImage(named: "Calendary.png")
         imageView.image = image
         navigationItem.titleView = imageView
+        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func refresh() {
+        getDocumentFromFirebase()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -83,19 +137,29 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
                     self.diary.append(diaryContent)
                 }
+                self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
             }
         })
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "shareContent" {
+            if let row = tableView.indexPathForSelectedRow {
+                let vc = segue.destination as? ContentViewController
+                vc?.modalPresentationStyle = .overFullScreen
+                vc?.diaryId = filteredDiary[row.row].id
+                tableView.deselectRow(at: row, animated: true)
+            }
+        }
     }
-    */
+    
 
 }

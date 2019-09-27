@@ -39,7 +39,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         calendar.delegate = self
         
-        editButton.layer.cornerRadius = 35
+        editButton.layer.cornerRadius = 15
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         imageView.contentMode = .scaleAspectFill
