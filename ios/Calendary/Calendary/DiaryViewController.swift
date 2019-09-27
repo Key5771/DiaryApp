@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var diarys: [DiaryContent] = []
@@ -17,6 +18,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     private let refreshControl = UIRefreshControl()
     
     let db = Firestore.firestore()
+    let firebaseAuth = Auth.auth()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return diarys.count
@@ -61,7 +63,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func getDocumentFromNetwork() {
-        db.collection("Content").getDocuments(source: .default) { (querySnapshot, err) in
+        db.collection("Content").whereField("user id", isEqualTo: firebaseAuth.currentUser?.email).getDocuments(completion:  { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -71,31 +73,10 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
                     self.diarys.append(diaryContent)
                 }
-                
-//                for change in querySnapshot!.documentChanges {
-//                    if change.type == .added {
-//                        self.diarys.append(DiaryContent(id: change.document.documentID, title: change.document.get("title") as! String, content: change.document.get("content") as! String, date: change.document.get("date") as! String))
-//                        self.tableView.insertRows(at: [IndexPath(row: self.diarys.count - 1, section: 0)], with: .automatic)
-//                    }
-//                    if change.type == .modified {
-//                        let diaryContent = DiaryContent(id: change.document.documentID, title: change.document.get("title") as! String, content: change.document.get("content") as! String, date: change.document.get("date") as! String)
-//                        let index = self.diarys.firstIndex(of: diaryContent) ?? (self.diarys.count - 1)
-//                        self.diarys[index] = diaryContent
-//                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-//                    }
-//                    if change.type == .removed {
-//                        let diaryContent = DiaryContent(id: change.document.documentID, title: change.document.get("title") as! String, content: change.document.get("content") as! String, date: change.document.get("date") as! String)
-//                        if let index = self.diarys.firstIndex(of: diaryContent) {
-//                            self.diarys.remove(at: index)
-//                            self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-//                        }
-//                    }
-//                }
-                
                 self.refreshControl.endRefreshing()
                 self.tableView.reloadData()
             }
-        }
+        })
     }
     
     
