@@ -31,7 +31,9 @@ public class DetailActivity extends AppCompatActivity {
     private EditText edit_comment;
     private DiaryContent diaryContent;
     private FirebaseFirestore firebaseFirestore;
-    private ImageView left_btn;
+    private ImageView left_btn, like_btn;
+
+    int i = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -44,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         init();
 
         left_btn.setOnClickListener(this::onClick);
+        like_btn.setOnClickListener(this::onClick);
 
         String title_st;
         String content_st;
@@ -58,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
         time_st = diaryContent.timestamp;
         date_st = diaryContent.select_timestamp;
         name_st = diaryContent.user_id;
-        //name_st 자꾸 null...
+
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
@@ -70,8 +73,6 @@ public class DetailActivity extends AppCompatActivity {
         selecttime_text.setText(dateFormat.format(date_st)+" 일기");
         name_text.setText(name_st);
 
-
-
         CollectionReference collectionReference = firebaseFirestore.collection("Content");
         collectionReference.document().collection("comment").get();
     }
@@ -80,6 +81,11 @@ public class DetailActivity extends AppCompatActivity {
     public void onClick(View view){
         if(view == left_btn) {
             finish();
+        }
+        if(view == like_btn){
+            i = 1 - i;
+            if(i == 0){ like_btn.setImageResource(R.drawable.likefull); }
+            else { like_btn.setImageResource(R.drawable.heart);}
         }
     }
 
@@ -90,9 +96,10 @@ public class DetailActivity extends AppCompatActivity {
         name_text = (TextView) findViewById(R.id.user_name);
         selecttime_text = (TextView) findViewById(R.id.select_time_tv);
 
-        edit_comment = (EditText) findViewById(R.id.edit_comment);
+//        edit_comment = (EditText) findViewById(R.id.edit_comment);
 
         left_btn = (ImageView) findViewById(R.id.left_btn);
+        like_btn = (ImageView) findViewById(R.id.heart_btn);
 
     }
 

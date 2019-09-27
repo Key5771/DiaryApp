@@ -13,12 +13,12 @@ import com.example.myapplication.R;
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> {
+public class PublicAdapter extends RecyclerView.Adapter<PublicAdapter.ViewHolder> {
+
     private List<DiaryContent> diaryContentList;
     private Map<String, DiaryContent> diaryMap;
 
@@ -27,32 +27,34 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         public TextView titleTextView;
         public TextView contentTextView;
         public TextView timeTextView;
+        public TextView nameTextView;
         public ViewHolder(View v) {
             super(v);
-            titleTextView = v.findViewById(R.id.diary_item_title);
-            contentTextView = v.findViewById(R.id.diary_item_content);
-            timeTextView = v.findViewById(R.id.diary_item_date);
+            titleTextView = v.findViewById(R.id.pub_item_title);
+            contentTextView = v.findViewById(R.id.pub_item_content);
+            timeTextView = v.findViewById(R.id.pub_item_date);
+            nameTextView = v.findViewById(R.id.pub_item_name);
         }
     }
 
     @Override
-    public DiaryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.diary_list_item, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+    public PublicAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.public_list_item, parent, false);
+        PublicAdapter.ViewHolder vh = new ViewHolder(view);
         return vh;
     }
 
 
-    public DiaryAdapter(){
+    public PublicAdapter(){
         this.diaryContentList = new LinkedList<>();
     }
 
-    public DiaryAdapter(List<DiaryContent> diaryContentList) {
+    public PublicAdapter(List<DiaryContent> diaryContentList) {
         this.diaryContentList = diaryContentList;
     }
 
-    public DiaryAdapter(Map<String, DiaryContent> diaryMap) {
+    public PublicAdapter(Map<String, DiaryContent> diaryMap) {
         this.diaryMap = diaryMap;
     }
 
@@ -61,7 +63,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(PublicAdapter.ViewHolder holder, int position) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
         String timetv = simpleDateFormat.format(diaryContentList.get(position).timestamp);
@@ -69,6 +71,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.ViewHolder> 
         holder.titleTextView.setText(diaryContentList.get(position).title);
         holder.contentTextView.setText(diaryContentList.get(position).content);
         holder.timeTextView.setText(timetv);
+        holder.nameTextView.setText(diaryContentList.get(position).user_id);
     }
 
     @Override

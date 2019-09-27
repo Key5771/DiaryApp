@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Activity.DetailActivity;
 import com.example.myapplication.Adapter.DiaryAdapter;
+import com.example.myapplication.Adapter.PublicAdapter;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,6 +53,7 @@ public class PublicDateFirstFragment extends Fragment {
     List<DiaryContent> diaryContentList;
     private GestureDetector gestureDetector;
     private DiaryAdapter mDiaryAdaptor;
+    private PublicAdapter publicAdapter;
     private TextView titleTextview, contentTextview, timeTextview;
     private SwipeRefreshLayout swipeRefreshLayout;
     Map<String, Object> contentMap;
@@ -66,18 +68,26 @@ public class PublicDateFirstFragment extends Fragment {
         read_diary();
         select_diary();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                read_diary();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
-
-        pDateList.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
         return view;
     }
 
     private void init(View view) {
         pDateList = (RecyclerView) view.findViewById(R.id.pub_date_first_list);
+        pDateList.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
 
         titleTextview = (TextView) view.findViewById(R.id.diary_item_title);
         contentTextview = (TextView) view.findViewById(R.id.diary_item_content);
         timeTextview = (TextView) view.findViewById(R.id.diary_item_date);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout3);
 
         layoutManager = new LinearLayoutManager(getActivity());
         pDateList.setLayoutManager(layoutManager);
@@ -108,12 +118,13 @@ public class PublicDateFirstFragment extends Fragment {
                     diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
                     diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
                     diaryData.timestamp = ((Timestamp) contentMap.getOrDefault("timestamp", 0)).toDate();
+                    diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
                     Log.i(TAG, contentMap.toString());
                 }
-                mDiaryAdaptor = new DiaryAdapter(diaryContentList);
-                pDateList.setAdapter(mDiaryAdaptor);
+                publicAdapter = new PublicAdapter(diaryContentList);
+                pDateList.setAdapter(publicAdapter);
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
             }
@@ -141,37 +152,9 @@ public class PublicDateFirstFragment extends Fragment {
             }
 
 
-            //일기 삭제하기
+
             @Override
             public void onLongClick(View view, int position) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("삭제하겠습니까?");
-                alert.setMessage("삭제된 일기는 복구할 수 없습니다.");
-                alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        firebaseFirestore.collection("diarys").document()
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getActivity(), "삭제되었습니다", Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getActivity(), "실패", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                });
-                alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).show();
             }
         }));
 

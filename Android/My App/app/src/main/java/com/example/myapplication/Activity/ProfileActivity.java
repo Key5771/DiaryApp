@@ -31,7 +31,6 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private TextView userName, userEmail , name_tv, email_tv, image_change;
-    private Button passwordChange;
     private ImageView backbtn, profileImage;
     private DiaryContent diaryContent;
 
@@ -68,13 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        passwordChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, PasswordChangeActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -90,8 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         image_change = (TextView) findViewById(R.id.profile_change);
         image_change.setTypeface(Typeface.DEFAULT_BOLD);
-
-        passwordChange = (Button) findViewById(R.id.password_change_button);
 
         backbtn = (ImageView) findViewById(R.id.back_button);
         profileImage = (ImageView) findViewById(R.id.profile_image);

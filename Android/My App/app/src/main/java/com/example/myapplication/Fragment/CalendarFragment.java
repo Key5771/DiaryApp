@@ -55,8 +55,12 @@ public class CalendarFragment extends Fragment {
     private Map<String, Object> contentMap;
     private RecyclerView mDayList;
     private float scale = 1.05f;
+    private FloatingActionButton fab, diary_fab, todo_fab;
+    private Boolean isFABOpen;
 
     private EditText todoText;
+
+    int i = 0;
 
     private int select_year, select_month, select_day;
     final Context context = getActivity();
@@ -69,7 +73,9 @@ public class CalendarFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_calendar_fragment,container,false);
 
         calendarView = (CalendarView) view.findViewById(R.id.calendarView);
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        diary_fab = (FloatingActionButton) view.findViewById(R.id.diary_fab);
+        todo_fab = (FloatingActionButton) view.findViewById(R.id.todo_fab);
         mDayList = (RecyclerView) view.findViewById(R.id.day_list);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -108,27 +114,6 @@ public class CalendarFragment extends Fragment {
         calendarView.setOnLongClickListener(new View.OnLongClickListener(){
             @Override
             public boolean onLongClick(View view1){
-                LayoutInflater layoutInflater = LayoutInflater.from(context);
-                View todoView = layoutInflater.inflate(R.layout.todo_popup,null);
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setView(todoView);
-
-                todoText = (EditText) todoView.findViewById(R.id.todo);
-                alertDialogBuilder.setTitle("할일을 입력해주세요!").setCancelable(false);
-
-                alertDialogBuilder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(),"취소",Toast.LENGTH_LONG).show();
-                    }
-                }); alertDialogBuilder.show();
 
 //                AlertDialog alertDialog = alertDialogBuilder.create();
 //                alertDialog.show();
@@ -154,14 +139,8 @@ public class CalendarFragment extends Fragment {
                 select_month = month;
                 select_year = year;
 
-                //선택한 날짜 비교해서 미래일기 막기
+
                 Date selectDate = new Date(select_year,select_month,select_day);
-                if(selectDate.compareTo(currentTime) > 0 ){
-                    fab.hide();
-                    Toast.makeText(view.getContext(),"오늘 이후의 일기는 쓸 수 없습니다!",Toast.LENGTH_SHORT).show();
-                } else{
-                    fab.show();
-                }
 
                 //선택한 날짜에 저장된 목록 가져오기
                 CollectionReference collectionReference = firebaseFirestore.collection("Content");
@@ -191,15 +170,74 @@ public class CalendarFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent transferIntent = new Intent(getActivity(), AddDiaryActivity.class);
-                transferIntent.putExtra("year",select_year);
-                transferIntent.putExtra("month",select_month);
-                transferIntent.putExtra("day",select_day);
-                startActivity(transferIntent);
+                i = 1 - i;
+                if(i == 0){
+                    showFABMenu();
+                }
+                else{closeFABMenu();}
+            }
+        });
+
+        diary_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date selectDate = new Date(select_year,select_month,select_day);
+                if(selectDate.after(currentTime)){
+                    Intent transferIntent = new Intent(getActivity(), AddDiaryActivity.class);
+                    transferIntent.putExtra("year",select_year);
+                    transferIntent.putExtra("month",select_month);
+                    transferIntent.putExtra("day",select_day);
+                    startActivity(transferIntent);
+                }else{
+                    Toast.makeText(getActivity(), "오늘 이후의 일기는 쓸 수 없습니다!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+        });
+
+        todo_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date selectDate = new Date(select_year,select_month,select_day);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+                String todo_date = simpleDateFormat.format(selectDate);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setView(R.layout.todo_popup);
+
+                todoText = (EditText) view.findViewById(R.id.todo);
+
+                alertDialogBuilder.setTitle(todo_date+" 의 할일").setCancelable(false);
+
+                alertDialogBuilder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(),"취소",Toast.LENGTH_LONG).show();
+                    }
+                }); alertDialogBuilder.show();
             }
         });
 
         return view;
+    }
+
+    private void showFABMenu(){
+        isFABOpen = true;
+        diary_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_60));
+        todo_fab.animate().translationY(-getResources().getDimension(R.dimen.standard_110));
+    }
+
+    private void closeFABMenu(){
+        isFABOpen = false;
+        diary_fab.animate().translationY(0);
+        todo_fab.animate().translationY(0);
     }
 
 

@@ -80,24 +80,6 @@
         app:layout_constraintStart_toEndOf="@+id/email"
         app:layout_constraintTop_toBottomOf="@+id/user_name_text" />
 
-    <Button
-        android:id="@+id/password_change_button"
-        android:layout_width="99dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/radius"
-        android:backgroundTint="@color/orange_inactive"
-        android:fontFamily="@font/netmarbleb"
-        android:text="비밀번호 바꾸기"
-        android:textColor="@color/white"
-        android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.422"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_email_text" />
-
     <TextView
         android:id="@+id/profile_change"
         android:layout_width="wrap_content"

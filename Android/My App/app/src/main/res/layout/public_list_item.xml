@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/pub_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/pub_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="TextView"
+        android:textColor="@color/dark"
+        android:textSize="15dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="19dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/pub_item_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/dark"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/pub_item"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:text="|"
+                android:textColor="@color/dark"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/pub_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="200dp"
+                android:text="TextView"
+                android:textColor="@color/dark"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:id="@+id/pub_item_heart"
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="3dp"
+                android:tint="@color/red_active"
+                app:srcCompat="@drawable/heart" />
+
+            <TextView
+                android:id="@+id/pub_item_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:text="0" />
+
+            <ImageView
+                android:id="@+id/pub_item_commentIMG"
+                android:layout_width="16dp"
+                android:layout_height="19dp"
+                android:layout_marginRight="3dp"
+                app:srcCompat="@drawable/comment" />
+
+            <TextView
+                android:id="@+id/pub_item_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

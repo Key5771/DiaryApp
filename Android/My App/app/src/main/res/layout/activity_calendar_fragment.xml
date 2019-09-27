@@ -34,6 +34,35 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/todo_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="0.5"
+        android:backgroundTint="@color/red_inactive"
+        android:src="@drawable/list"
+        android:tint="@color/white"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fab"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/diary_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="0.5"
+        android:backgroundTint="@color/canyon_clay"
+        android:src="@drawable/edit"
+        android:tint="@color/white"
+        app:borderWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,7 +71,7 @@
         android:layout_marginBottom="8dp"
         android:layout_weight="0.5"
         android:backgroundTint="@color/orange_inactive"
-        android:src="@drawable/edit"
+        android:src="@drawable/plus"
         android:tint="@color/white"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/day_list"

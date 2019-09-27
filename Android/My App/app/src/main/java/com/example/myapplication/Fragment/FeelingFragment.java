@@ -76,9 +76,9 @@ public class FeelingFragment extends Fragment {
 //탭 레이아웃 설정
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout2);
+        tabLayout.addTab(tabLayout.newTab().setText("인기순"));
         tabLayout.addTab(tabLayout.newTab().setText("작성순"));
         tabLayout.addTab(tabLayout.newTab().setText("일기순"));
-        tabLayout.addTab(tabLayout.newTab().setText("인기순"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager) view.findViewById(R.id.view_pager2);

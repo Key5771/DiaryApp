@@ -35,11 +35,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import java.net.CookieHandler;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +62,7 @@ public class PrivateDateFirstFragment extends Fragment {
     private GestureDetector gestureDetector;
     private DiaryAdapter mDiaryAdaptor;
     private TextView titleTextview, contentTextview, timeTextview;
-    Map<String, Object> contentMap;
+    private Map<String, Object> contentMap;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     RecyclerView.LayoutManager layoutManager;
@@ -77,8 +82,6 @@ public class PrivateDateFirstFragment extends Fragment {
         read_diary();
         select_diary();
 
-
-        mDateList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -86,8 +89,6 @@ public class PrivateDateFirstFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
-
 
         return view;
     }
@@ -102,9 +103,10 @@ public class PrivateDateFirstFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout1);
         swipeRefreshLayout.setColorSchemeResources(R.color.orange_inactive);
 
+        mDateList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
+
         layoutManager = new LinearLayoutManager(getActivity());
         mDateList.setLayoutManager(layoutManager);
-
 
     }
 
@@ -139,6 +141,20 @@ public class PrivateDateFirstFragment extends Fragment {
 
                     diaryContentList.add(diaryData);
                     Log.i(TAG, contentMap.toString());
+
+                    Comparator<Date> comparator = new Comparator<Date>() {
+                        @Override
+                        public int compare(Date o1, Date o2) {
+                            return o2.compareTo(diaryData.timestamp);
+                        }
+                    };
+
+                    //정렬
+                    Collections.sort(diaryContentList,((o1, o2) -> {
+                        o2.timestamp.compareTo(diaryData.timestamp);
+                        return 0;
+                    }));
+
                 }
                 mDiaryAdaptor = new DiaryAdapter(diaryContentList);
                 mDateList.setAdapter(mDiaryAdaptor);
@@ -148,6 +164,7 @@ public class PrivateDateFirstFragment extends Fragment {
         });
 
     }
+
 
     private void select_diary() {
 
