@@ -30,24 +30,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var selectedDateObserver: NSKeyValueObservation? = nil
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return diarys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  listTableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
         
-        cell.workLabel.text = "캘린더리"
+        cell.workLabel.text = diarys[indexPath.row].title
         
         return cell
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        getDocumentFromFirebase()
     }
     
     func getDocumentFromFirebase() {
-        
+        db.collection("Content").whereField("select timestamp", isEqualTo: calendar.selectedDate).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting document: \(error)")
+            } else {
+                self.diarys = []
+                for document in querySnapshot!.documents {
+                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
+                    self.diarys.append(diaryContent)
+                }
+                self.listTableView.reloadData()
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -81,25 +92,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    
     @IBAction func plusButtonClick(_ sender: Any) {
+
         if click == true {
             addDiaryButton.isHidden = false
             doWorkButton.isHidden = false
-            addButtonConstraint.constant = 76
-            doWorkButtonConstraint.constant = 136
-            
-            
+            UIView.animate(withDuration: 0.5) {
+                self.addButtonConstraint.constant = 76
+                self.doWorkButtonConstraint.constant = 136
+                self.addDiaryButton.layoutIfNeeded()
+            }
+        
             click = false
         } else {
             addDiaryButton.isHidden = true
             doWorkButton.isHidden = true
-            addButtonConstraint.constant = 16
-            doWorkButtonConstraint.constant = 16
+            UIView.animate(withDuration: 0.5) {
+                self.addButtonConstraint.constant = 16
+                self.doWorkButtonConstraint.constant = 16
+                self.addDiaryButton.layoutIfNeeded()
+            }
             
             click = true
         }
-        
     }
     
     deinit {
