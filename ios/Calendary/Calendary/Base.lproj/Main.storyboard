@@ -1054,7 +1054,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J97-86-BJ4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="303"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="411"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpE-8c-Chv">
                                                 <rect key="frame" x="108" y="62" width="0.0" height="0.0"/>
@@ -1136,18 +1136,36 @@
                                                     <constraint firstAttribute="width" constant="24" id="pnD-Nu-18d"/>
                                                 </constraints>
                                             </imageView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="댓글 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mRK-Pk-TmB">
+                                                <rect key="frame" x="8" y="371" width="350" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="dgA-Qh-MF8"/>
+                                                    <constraint firstAttribute="width" constant="350" id="gnp-L5-8Qf"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W09-0a-uiT">
+                                                <rect key="frame" x="390" y="371" width="16" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Xd1-Yr-42e"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="comment"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="W09-0a-uiT" secondAttribute="bottom" id="0fu-hH-SLe"/>
                                             <constraint firstItem="mau-Ar-Cem" firstAttribute="top" secondItem="3Sm-I1-IBK" secondAttribute="bottom" constant="43" id="1Vo-VY-Jnc"/>
                                             <constraint firstItem="O6T-O1-jmS" firstAttribute="top" secondItem="bcR-Fn-djb" secondAttribute="bottom" constant="8" id="3Qf-8Y-F9O"/>
+                                            <constraint firstAttribute="bottom" secondItem="mRK-Pk-TmB" secondAttribute="bottom" id="4xC-5B-rrd"/>
                                             <constraint firstItem="RZt-SA-IOt" firstAttribute="leading" secondItem="J97-86-BJ4" secondAttribute="leading" constant="32" id="66V-ax-XXS"/>
                                             <constraint firstItem="6ml-ea-n4H" firstAttribute="top" secondItem="fe2-j5-4xU" secondAttribute="bottom" constant="16" id="6Jv-8E-N5i"/>
                                             <constraint firstItem="6ml-ea-n4H" firstAttribute="leading" secondItem="RZt-SA-IOt" secondAttribute="trailing" constant="32" id="Aea-0a-CNA"/>
                                             <constraint firstItem="TqA-Bq-VDE" firstAttribute="top" secondItem="J97-86-BJ4" secondAttribute="top" id="Du6-Ju-yfp"/>
-                                            <constraint firstAttribute="bottom" secondItem="PFl-Es-OzB" secondAttribute="bottom" constant="32" id="F6X-tU-fLE"/>
                                             <constraint firstAttribute="trailing" secondItem="fe2-j5-4xU" secondAttribute="trailing" constant="32" id="FAt-He-4Yd"/>
                                             <constraint firstItem="PFl-Es-OzB" firstAttribute="leading" secondItem="J97-86-BJ4" secondAttribute="leading" id="NFV-jm-tjh"/>
+                                            <constraint firstItem="W09-0a-uiT" firstAttribute="leading" secondItem="mRK-Pk-TmB" secondAttribute="trailing" constant="32" id="Rxa-eC-42f"/>
                                             <constraint firstItem="3Sm-I1-IBK" firstAttribute="leading" secondItem="J97-86-BJ4" secondAttribute="leading" constant="32" id="VSF-7N-sNj"/>
                                             <constraint firstItem="bcR-Fn-djb" firstAttribute="leading" secondItem="3Sm-I1-IBK" secondAttribute="trailing" constant="16" id="WfN-dA-xwC"/>
                                             <constraint firstItem="O6T-O1-jmS" firstAttribute="leading" secondItem="3Sm-I1-IBK" secondAttribute="trailing" constant="16" id="alB-VN-aDp"/>
@@ -1157,8 +1175,11 @@
                                             <constraint firstAttribute="trailing" secondItem="PFl-Es-OzB" secondAttribute="trailing" id="jeI-Ed-ecj"/>
                                             <constraint firstAttribute="trailing" secondItem="TqA-Bq-VDE" secondAttribute="trailing" id="lbw-63-RfW"/>
                                             <constraint firstItem="mau-Ar-Cem" firstAttribute="leading" secondItem="J97-86-BJ4" secondAttribute="leading" constant="32" id="mRc-1k-F9s"/>
+                                            <constraint firstAttribute="trailing" secondItem="W09-0a-uiT" secondAttribute="trailing" constant="8" id="mcP-8H-YBl"/>
                                             <constraint firstItem="fe2-j5-4xU" firstAttribute="leading" secondItem="J97-86-BJ4" secondAttribute="leading" constant="32" id="nQH-yI-Tch"/>
+                                            <constraint firstItem="mRK-Pk-TmB" firstAttribute="leading" secondItem="J97-86-BJ4" secondAttribute="leading" constant="8" id="oP3-ya-Euf"/>
                                             <constraint firstItem="fe2-j5-4xU" firstAttribute="top" secondItem="mau-Ar-Cem" secondAttribute="bottom" constant="16" id="oVG-l3-W0O"/>
+                                            <constraint firstItem="mRK-Pk-TmB" firstAttribute="top" secondItem="PFl-Es-OzB" secondAttribute="bottom" constant="100" id="pzT-Pf-B5q"/>
                                             <constraint firstItem="bcR-Fn-djb" firstAttribute="top" secondItem="wpE-8c-Chv" secondAttribute="bottom" constant="8" id="sqf-CC-Zbc"/>
                                             <constraint firstItem="3Sm-I1-IBK" firstAttribute="top" secondItem="TqA-Bq-VDE" secondAttribute="bottom" constant="16" id="w6a-MT-tz9"/>
                                             <constraint firstItem="wpE-8c-Chv" firstAttribute="leading" secondItem="3Sm-I1-IBK" secondAttribute="trailing" constant="16" id="xoo-M9-t99"/>
@@ -1257,6 +1278,7 @@
     </scenes>
     <resources>
         <image name="calendarImage" width="20" height="20"/>
+        <image name="comment" width="18" height="18"/>
         <image name="diaryImage" width="20" height="20"/>
         <image name="editImage" width="30" height="30"/>
         <image name="group" width="23.5" height="23.5"/>

@@ -43,11 +43,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getDocumentFromFirebase()
     }
     
     func getDocumentFromFirebase() {
-        db.collection("Content").whereField("select timestamp", isEqualTo: calendar.selectedDate).getDocuments { (querySnapshot, error) in
+        let selectedDate = calendar.selectedDate ?? Date()
+        let selectedDatePlusDay = Calendar.current.date(byAdding: .day, value: 1, to: selectedDate) ?? Date()
+        db.collection("Content").whereField("select timestamp", isGreaterThanOrEqualTo: selectedDate).whereField("select timestamp", isLessThan: selectedDatePlusDay).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting document: \(error)")
             } else {
@@ -84,6 +85,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
+        getDocumentFromFirebase()
+        
         if date > self.date {
             self.editButton.isHidden = true
         } else {
@@ -100,17 +103,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             UIView.animate(withDuration: 0.5) {
                 self.addButtonConstraint.constant = 76
                 self.doWorkButtonConstraint.constant = 136
-                self.addDiaryButton.layoutIfNeeded()
+                self.view.layoutIfNeeded()
             }
         
             click = false
         } else {
-            addDiaryButton.isHidden = true
-            doWorkButton.isHidden = true
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.addButtonConstraint.constant = 16
                 self.doWorkButtonConstraint.constant = 16
-                self.addDiaryButton.layoutIfNeeded()
+                self.view.layoutIfNeeded()
+            }) { _ in
+                self.addDiaryButton.isHidden = true
+                self.doWorkButton.isHidden = true
             }
             
             click = true

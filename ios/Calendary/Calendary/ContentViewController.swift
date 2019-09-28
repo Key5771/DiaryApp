@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class ContentViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
@@ -21,13 +22,15 @@ class ContentViewController: UIViewController {
     var diaryId: String = ""
     var like: Bool = true
     
+    let db = Firestore.firestore()
+    let firebaseAuth = Auth.auth()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         heart.image = UIImage(named: "heart")
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if diaryId != "" {
-            let db = Firestore.firestore()
             let data = db.collection("Content").document(diaryId)
             data.getDocument { (querySnapshot, err) in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -73,6 +76,7 @@ class ContentViewController: UIViewController {
     
     
     @IBAction func likeClick(_ sender: UITapGestureRecognizer) {
+        
         if like == true {
             heart.image = UIImage(named: "like")
             like = false

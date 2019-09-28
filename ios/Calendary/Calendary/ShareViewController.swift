@@ -10,8 +10,6 @@ import UIKit
 import FirebaseFirestore
 
 class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var originData: [String] = ["dasdas", "sssss", "sadasd", "qqqq", "323232"]
-    var data: [String] = ["dasdas", "sssss", "sadasd", "qqqq", "323232"]
     
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -102,6 +100,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(diary.count)
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
