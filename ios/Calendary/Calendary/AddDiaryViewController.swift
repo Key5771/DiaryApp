@@ -71,26 +71,31 @@ class AddDiaryViewController: UIViewController {
         var ref: DocumentReference? = nil
         let calendar = Calendar.current
         let db = Firestore.firestore()
-        ref = db.collection("diarys").addDocument(data: [
-            "content": contentTextview.text ?? "",
-            "date": "\(calendar.component(.year, from: date))/\(calendar.component(.month, from: date))/\(calendar.component(.day, from: date))",
-            "title": titleTextfield.text ?? ""
-        ]) { err in
-            var alertTitle = "저장되었습니다."
-            var alertMessage = "성공적으로 저장되었습니다."
-            if err != nil {
-                alertTitle = "실패하였습니다."
-                alertMessage = "저장에 실패하였습니다."
+        if diaryId == "" {
+            ref = db.collection("diarys").addDocument(data: [
+                "content": contentTextview.text ?? "",
+                "date": "\(calendar.component(.year, from: date))/\(calendar.component(.month, from: date))/\(calendar.component(.day, from: date))",
+                "title": titleTextfield.text ?? ""
+            ]) { err in
+                var alertTitle = "저장되었습니다."
+                var alertMessage = "성공적으로 저장되었습니다."
+                if err != nil {
+                    alertTitle = "실패하였습니다."
+                    alertMessage = "저장에 실패하였습니다."
+                }
+                
+                let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+                let okButton = UIAlertAction(title: "확인", style: .default, handler: { (_) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                alertController.addAction(okButton)
+                self.present(alertController, animated: true, completion: nil)
+                
             }
-            
-            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "확인", style: .default, handler: { (_) in
-                self.navigationController?.popViewController(animated: true)
-            })
-            alertController.addAction(okButton)
-            self.present(alertController, animated: true, completion: nil)
+        } else {
             
         }
+        
 
     }
     
