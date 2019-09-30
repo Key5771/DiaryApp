@@ -8,13 +8,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -23,6 +30,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -31,7 +41,9 @@ public class DetailActivity extends AppCompatActivity {
     private EditText edit_comment;
     private DiaryContent diaryContent;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
     private ImageView left_btn, like_btn;
+    List<DiaryContent> diaryContentList;
 
     int i = 0;
 
@@ -41,12 +53,13 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         intent = getIntent();
         init();
 
         left_btn.setOnClickListener(this::onClick);
-        like_btn.setOnClickListener(this::onClick);
 
         String title_st;
         String content_st;
@@ -73,20 +86,61 @@ public class DetailActivity extends AppCompatActivity {
         selecttime_text.setText(dateFormat.format(date_st)+" 일기");
         name_text.setText(name_st);
 
-        CollectionReference collectionReference = firebaseFirestore.collection("Content");
-        collectionReference.document().collection("comment").get();
+
+//        like_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v, int position) {
+//                i = 1 - i;
+//                if(i == 0){
+//                    //좋아요 버튼 한번 눌렀을 때
+//
+//                    Map<String, Object> fav = new HashMap<>();
+//                    fav.put("favUserID",user.getEmail());
+//
+//                    firebaseFirestore.collection("Content")
+//                            .document(DetailActivity.this.diaryContentList.get(position).id)
+//                            .collection("Favorite")
+//                            .add(fav)
+//                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<DocumentReference> task) {
+//                                    if(task.isSuccessful()){
+//                                        like_btn.setImageResource(R.drawable.likefull);
+//                                    } else{
+//                                        Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            });
+//                }
+//                else {
+//                    //좋아요 버튼 한번 더 눌렀을 때
+//
+//                    Map<String, Object> favUser = new HashMap<>();
+//                    favUser.put("favUserID", FieldValue.delete());
+//
+//                    DocumentReference docRef = firebaseFirestore.collection("Content")
+//                            .document(DetailActivity.this.diaryContentList.get(position).id)
+//                            .collection("Favorite").document();
+//
+//                    docRef.update(favUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()){
+//                                like_btn.setImageResource(R.drawable.heart);
+//                            } else{
+//                                Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
     }
 
 
+
     public void onClick(View view){
-        if(view == left_btn) {
-            finish();
-        }
-        if(view == like_btn){
-            i = 1 - i;
-            if(i == 0){ like_btn.setImageResource(R.drawable.likefull); }
-            else { like_btn.setImageResource(R.drawable.heart);}
-        }
+        if(view == left_btn) { finish(); }
     }
 
     public void init(){

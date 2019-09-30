@@ -35,17 +35,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
-import java.net.CookieHandler;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +60,8 @@ public class PrivateDateFirstFragment extends Fragment {
     private TextView titleTextview, contentTextview, timeTextview;
     private Map<String, Object> contentMap;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private RadioButton newRadioButton, oldRadioButton;
+    private RadioGroup radioGroup;
 
     RecyclerView.LayoutManager layoutManager;
 
@@ -79,14 +77,32 @@ public class PrivateDateFirstFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_private_date_first, container, false);
 
         init(view);
-        read_diary();
+        read_newDiary();
         select_diary();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                read_diary();
+                read_newDiary();
                 swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        radioGroup.check(R.id.radioButton3);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case 1:
+                        read_newDiary();
+                        break;
+                    case 2:
+                        read_oldDiary();
+                        break;
+                    default:
+                        read_newDiary();
+                        break;
+                }
             }
         });
 
@@ -100,6 +116,10 @@ public class PrivateDateFirstFragment extends Fragment {
         contentTextview = (TextView) view.findViewById(R.id.diary_item_content);
         timeTextview = (TextView) view.findViewById(R.id.diary_item_date);
 
+        radioGroup = (RadioGroup) view.findViewById(R.id.radio);
+        newRadioButton = (RadioButton) view.findViewById(R.id.radioButton3);
+        oldRadioButton = (RadioButton) view.findViewById(R.id.radioButton4);
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout1);
         swipeRefreshLayout.setColorSchemeResources(R.color.orange_inactive);
 
@@ -111,7 +131,7 @@ public class PrivateDateFirstFragment extends Fragment {
     }
 
 
-    private void read_diary(){
+    private void read_newDiary(){
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -143,7 +163,7 @@ public class PrivateDateFirstFragment extends Fragment {
                     Log.i(TAG, contentMap.toString());
 
 
-                    //정렬
+                    //최신순 정렬
                     Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
                         @Override
                         public int compare(DiaryContent o1, DiaryContent o2) {
@@ -161,6 +181,56 @@ public class PrivateDateFirstFragment extends Fragment {
 
     }
 
+    private void read_oldDiary(){
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+        //일기 불러오기
+        CollectionReference collectionReference = firebaseFirestore.collection("Content");
+        collectionReference.whereEqualTo("user id",user.getEmail()).get().addOnCompleteListener(task -> {
+
+            if(task.isSuccessful()){
+                QuerySnapshot documentSnapshots = task.getResult();
+                diaryContentList = new ArrayList<>();
+                contentMap = new HashMap<>();
+                for(QueryDocumentSnapshot document : documentSnapshots) {
+                    DiaryContent diaryData = new DiaryContent();
+                    contentMap = document.getData();
+
+                    diaryData.id = (String) document.getId();
+                    diaryData.title = (String) contentMap.getOrDefault("title","제목");
+                    diaryData.content = (String) contentMap.getOrDefault("content","내용");
+                    diaryData.timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
+                    diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
+                    diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
+                    diaryData.user_id = (String) contentMap.get("user id");
+
+                    diaryContentList.add(diaryData);
+                    Log.i(TAG, contentMap.toString());
+
+
+                    //오래된순 정렬
+                    Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
+                        @Override
+                        public int compare(DiaryContent o1, DiaryContent o2) {
+//                            return o2.timestamp.compareTo(o1.timestamp);
+                            return o1.timestamp.compareTo(o2.timestamp);
+                        }
+                    });
+
+                }
+                mDiaryAdaptor = new DiaryAdapter(diaryContentList);
+                mDateList.setAdapter(mDiaryAdaptor);
+            } else{
+                Log.d(TAG, "get failed with ", task.getException());
+            }
+        });
+
+    }
 
     private void select_diary() {
 
@@ -199,7 +269,8 @@ public class PrivateDateFirstFragment extends Fragment {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(getActivity(),"삭제되었습니다",Toast.LENGTH_SHORT).show();
-                                        read_diary();
+                                        if(newRadioButton.isChecked()){
+                                        read_newDiary();} else{ read_oldDiary();}
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
