@@ -102,7 +102,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         // 좋아요 한 경우와 안한 경우 구분해서 이미지 변경 및 변경되도록 설정
-        db.collection("Content").document(diaryId).collection("Favorite").whereField("favUserId", isEqualTo: firebaseAuth.currentUser?.email).addSnapshotListener { (snapShot, err) in
+        db.collection("Content").document(diaryId).collection("Favorite").whereField("user id", isEqualTo: firebaseAuth.currentUser?.email).addSnapshotListener { (snapShot, err) in
             if err != nil {
                 print("Error: \(err)")
             } else {
@@ -171,7 +171,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 "user id": firebaseAuth.currentUser?.email
             ])
         } else {
-            db.collection("Content").document(diaryId).collection("Favorite").whereField("favUserId", isEqualTo: firebaseAuth.currentUser?.email).getDocuments { (snapshot, error) in
+            db.collection("Content").document(diaryId).collection("Favorite").whereField("user id", isEqualTo: firebaseAuth.currentUser?.email).getDocuments { (snapshot, error) in
                 snapshot?.documents.forEach { $0.reference.delete()}
             }
         }
