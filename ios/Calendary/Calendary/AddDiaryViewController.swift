@@ -142,6 +142,10 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
                 self.present(alertController, animated: true, completion: nil)
             }
             
+//            ref?.collection("Favorite").addDocument(data: [
+//                "favUserId": firebaseAuth.currentUser?.email
+//            ])
+            
         } else {
             
         }

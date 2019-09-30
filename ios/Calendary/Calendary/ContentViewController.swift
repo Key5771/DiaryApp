@@ -79,9 +79,19 @@ class ContentViewController: UIViewController {
         
         if like == true {
             heart.image = UIImage(named: "like")
+            
+            db.collection("Content").document(diaryId).collection("Favorite").whereField("user id", isEqualTo: firebaseAuth.currentUser?.email).getDocuments { (snapshot, error) in
+                snapshot?.documents.forEach { $0.reference.delete()}
+            }
+            
             like = false
         } else {
             heart.image = UIImage(named: "heart")
+            
+            db.collection("Content").document(diaryId).collection("Favorite").addDocument(data: [
+                "favUserId": firebaseAuth.currentUser?.email
+            ])
+            
             like = true
         }
         

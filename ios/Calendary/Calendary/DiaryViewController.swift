@@ -12,6 +12,7 @@ import FirebaseAuth
 
 class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var diarys: [DiaryContent] = []
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     
@@ -41,7 +42,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
             tableView.deleteRows(at: [indexPath], with: .fade)
             db.collection("Content")
                 .document(diary.id)
-                .collection("Comment")
+                .collection("Favorite")
                 .getDocuments { (snapshot, error) in
                 snapshot?.documents.forEach { $0.reference.delete() }
             }
