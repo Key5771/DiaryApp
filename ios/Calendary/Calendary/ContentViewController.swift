@@ -138,7 +138,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // 댓글 남긴 사용자의 정보와 댓글 내용 가져오기
     func getComment() {
-        db.collection("Content").document(diaryId).collection("Comment").addSnapshotListener { (querySnapShot, err) in
+        db.collection("Content").document(diaryId).collection("Comment").order(by: "date", descending: false).addSnapshotListener { (querySnapShot, err) in
             if err != nil {
                 print("Error: \(err)")
             } else {
@@ -152,6 +152,8 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.commentTableViewHeightConstraint.constant = CGFloat(80 * self.comment.count)
             }
         }
+        
+        
     }
     
     @IBAction func sendButtonClick(_ sender: Any) {
@@ -172,7 +174,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
             ])
         } else {
             db.collection("Content").document(diaryId).collection("Favorite").whereField("user id", isEqualTo: firebaseAuth.currentUser?.email).getDocuments { (snapshot, error) in
-                snapshot?.documents.forEach { $0.reference.delete()}
+                snapshot?.documents.forEach { $0.reference.delete() }
             }
         }
     }

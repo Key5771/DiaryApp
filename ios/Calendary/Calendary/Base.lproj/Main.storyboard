@@ -340,14 +340,20 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6Nq-R7-8Vt">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dSQ-3X-NDT" firstAttribute="centerX" secondItem="O8U-aQ-my9" secondAttribute="centerX" id="FAS-Q0-7f9"/>
+                            <constraint firstItem="6Nq-R7-8Vt" firstAttribute="centerX" secondItem="O8U-aQ-my9" secondAttribute="centerX" id="FD8-k4-D7v"/>
                             <constraint firstItem="SG0-Tf-2g9" firstAttribute="top" secondItem="dSQ-3X-NDT" secondAttribute="bottom" constant="1" id="GGE-dW-eIZ"/>
                             <constraint firstItem="q2B-Ye-1RA" firstAttribute="trailing" secondItem="SG0-Tf-2g9" secondAttribute="trailing" id="Ju2-qK-fQI"/>
                             <constraint firstItem="dSQ-3X-NDT" firstAttribute="top" secondItem="q2B-Ye-1RA" secondAttribute="top" id="KxW-ag-Q5z"/>
                             <constraint firstItem="SG0-Tf-2g9" firstAttribute="leading" secondItem="q2B-Ye-1RA" secondAttribute="leading" id="Mr2-l5-SC3"/>
+                            <constraint firstItem="6Nq-R7-8Vt" firstAttribute="centerY" secondItem="O8U-aQ-my9" secondAttribute="centerY" id="VbM-cM-kov"/>
                             <constraint firstItem="q2B-Ye-1RA" firstAttribute="bottom" secondItem="SG0-Tf-2g9" secondAttribute="bottom" id="YWf-0o-p3J"/>
                             <constraint firstItem="q2B-Ye-1RA" firstAttribute="trailing" secondItem="dSQ-3X-NDT" secondAttribute="trailing" id="c5G-rM-VNu"/>
                             <constraint firstItem="dSQ-3X-NDT" firstAttribute="leading" secondItem="q2B-Ye-1RA" secondAttribute="leading" id="r8r-sq-HYF"/>
@@ -356,6 +362,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="G4w-FY-cXU"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="6Nq-R7-8Vt" id="Cbv-HD-k2q"/>
                         <outlet property="segment" destination="dSQ-3X-NDT" id="gOi-0A-xXH"/>
                         <outlet property="tableView" destination="SG0-Tf-2g9" id="C6d-n6-qxr"/>
                     </connections>
@@ -1001,6 +1008,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="X6r-Tn-aMR">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="X1x-TT-alk">
                                 <rect key="frame" x="0.0" y="88" width="414" height="41"/>
                                 <constraints>
@@ -1021,7 +1032,9 @@
                             <constraint firstItem="scx-fR-Qfc" firstAttribute="trailing" secondItem="C0I-AJ-sV3" secondAttribute="trailing" id="My5-YM-hMG"/>
                             <constraint firstItem="scx-fR-Qfc" firstAttribute="trailing" secondItem="X1x-TT-alk" secondAttribute="trailing" id="WEQ-FU-gyL"/>
                             <constraint firstItem="C0I-AJ-sV3" firstAttribute="leading" secondItem="scx-fR-Qfc" secondAttribute="leading" id="ddh-An-Y2Q"/>
+                            <constraint firstItem="X6r-Tn-aMR" firstAttribute="centerY" secondItem="rfE-Qe-8ej" secondAttribute="centerY" id="deR-eG-EhI"/>
                             <constraint firstItem="X1x-TT-alk" firstAttribute="leading" secondItem="scx-fR-Qfc" secondAttribute="leading" id="l8G-Gt-Y4w"/>
+                            <constraint firstItem="X6r-Tn-aMR" firstAttribute="centerX" secondItem="rfE-Qe-8ej" secondAttribute="centerX" id="lSw-nU-pB2"/>
                             <constraint firstItem="X1x-TT-alk" firstAttribute="top" secondItem="scx-fR-Qfc" secondAttribute="top" id="uEA-lv-8Iy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="scx-fR-Qfc"/>
@@ -1034,6 +1047,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="X6r-Tn-aMR" id="92d-d6-yoi"/>
                         <outlet property="editButton" destination="pAv-Ku-L7A" id="PIJ-30-lVU"/>
                         <outlet property="tableView" destination="C0I-AJ-sV3" id="Yts-l3-Wxi"/>
                     </connections>
@@ -1387,7 +1401,7 @@
         <image name="share" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="e48-Rr-w6t"/>
+        <segue reference="Hum-mW-2wK"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

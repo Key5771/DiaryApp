@@ -15,6 +15,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     private let refreshControl = UIRefreshControl()
     
@@ -70,10 +71,12 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func getDocumentFromNetwork() {
+        
         db.collection("Content").whereField("user id", isEqualTo: firebaseAuth.currentUser?.email).getDocuments(completion:  { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
+                self.activityIndicatorView.stopAnimating()
                 self.diarys = []
                 
                 for document in querySnapshot!.documents {
@@ -102,6 +105,8 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        activityIndicatorView.startAnimating()
 
 //        db.collection("Content").getDocuments(source: .cache) { (querySnapshot, err) in
 //            if let err = err {

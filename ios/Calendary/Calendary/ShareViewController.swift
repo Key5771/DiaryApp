@@ -13,6 +13,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     let db = Firestore.firestore()
     var diary: [DiaryContent] = [] {
@@ -100,7 +101,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(diary.count)
+        
+        activityIndicatorView.startAnimating()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -135,6 +137,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if let error = error {
                 print("Error getting document: \(error)")
             } else {
+                self.activityIndicatorView.stopAnimating()
                 self.diary = []
                 for document in querySnapshot!.documents {
                     let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
