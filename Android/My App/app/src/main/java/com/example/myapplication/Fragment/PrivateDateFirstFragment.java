@@ -83,7 +83,8 @@ public class PrivateDateFirstFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                read_newDiary();
+                if(newRadioButton.isChecked()){ read_newDiary();}
+                else{ read_oldDiary();}
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -93,14 +94,11 @@ public class PrivateDateFirstFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
-                    case 1:
+                    case R.id.radioButton3:
                         read_newDiary();
                         break;
-                    case 2:
+                    case R.id.radioButton4:
                         read_oldDiary();
-                        break;
-                    default:
-                        read_newDiary();
                         break;
                 }
             }
@@ -160,7 +158,6 @@ public class PrivateDateFirstFragment extends Fragment {
                     diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
-                    Log.i(TAG, contentMap.toString());
 
 
                     //최신순 정렬
@@ -210,14 +207,12 @@ public class PrivateDateFirstFragment extends Fragment {
                     diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
-                    Log.i(TAG, contentMap.toString());
 
 
                     //오래된순 정렬
                     Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
                         @Override
                         public int compare(DiaryContent o1, DiaryContent o2) {
-//                            return o2.timestamp.compareTo(o1.timestamp);
                             return o1.timestamp.compareTo(o2.timestamp);
                         }
                     });

@@ -45,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView left_btn, like_btn;
     List<DiaryContent> diaryContentList;
 
+
     int i = 0;
 
     @Override
@@ -87,56 +88,56 @@ public class DetailActivity extends AppCompatActivity {
         name_text.setText(name_st);
 
 
-//        like_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v, int position) {
-//                i = 1 - i;
-//                if(i == 0){
-//                    //좋아요 버튼 한번 눌렀을 때
-//
-//                    Map<String, Object> fav = new HashMap<>();
-//                    fav.put("favUserID",user.getEmail());
-//
-//                    firebaseFirestore.collection("Content")
-//                            .document(DetailActivity.this.diaryContentList.get(position).id)
-//                            .collection("Favorite")
-//                            .add(fav)
-//                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<DocumentReference> task) {
-//                                    if(task.isSuccessful()){
-//                                        like_btn.setImageResource(R.drawable.likefull);
-//                                    } else{
-//                                        Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            });
-//                }
-//                else {
-//                    //좋아요 버튼 한번 더 눌렀을 때
-//
-//                    Map<String, Object> favUser = new HashMap<>();
-//                    favUser.put("favUserID", FieldValue.delete());
-//
-//                    DocumentReference docRef = firebaseFirestore.collection("Content")
-//                            .document(DetailActivity.this.diaryContentList.get(position).id)
-//                            .collection("Favorite").document();
-//
-//                    docRef.update(favUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()){
-//                                like_btn.setImageResource(R.drawable.heart);
-//                            } else{
-//                                Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
-    }
 
+        like_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                i = 1 - i;
+                if(i == 0){
+                    //좋아요 버튼 한번 눌렀을 때
+
+                    Map<String, Object> fav = new HashMap<>();
+                    fav.put("favUserID",user.getEmail());
+
+                    String docID = firebaseFirestore.collection("Content").document().getId();
+                    DocumentReference documentReference = firebaseFirestore.collection("Content").document(docID);
+                    documentReference.collection("Favorite")
+                            .add(fav)
+                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    if(task.isSuccessful()){
+                                        like_btn.setImageResource(R.drawable.likefull);
+                                    } else{
+                                        Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+                else {
+                    //좋아요 버튼 한번 더 눌렀을 때
+
+                    Map<String, Object> favUser = new HashMap<>();
+                    favUser.put("favUserID", FieldValue.delete());
+
+                    String docID = firebaseFirestore.collection("Content").document().getId();
+                    DocumentReference docRef = firebaseFirestore.collection("Content")
+                            .document(docID);
+
+                    docRef.collection("Favorite").document().update(favUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                like_btn.setImageResource(R.drawable.heart);
+                            } else{
+                                Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
 
 
     public void onClick(View view){

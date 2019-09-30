@@ -37,15 +37,16 @@ public class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.ViewHolder> 
         return viewHolder;
     }
 
-    public TitleAdapter(){this.diaryContentList = new LinkedList<>();
-    }
+    public TitleAdapter(){this.diaryContentList = new LinkedList<>(); }
 
     public TitleAdapter(List<DiaryContent> diaryContentList){
-        this.diaryContentList = diaryContentList;
-    }
+        this.diaryContentList = diaryContentList; }
 
     public TitleAdapter(Map<String, DiaryContent> diaryContentMap) {this.diaryContentMap = diaryContentMap;}
 
+    public void addContent(DiaryContent content) {
+        diaryContentList.add(content);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {

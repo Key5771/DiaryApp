@@ -114,6 +114,7 @@ public class AddDiaryActivity extends AppCompatActivity {
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
         Date selectTime = cal.getTime();
+//        Date select_day = new Date(year-1900,month,day);
 
         diaryContent.user_id = user.getEmail();
         diaryContent.title = edit_title.getText().toString();

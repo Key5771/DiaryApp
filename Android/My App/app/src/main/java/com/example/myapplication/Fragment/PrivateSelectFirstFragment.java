@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Constraints;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Activity.DetailActivity;
 import com.example.myapplication.Adapter.DiaryAdapter;
+import com.example.myapplication.Adapter.DiaryAdapter2;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,13 +55,19 @@ public class PrivateSelectFirstFragment extends Fragment {
     private  FirebaseFirestore firebaseFirestore;
     List<DiaryContent> diaryContentList;
     private GestureDetector gestureDetector;
-    private DiaryAdapter mDiaryAdaptor;
+    private DiaryAdapter2 mDiaryAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Map<String, Object> contentMap;
     private RadioButton newRadioButton, oldRadioButton;
     private RadioGroup radioGroup;
 
     RecyclerView.LayoutManager layoutManager;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
 
     @Override
@@ -73,7 +81,8 @@ public class PrivateSelectFirstFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                read_newDiary();
+                if(newRadioButton.isChecked()){ read_newDiary();}
+                else{ read_oldDiary();}
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -83,14 +92,11 @@ public class PrivateSelectFirstFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
-                    case 1:
+                    case R.id.radioButton1:
                         read_newDiary();
                         break;
-                    case 2:
+                    case R.id.radioButton2:
                         read_oldDiary();
-                        break;
-                    default:
-                        read_newDiary();
                         break;
                 }
             }
@@ -140,19 +146,18 @@ public class PrivateSelectFirstFragment extends Fragment {
                     diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
-                    Log.i(Constraints.TAG, contentMap.toString());
 
                     //최신순 정렬
                     Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
                         @Override
                         public int compare(DiaryContent o1, DiaryContent o2) {
-                            return o2.timestamp.compareTo(o1.timestamp);
+                            return o2.select_timestamp.compareTo(o1.select_timestamp);
                         }
                     });
 
                 }
-                mDiaryAdaptor = new DiaryAdapter(diaryContentList);
-                mWritingList.setAdapter(mDiaryAdaptor);
+                mDiaryAdapter = new DiaryAdapter2(diaryContentList);
+                mWritingList.setAdapter(mDiaryAdapter);
             } else{
                 Log.d(Constraints.TAG, "get failed with ", task.getException());
             }
@@ -185,19 +190,18 @@ public class PrivateSelectFirstFragment extends Fragment {
                     diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
-                    Log.i(Constraints.TAG, contentMap.toString());
 
                     //오래된순 정렬
                     Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
                         @Override
                         public int compare(DiaryContent o1, DiaryContent o2) {
-                            return o1.timestamp.compareTo(o2.timestamp);
+                            return o1.select_timestamp.compareTo(o2.select_timestamp);
                         }
                     });
 
                 }
-                mDiaryAdaptor = new DiaryAdapter(diaryContentList);
-                mWritingList.setAdapter(mDiaryAdaptor);
+                mDiaryAdapter = new DiaryAdapter2(diaryContentList);
+                mWritingList.setAdapter(mDiaryAdapter);
             } else{
                 Log.d(Constraints.TAG, "get failed with ", task.getException());
             }
@@ -238,7 +242,8 @@ public class PrivateSelectFirstFragment extends Fragment {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(getActivity(),"삭제되었습니다",Toast.LENGTH_SHORT).show();
-                                        read_newDiary();
+                                        if(newRadioButton.isChecked()){ read_newDiary();}
+                                        else{read_oldDiary();}
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
