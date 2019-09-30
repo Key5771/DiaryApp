@@ -12,6 +12,8 @@
 		EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */; };
 		EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF7B2317DC6600821122 /* JoinViewController.swift */; };
 		EA1EF927231789320097EAFA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1EF926231789320097EAFA /* LoginViewController.swift */; };
+		EA57AAA92341F3E10011323E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */; };
+		EA57AAAB2341F4D70011323E /* CommentContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57AAAA2341F4D70011323E /* CommentContent.swift */; };
 		EAABCBAD2332121D00D8264F /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAABCBAC2332121D00D8264F /* UserDocument.swift */; };
 		EAABCBAF2333D35600D8264F /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAABCBAE2333D35600D8264F /* ShareViewController.swift */; };
 		EAABCBB12333D6C900D8264F /* ShareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAABCBB02333D6C900D8264F /* ShareTableViewCell.swift */; };
@@ -64,6 +66,8 @@
 		EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFindViewController.swift; sourceTree = "<group>"; };
 		EA1BDF7B2317DC6600821122 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		EA1EF926231789320097EAFA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		EA57AAAA2341F4D70011323E /* CommentContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContent.swift; sourceTree = "<group>"; };
 		EAABCBAC2332121D00D8264F /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
 		EAABCBAE2333D35600D8264F /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		EAABCBB02333D6C900D8264F /* ShareTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTableViewCell.swift; sourceTree = "<group>"; };
@@ -187,6 +191,8 @@
 				EA1BDF7B2317DC6600821122 /* JoinViewController.swift */,
 				EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */,
 				EAF0A351231FA9840034494F /* ContentViewController.swift */,
+				EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */,
+				EA57AAAA2341F4D70011323E /* CommentContent.swift */,
 				EAABCBAC2332121D00D8264F /* UserDocument.swift */,
 				EAABCBAE2333D35600D8264F /* ShareViewController.swift */,
 				EAABCBB02333D6C900D8264F /* ShareTableViewCell.swift */,
@@ -459,9 +465,11 @@
 				EAABCBB12333D6C900D8264F /* ShareTableViewCell.swift in Sources */,
 				EABECB7C2339125D00DCFAE6 /* ListTableViewCell.swift in Sources */,
 				EAB75611230FC76400467C3A /* ViewController.swift in Sources */,
+				EA57AAA92341F3E10011323E /* CommentTableViewCell.swift in Sources */,
 				EAABCBAF2333D35600D8264F /* ShareViewController.swift in Sources */,
 				EAF0A34C231D0CE30034494F /* SettingTableViewController.swift in Sources */,
 				EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */,
+				EA57AAAB2341F4D70011323E /* CommentContent.swift in Sources */,
 				EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */,
 				EAABCBAD2332121D00D8264F /* UserDocument.swift in Sources */,
 				EAB7564E2316798300467C3A /* DiaryContent.swift in Sources */,

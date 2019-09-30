@@ -46,6 +46,12 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 .getDocuments { (snapshot, error) in
                 snapshot?.documents.forEach { $0.reference.delete() }
             }
+            db.collection("Content")
+                .document(diary.id)
+                .collection("Comment")
+                .getDocuments { (snapShot, error) in
+                    snapShot?.documents.forEach { $0.reference.delete() }
+            }
             db.collection("Content").document(diary.id).delete() { err in
                 if let err = err {
                     print("Error removing document: \(err)")
