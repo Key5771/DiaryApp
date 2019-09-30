@@ -147,43 +147,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		EA57AAEA23425F260011323E /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				EAB75610230FC76400467C3A /* ViewController.swift */,
-				EAB7563F2315254100467C3A /* AddDiaryViewController.swift */,
-				EAB756492316764900467C3A /* DiaryViewController.swift */,
-				EA1EF926231789320097EAFA /* LoginViewController.swift */,
-				EA1BDF7B2317DC6600821122 /* JoinViewController.swift */,
-				EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */,
-				EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */,
-				EAF0A351231FA9840034494F /* ContentViewController.swift */,
-				EAABCBAE2333D35600D8264F /* ShareViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		EA57AAEB23425F620011323E /* TableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				EABECB7B2339125D00DCFAE6 /* ListTableViewCell.swift */,
-				EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */,
-				EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */,
-				EAABCBB02333D6C900D8264F /* ShareTableViewCell.swift */,
-			);
-			path = TableViewCell;
-			sourceTree = "<group>";
-		};
-		EA57AAEC23425F990011323E /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				EAB7564D2316798300467C3A /* DiaryContent.swift */,
-				EA57AAAA2341F4D70011323E /* CommentContent.swift */,
-				EAABCBAC2332121D00D8264F /* UserDocument.swift */,
-			);
-			path = Content;
-			sourceTree = "<group>";
-		};
 		EAB75602230FC76400467C3A = {
 			isa = PBXGroup;
 			children = (
@@ -209,9 +172,22 @@
 		EAB7560D230FC76400467C3A /* Calendary */ = {
 			isa = PBXGroup;
 			children = (
-				EA57AAEA23425F260011323E /* ViewController */,
-				EA57AAEB23425F620011323E /* TableViewCell */,
-				EA57AAEC23425F990011323E /* Content */,
+				EAB756492316764900467C3A /* DiaryViewController.swift */,
+				EAB75610230FC76400467C3A /* ViewController.swift */,
+				EAB7563F2315254100467C3A /* AddDiaryViewController.swift */,
+				EA1EF926231789320097EAFA /* LoginViewController.swift */,
+				EA1BDF7B2317DC6600821122 /* JoinViewController.swift */,
+				EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */,
+				EAF0A34B231D0CE30034494F /* SettingTableViewController.swift */,
+				EAF0A351231FA9840034494F /* ContentViewController.swift */,
+				EAABCBAE2333D35600D8264F /* ShareViewController.swift */,
+				EABECB7B2339125D00DCFAE6 /* ListTableViewCell.swift */,
+				EAB7564B231677C800467C3A /* DiaryTableViewCell.swift */,
+				EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */,
+				EAABCBB02333D6C900D8264F /* ShareTableViewCell.swift */,
+				EAB7564D2316798300467C3A /* DiaryContent.swift */,
+				EA57AAAA2341F4D70011323E /* CommentContent.swift */,
+				EAABCBAC2332121D00D8264F /* UserDocument.swift */,
 				EAB7560E230FC76400467C3A /* AppDelegate.swift */,
 				EAB75612230FC76400467C3A /* Main.storyboard */,
 				EAB75615230FC76600467C3A /* Assets.xcassets */,
