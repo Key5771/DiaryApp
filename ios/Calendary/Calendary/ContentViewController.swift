@@ -18,6 +18,7 @@ class ContentViewController: UIViewController {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet var swipeGestureRecognizer: UISwipeGestureRecognizer!
     @IBOutlet weak var heart: UIImageView!
+    @IBOutlet weak var likeCount: UILabel!
     
     var diaryId: String = ""
     var like: Bool = false
@@ -80,7 +81,18 @@ class ContentViewController: UIViewController {
                     self.like = true
                     self.heart.image = UIImage(named: "like")
                 }
-                
+            }
+        }
+        
+        db.collection("Content").document(diaryId).collection("Favorite").addSnapshotListener { (snapShot, err) in
+            if err != nil {
+                print("Error: \(err)")
+            } else {
+                if let count = snapShot?.documents.count{
+                    self.likeCount.text = "\(count)"
+                } else {
+                    self.likeCount.text = "0"
+                }
             }
         }
 
