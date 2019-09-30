@@ -30,6 +30,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
             if user != nil {
                 print("Login Success")
                 let viewController: UIViewController = self.storyboard!.instantiateViewController(withIdentifier: "tabbar")
+                viewController.modalPresentationStyle = .overFullScreen
                 self.present(viewController, animated: true, completion: nil)
             } else {
                 let alertController = UIAlertController(title: "로그인 실패", message: "로그인에 실패하였습니다", preferredStyle: .alert)

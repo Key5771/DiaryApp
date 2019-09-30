@@ -84,6 +84,7 @@ class ContentViewController: UIViewController {
             }
         }
         
+        // addSnapshotListener -> 실시간 변경사항 변경되게 바꿔줌
         db.collection("Content").document(diaryId).collection("Favorite").addSnapshotListener { (snapShot, err) in
             if err != nil {
                 print("Error: \(err)")
