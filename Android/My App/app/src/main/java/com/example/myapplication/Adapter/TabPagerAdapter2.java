@@ -23,14 +23,14 @@ public class TabPagerAdapter2 extends FragmentStatePagerAdapter {
     public Fragment getItem(int position){
         switch (position){
             case 0:
-                PublicDateFirstFragment publicDateFirstFragment = new PublicDateFirstFragment();
-                return publicDateFirstFragment;
+                BestDiaryFragment bestDiaryFragment = new BestDiaryFragment();
+                return bestDiaryFragment;
             case 1:
                 PublicSelectFirstFragment publicSelectFirstFragment = new PublicSelectFirstFragment();
                 return publicSelectFirstFragment;
             case 2:
-                BestDiaryFragment bestDiaryFragment = new BestDiaryFragment();
-                return bestDiaryFragment;
+                PublicDateFirstFragment publicDateFirstFragment = new PublicDateFirstFragment();
+                return publicDateFirstFragment;
 
             default:
                 return null;

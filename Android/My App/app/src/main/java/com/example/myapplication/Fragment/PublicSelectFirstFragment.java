@@ -16,10 +16,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.myapplication.Activity.DetailActivity;
 import com.example.myapplication.Adapter.DiaryAdapter;
+import com.example.myapplication.Adapter.DiaryAdapter2;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.firebase.Timestamp;
@@ -31,6 +34,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +50,12 @@ public class PublicSelectFirstFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     List<DiaryContent> diaryContentList;
     private GestureDetector gestureDetector;
-    private DiaryAdapter mDiaryAdaptor;
+    private DiaryAdapter2 mDiaryAdapter2;
     private TextView titleTextview, contentTextview, timeTextview;
     private SwipeRefreshLayout swipeRefreshLayout;
     Map<String, Object> contentMap;
+    private RadioButton newRadioButton, oldRadioButton;
+    private RadioGroup radioGroup;
 
     RecyclerView.LayoutManager layoutManager;
 
@@ -57,14 +64,30 @@ public class PublicSelectFirstFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_public_select_first, container, false);
 
         init(view);
-        read_diary();
+        read_newDiary();
         select_diary();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                read_diary();
+                if(newRadioButton.isChecked()){ read_newDiary();}
+                else{read_oldDiary();}
                 swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        radioGroup.check(R.id.pub_radioButton3);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.pub_radioButton3:
+                        read_newDiary();
+                        break;
+                    case R.id.pub_radioButton4:
+                        read_oldDiary();
+                        break;
+                }
             }
         });
 
@@ -75,12 +98,18 @@ public class PublicSelectFirstFragment extends Fragment {
         pSelectList = (RecyclerView) view.findViewById(R.id.pub_writing_first_list);
         pSelectList.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
 
+        radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup2);
+        newRadioButton = (RadioButton) view.findViewById(R.id.pub_radioButton3);
+        oldRadioButton = (RadioButton) view.findViewById(R.id.pub_radioButton4);
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout4);
+        swipeRefreshLayout.setColorSchemeResources(R.color.orange_inactive);
+
         layoutManager = new LinearLayoutManager(getActivity());
         pSelectList.setLayoutManager(layoutManager);
     }
 
-    private void read_diary() {
+    private void read_newDiary() {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -108,10 +137,62 @@ public class PublicSelectFirstFragment extends Fragment {
                     diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
-                    Log.i(TAG, contentMap.toString());
+
+                    //최신순 정렬
+                    Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
+                        @Override
+                        public int compare(DiaryContent o1, DiaryContent o2) {
+                            return o2.select_timestamp.compareTo(o1.select_timestamp);
+                        }
+                    });
                 }
-                mDiaryAdaptor = new DiaryAdapter(diaryContentList);
-                pSelectList.setAdapter(mDiaryAdaptor);
+                mDiaryAdapter2 = new DiaryAdapter2(diaryContentList);
+                pSelectList.setAdapter(mDiaryAdapter2);
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
+            }
+        });
+    }
+
+    private void read_oldDiary() {
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+        //일기 불러오기
+        CollectionReference collectionReference = firebaseFirestore.collection("Content");
+        collectionReference.whereEqualTo("show", true).get().addOnCompleteListener(task -> {
+
+            if (task.isSuccessful()) {
+                QuerySnapshot documentSnapshots = task.getResult();
+                diaryContentList = new ArrayList<>();
+                contentMap = new HashMap<>();
+                for (QueryDocumentSnapshot document : documentSnapshots) {
+                    DiaryContent diaryData = new DiaryContent();
+                    contentMap = document.getData();
+
+                    diaryData.title = (String) contentMap.getOrDefault("title", "제목");
+                    diaryData.content = (String) contentMap.getOrDefault("content", "내용");
+                    diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
+                    diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
+                    diaryData.timestamp = ((Timestamp) contentMap.getOrDefault("timestamp", 0)).toDate();
+                    diaryData.user_id = (String) contentMap.get("user id");
+
+                    diaryContentList.add(diaryData);
+
+                    //오래된순 정렬
+                    Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
+                        @Override
+                        public int compare(DiaryContent o1, DiaryContent o2) {
+                            return o1.select_timestamp.compareTo(o2.select_timestamp);
+                        }
+                    });
+                }
+                mDiaryAdapter2 = new DiaryAdapter2(diaryContentList);
+                pSelectList.setAdapter(mDiaryAdapter2);
             } else {
                 Log.d(TAG, "get failed with ", task.getException());
             }
@@ -137,8 +218,6 @@ public class PublicSelectFirstFragment extends Fragment {
                 diaryIntent.putExtra("Content", diaryContentList.get(position));
                 startActivity(diaryIntent);
             }
-
-
 
             @Override
             public void onLongClick(View view, int position) {

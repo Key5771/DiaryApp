@@ -24,7 +24,6 @@
         android:id="@+id/day_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
         android:layout_weight="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,12 +38,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:layout_weight="0.5"
         android:backgroundTint="@color/red_inactive"
         android:src="@drawable/list"
         android:tint="@color/white"
         app:borderWidth="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/fab"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:layout_weight="0.5"
         android:backgroundTint="@color/orange_inactive"
         android:src="@drawable/plus"
