@@ -11,29 +11,86 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var diarys: [DiaryContent] = []
+    var diarys: [DiaryContent] = [] {
+        didSet {
+            dataFiltered()
+        }
+    }
+    var filteredDiarys: [DiaryContent] = []
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var segment: UISegmentedControl!
     
     private let refreshControl = UIRefreshControl()
     
     let db = Firestore.firestore()
     let firebaseAuth = Auth.auth()
     
+    enum FilterMethod {
+        case newWrite
+        case oldWrite
+        case newSelectTimestamp
+        case oldSelectTimestamp
+        case doWork
+    }
+    
+    var method: FilterMethod = .doWork {
+        didSet {
+            dataFiltered()
+        }
+    }
+    
+    @IBAction func selectSegment(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            method = .newWrite
+        } else if sender.selectedSegmentIndex == 1 {
+            method = .newSelectTimestamp
+        } else if sender.selectedSegmentIndex == 2 {
+            method = .doWork
+        }
+    }
+    
+    
+    func dataFiltered() {
+        switch method {
+        case .newWrite:
+            filteredDiarys = diarys.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.timestamp > rhs.timestamp
+            })
+        case .oldWrite:
+            filteredDiarys = diarys.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.timestamp < rhs.timestamp
+            })
+        case .newSelectTimestamp:
+            filteredDiarys = diarys.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.selectTimestamp > rhs.selectTimestamp
+            })
+        case .oldSelectTimestamp:
+            filteredDiarys = diarys.sorted(by: { (lhs, rhs) -> Bool in
+                return lhs.selectTimestamp < rhs.selectTimestamp
+            })
+        case .doWork:
+            filteredDiarys = diarys
+        @unknown default:
+            filteredDiarys = diarys
+        }
+        tableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return diarys.count
+        return filteredDiarys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "diaryCell", for: indexPath) as! DiaryTableViewCell
-        cell.titleLabel.text = diarys[indexPath.row].title
-        cell.contentLabel.text = diarys[indexPath.row].content
+        cell.titleLabel.text = filteredDiarys[indexPath.row].title
+        cell.contentLabel.text = filteredDiarys[indexPath.row].content
         
         let dateFormat: DateFormatter = DateFormatter()
         dateFormat.dateFormat = "yyyy년 MM월 dd일"
-        cell.dateLabel.text = dateFormat.string(from: diarys[indexPath.row].selectTimestamp)
+        cell.dateLabel.text = dateFormat.string(from: filteredDiarys[indexPath.row].selectTimestamp)
         return cell
     }
 
@@ -103,8 +160,8 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         activityIndicatorView.startAnimating()
 
