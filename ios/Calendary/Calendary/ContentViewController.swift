@@ -20,14 +20,13 @@ class ContentViewController: UIViewController {
     @IBOutlet weak var heart: UIImageView!
     
     var diaryId: String = ""
-    var like: Bool = true
+    var like: Bool = false
     
     let db = Firestore.firestore()
     let firebaseAuth = Auth.auth()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        heart.image = UIImage(named: "heart")
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if diaryId != "" {
@@ -69,6 +68,21 @@ class ContentViewController: UIViewController {
                 }
             }
         }
+        
+        db.collection("Content").document(diaryId).collection("Favorite").whereField("favUserId", isEqualTo: firebaseAuth.currentUser?.email).addSnapshotListener { (snapShot, err) in
+            if err != nil {
+                print("Error: \(err)")
+            } else {
+                if snapShot?.documents.isEmpty == true {
+                    self.like = false
+                    self.heart.image = UIImage(named: "heart")
+                } else {
+                    self.like = true
+                    self.heart.image = UIImage(named: "like")
+                }
+                
+            }
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -77,24 +91,15 @@ class ContentViewController: UIViewController {
     
     @IBAction func likeClick(_ sender: UITapGestureRecognizer) {
         
-        if like == true {
-            heart.image = UIImage(named: "like")
-            
-            db.collection("Content").document(diaryId).collection("Favorite").whereField("user id", isEqualTo: firebaseAuth.currentUser?.email).getDocuments { (snapshot, error) in
-                snapshot?.documents.forEach { $0.reference.delete()}
-            }
-            
-            like = false
-        } else {
-            heart.image = UIImage(named: "heart")
-            
+        if like == false {
             db.collection("Content").document(diaryId).collection("Favorite").addDocument(data: [
                 "favUserId": firebaseAuth.currentUser?.email
             ])
-            
-            like = true
+        } else {
+            db.collection("Content").document(diaryId).collection("Favorite").whereField("favUserId", isEqualTo: firebaseAuth.currentUser?.email).getDocuments { (snapshot, error) in
+                snapshot?.documents.forEach { $0.reference.delete()}
+            }
         }
-        
     }
     
     
