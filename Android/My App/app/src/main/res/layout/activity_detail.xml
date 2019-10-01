@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:descendantFocusability="blocksDescendants">
+    android:background="@color/white" >
 
     <ImageView
         android:id="@+id/more_btn"
@@ -48,6 +47,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/edit_comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,34 +176,32 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/comment_list"
                 android:layout_width="415dp"
-                android:layout_height="400dp" />
+                android:layout_height="200dp" />
         </LinearLayout>
     </ScrollView>
-
-    <EditText
-        android:id="@+id/edit_comment"
-        android:layout_width="343dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:inputType="textPersonName"
-        android:backgroundTint="@color/orange_inactive"
-        android:hint="댓글을 입력해주세요!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <ImageView
         android:id="@+id/comment_btn"
         android:layout_width="62dp"
         android:layout_height="39dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edit_comment"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:srcCompat="@drawable/comment" />
+
+    <EditText
+        android:id="@+id/edit_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="댓글을 입력하세요!"
+        android:inputType="text"
+        android:backgroundTint="@color/orange_inactive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/comment_btn"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

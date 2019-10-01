@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -78,7 +79,7 @@ public class CalendarFragment extends Fragment {
 
 
     private RecyclerView.LayoutManager layoutManager;
-    int i = 0;
+    boolean fab_click = false;
     private int select_year, select_month, select_day;
 
     @Override
@@ -108,27 +109,6 @@ public class CalendarFragment extends Fragment {
         calendarView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                CollectionReference collectionReference = firebaseFirestore.collection("Content");
-//                collectionReference.whereEqualTo("user id",user.getEmail()).get().addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()){
-//                        QuerySnapshot documentSnapshots = task.getResult();
-//                        diaryContentList = new ArrayList<>();
-//                        contentMap = new HashMap<>();
-//                        for(QueryDocumentSnapshot document : documentSnapshots){
-//                            DiaryContent diaryData = new DiaryContent();
-//                            contentMap = document.getData();
-//
-//                            diaryData.title = (String) contentMap.getOrDefault("title","제목");
-//                            diaryContentList.add(diaryData);
-//                            Log.i(TAG, contentMap.toString());
-//                        }
-//                        mDiaryAdapter = new DiaryAdapter(diaryContentList);
-//                        mDayList.setAdapter(titleAdapter);
-//                    } else{
-//                        Log.d(TAG,"get failed with",task.getException());
-//                    }
-//                });
 
             }
         });
@@ -171,8 +151,10 @@ public class CalendarFragment extends Fragment {
 //                Date selectDate = selectTime;
 //                Date selectDatePlusDay = cal.add(Calendar.DATE,1);
 
-                CollectionReference collectionReference = firebaseFirestore.collection("Content");
-                collectionReference.whereEqualTo("user id",user.getEmail())
+                Query collRef = firebaseFirestore.collection("Content").whereEqualTo("user id",user.getEmail());
+
+//                CollectionReference collectionReference = firebaseFirestore.collection("Content");
+                collRef
                         .whereEqualTo("select timestamp",day)
                         .get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
@@ -201,11 +183,13 @@ public class CalendarFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                i = 1 - i;
-                if(i == 0){
+                if(fab_click == false){
+                    fab_click = true;
                     showFABMenu();
                 }
-                else{closeFABMenu();}
+                else{
+                    fab_click = false;
+                    closeFABMenu();}
             }
         });
 

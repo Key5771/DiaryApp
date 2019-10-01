@@ -1,10 +1,13 @@
 package com.example.myapplication.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,13 +19,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -46,7 +54,7 @@ public class DetailActivity extends AppCompatActivity {
     List<DiaryContent> diaryContentList;
 
     private String docID;
-    int i = 0;
+    boolean click = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -59,6 +67,10 @@ public class DetailActivity extends AppCompatActivity {
 
         intent = getIntent();
         init();
+//        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        edit_comment.requestFocus();
+//        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+//        inputMethodManager.hideSoftInputFromWindow(edit_comment.getWindowToken(), 0);
 
         left_btn.setOnClickListener(this::onClick);
 
@@ -97,20 +109,39 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        firebaseFirestore.collection("Content").document(docID).collection("Favorite")
+                .whereEqualTo("favUserID", user.getEmail()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    System.out.println("Error : " + e);
+                    return;
+                }
+
+                if (queryDocumentSnapshots.getDocuments().isEmpty() == true) {
+                    click = false;
+                    like_btn.setImageResource(R.drawable.heart);
+                } else {
+                    click = true;
+                    like_btn.setImageResource(R.drawable.likefull);
+                }
+            }
+        });
+
 
 
         like_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i = 1 - i;
-                if(i == 0){
+                if(click == false){
                     //좋아요 버튼 한번 눌렀을 때
-
+                    click = true;
                     Map<String, Object> fav = new HashMap<>();
                     fav.put("favUserID",user.getEmail());
 
-                    DocumentReference documentReference = firebaseFirestore.collection("Content")
-                            .document(docID);
+                    DocumentReference documentReference = firebaseFirestore.collection("Content").document(docID);
+                    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + docID);
+
                     documentReference.collection("Favorite")
                             .add(fav)
                             .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -120,29 +151,30 @@ public class DetailActivity extends AppCompatActivity {
                                         like_btn.setImageResource(R.drawable.likefull);
                                     } else{
                                         Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
+
                                     }
                                 }
                             });
-                }
-                else {
+
+                } else {
                     //좋아요 버튼 한번 더 눌렀을 때
+                    click = false;
 
-                    Map<String, Object> favUser = new HashMap<>();
-                    favUser.put("favUserID", FieldValue.delete());
-
-                    DocumentReference docRef = firebaseFirestore.collection("Content")
-                            .document(DetailActivity.this.diaryContent.id);
-
-                    docRef.collection("Favorite").document().update(favUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                like_btn.setImageResource(R.drawable.heart);
-                            } else{
-                                Toast.makeText(DetailActivity.this,"오류",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                   CollectionReference collectionReference = firebaseFirestore.collection("Content").document(docID).collection("Favorite");
+                   Query query = collectionReference.whereEqualTo("favUserID", user.getEmail());
+                   query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                       @Override
+                       public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                           if (task.isSuccessful()) {
+                               for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                   collectionReference.document(documentSnapshot.getId()).delete();
+                                   like_btn.setImageResource(R.drawable.heart);
+                               }
+                           } else {
+                               System.out.println("cccccccccccccccccccccccccccccccccccccccccccc");
+                           }
+                       }
+                   });
                 }
             }
         });
