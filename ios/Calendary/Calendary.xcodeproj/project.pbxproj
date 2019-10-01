@@ -172,6 +172,7 @@
 		EAB7560D230FC76400467C3A /* Calendary */ = {
 			isa = PBXGroup;
 			children = (
+				EAB7560E230FC76400467C3A /* AppDelegate.swift */,
 				EAB756492316764900467C3A /* DiaryViewController.swift */,
 				EAB75610230FC76400467C3A /* ViewController.swift */,
 				EAB7563F2315254100467C3A /* AddDiaryViewController.swift */,
@@ -188,7 +189,6 @@
 				EAB7564D2316798300467C3A /* DiaryContent.swift */,
 				EA57AAAA2341F4D70011323E /* CommentContent.swift */,
 				EAABCBAC2332121D00D8264F /* UserDocument.swift */,
-				EAB7560E230FC76400467C3A /* AppDelegate.swift */,
 				EAB75612230FC76400467C3A /* Main.storyboard */,
 				EAB75615230FC76600467C3A /* Assets.xcassets */,
 				EAB75617230FC76600467C3A /* LaunchScreen.storyboard */,

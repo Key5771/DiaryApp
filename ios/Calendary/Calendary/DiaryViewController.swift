@@ -96,7 +96,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let diary = self.diarys.remove(at: indexPath.row)
+            let diary = self.filteredDiarys.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             db.collection("Content")
                 .document(diary.id)
@@ -113,7 +113,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
             db.collection("Content").document(diary.id).delete() { err in
                 if let err = err {
                     print("Error removing document: \(err)")
-                    self.diarys.insert(diary, at: indexPath.row)
+                    self.filteredDiarys.insert(diary, at: indexPath.row)
                     tableView.insertRows(at: [indexPath], with: .automatic)
                 } else {
                     print("Document successfully removed!")
