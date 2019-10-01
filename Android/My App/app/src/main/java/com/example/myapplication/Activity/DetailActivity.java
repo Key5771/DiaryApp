@@ -42,10 +42,10 @@ public class DetailActivity extends AppCompatActivity {
     private DiaryContent diaryContent;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private ImageView left_btn, like_btn;
+    private ImageView left_btn, like_btn ,comment_btn;
     List<DiaryContent> diaryContentList;
 
-
+    private String docID;
     int i = 0;
 
     @Override
@@ -68,6 +68,7 @@ public class DetailActivity extends AppCompatActivity {
         Date time_st;
         Date date_st;
 
+        docID = intent.getStringExtra("id");
 
         DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("Content");
         title_st = diaryContent.title;
@@ -87,6 +88,15 @@ public class DetailActivity extends AppCompatActivity {
         selecttime_text.setText(dateFormat.format(date_st)+" 일기");
         name_text.setText(name_st);
 
+        String comment = edit_comment.getText().toString();
+
+        comment_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!"+comment);
+            }
+        });
+
 
 
         like_btn.setOnClickListener(new View.OnClickListener() {
@@ -99,8 +109,8 @@ public class DetailActivity extends AppCompatActivity {
                     Map<String, Object> fav = new HashMap<>();
                     fav.put("favUserID",user.getEmail());
 
-                    String docID = firebaseFirestore.collection("Content").document().getId();
-                    DocumentReference documentReference = firebaseFirestore.collection("Content").document(docID);
+                    DocumentReference documentReference = firebaseFirestore.collection("Content")
+                            .document(docID);
                     documentReference.collection("Favorite")
                             .add(fav)
                             .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -120,9 +130,8 @@ public class DetailActivity extends AppCompatActivity {
                     Map<String, Object> favUser = new HashMap<>();
                     favUser.put("favUserID", FieldValue.delete());
 
-                    String docID = firebaseFirestore.collection("Content").document().getId();
                     DocumentReference docRef = firebaseFirestore.collection("Content")
-                            .document(docID);
+                            .document(DetailActivity.this.diaryContent.id);
 
                     docRef.collection("Favorite").document().update(favUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -151,10 +160,11 @@ public class DetailActivity extends AppCompatActivity {
         name_text = (TextView) findViewById(R.id.user_name);
         selecttime_text = (TextView) findViewById(R.id.select_time_tv);
 
-//        edit_comment = (EditText) findViewById(R.id.edit_comment);
+        edit_comment = (EditText) findViewById(R.id.edit_comment);
 
         left_btn = (ImageView) findViewById(R.id.left_btn);
         like_btn = (ImageView) findViewById(R.id.heart_btn);
+        comment_btn = (ImageView) findViewById(R.id.comment_btn);
 
     }
 

@@ -157,7 +157,7 @@
                     android:id="@+id/heart_btn"
                     android:layout_width="38dp"
                     android:layout_height="26dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     app:srcCompat="@drawable/heart" />
@@ -176,9 +176,34 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/comment_list"
                 android:layout_width="415dp"
-                android:layout_height="537dp" />
+                android:layout_height="400dp" />
         </LinearLayout>
     </ScrollView>
+
+    <EditText
+        android:id="@+id/edit_comment"
+        android:layout_width="343dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:inputType="textPersonName"
+        android:backgroundTint="@color/orange_inactive"
+        android:hint="댓글을 입력해주세요!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+    <ImageView
+        android:id="@+id/comment_btn"
+        android:layout_width="62dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_comment"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:srcCompat="@drawable/comment" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

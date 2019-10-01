@@ -168,11 +168,13 @@ public class CalendarFragment extends Fragment {
 
                 //선택한 날짜에 저장된 목록 가져오기
 
-                Date selectDate = selectTime;
-//                Date selectDatePlusDay = Calendar.getInstance().add(Calendar.DAY_OF_MONTH,1);
+//                Date selectDate = selectTime;
+//                Date selectDatePlusDay = cal.add(Calendar.DATE,1);
 
                 CollectionReference collectionReference = firebaseFirestore.collection("Content");
-                collectionReference.whereEqualTo("select timestamp",day).get().addOnCompleteListener(task -> {
+                collectionReference.whereEqualTo("user id",user.getEmail())
+                        .whereEqualTo("select timestamp",day)
+                        .get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         QuerySnapshot documentSnapshots = task.getResult();
                         diaryContentList = new ArrayList<>();
