@@ -1,13 +1,13 @@
 package com.example.myapplication.Activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,19 +15,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Constraints;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Adapter.CommentAdapter;
+import com.example.myapplication.Adapter.DiaryAdapter2;
+import com.example.myapplication.Model.CommentContent;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
@@ -37,6 +41,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,17 +52,22 @@ import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private Intent intent;
-    private TextView title_text, content_text, time_text, name_text, selecttime_text;
-    private EditText edit_comment;
-    private DiaryContent diaryContent;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private ImageView left_btn, like_btn ,comment_btn;
-    List<DiaryContent> diaryContentList;
+
+    private Intent intent;
+    private TextView title_text, content_text, time_text, name_text, selecttime_text, likenum_text;
+    private EditText edit_comment;
+    private RecyclerView comment_view;
+    private CommentAdapter commentAdapter;
+    private CommentContent commentContent;
+    private ImageView left_btn, like_btn ,comment_btn, more_btn;
+    private Map<String, Object> contentMap;
+    List<CommentContent> commentContentList;
 
     private String docID;
     boolean click = false;
+    private int likeCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
@@ -67,10 +80,7 @@ public class DetailActivity extends AppCompatActivity {
 
         intent = getIntent();
         init();
-//        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//        edit_comment.requestFocus();
-//        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-//        inputMethodManager.hideSoftInputFromWindow(edit_comment.getWindowToken(), 0);
+
 
         left_btn.setOnClickListener(this::onClick);
 
@@ -100,15 +110,42 @@ public class DetailActivity extends AppCompatActivity {
         selecttime_text.setText(dateFormat.format(date_st)+" 일기");
         name_text.setText(name_st);
 
-        String comment = edit_comment.getText().toString();
-
+        like_Count();
+        read_comment();
+        //댓글 저장하기
         comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!"+comment);
+                String comment = edit_comment.getText().toString();
+                Date commentDate = Calendar.getInstance().getTime();
+
+                commentContent.comment_user_id = user.getEmail();
+                commentContent.comment_timestamp = commentDate;
+                commentContent.comment_content = comment;
+
+                CollectionReference collectionReference = firebaseFirestore.collection("Content").document(docID).collection("Comment");
+                Map<String, Object> com = new HashMap<>();
+                com.put("user id",commentContent.comment_user_id);
+                com.put("content",commentContent.comment_content);
+                com.put("date",commentContent.comment_timestamp);
+
+                collectionReference.add(com).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()){
+                            System.out.println("BBBBBBBBBBBBBBBB" + comment);
+                            edit_comment.setText("");
+                        }
+                        else {
+                            Log.d("DetailActivity","comment save error");
+                        }
+                    }
+                });
+
             }
         });
 
+        //좋아요 버튼
         firebaseFirestore.collection("Content").document(docID).collection("Favorite")
                 .whereEqualTo("favUserID", user.getEmail()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -133,14 +170,15 @@ public class DetailActivity extends AppCompatActivity {
         like_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                like_Count();
                 if(click == false){
-                    //좋아요 버튼 한번 눌렀을 때
+                    //좋아요 버튼눌렀을때 로그인 유저 저장하기
                     click = true;
                     Map<String, Object> fav = new HashMap<>();
                     fav.put("favUserID",user.getEmail());
 
                     DocumentReference documentReference = firebaseFirestore.collection("Content").document(docID);
-                    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + docID);
+                    System.out.println("aaaaaaaaaaaaa" + docID);
 
                     documentReference.collection("Favorite")
                             .add(fav)
@@ -157,7 +195,7 @@ public class DetailActivity extends AppCompatActivity {
                             });
 
                 } else {
-                    //좋아요 버튼 한번 더 눌렀을 때
+                    //좋아요 버튼 또 눌렀을 때 저장되어있는 유저 삭제하기
                     click = false;
 
                    CollectionReference collectionReference = firebaseFirestore.collection("Content").document(docID).collection("Favorite");
@@ -178,8 +216,78 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //설정 버튼
+        more_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOptionsMenu();
+            }
+        });
+
     }
 
+    private void like_Count(){
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseFirestore.collection("Content").document(docID).collection("Favorite")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    likeCount = 0;
+                    for(DocumentSnapshot documentSnapshot : task.getResult()){
+                        likeCount ++;
+                        likenum_text.setText(String.valueOf(likeCount));}
+                }else {
+                    Log.d("DetailActivity", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void read_comment(){
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        //댓글 불러오기
+        CollectionReference collectionReference = firebaseFirestore.collection("Content").document(docID).collection("Comment");
+        collectionReference.get().addOnCompleteListener(task -> {
+
+            if(task.isSuccessful()){
+                QuerySnapshot documentSnapshots = task.getResult();
+                commentContentList = new ArrayList<>();
+                contentMap = new HashMap<>();
+                for(QueryDocumentSnapshot document : documentSnapshots) {
+                    CommentContent commentContent = new CommentContent();
+                    contentMap = document.getData();
+
+                    commentContent.id = (String) document.getId();
+                    commentContent.comment_content = (String) contentMap.getOrDefault("content","내용");
+//                    commentContent.comment_timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
+                    commentContent.comment_user_id = (String) contentMap.get("user id");
+
+                    Log.d("DetailActivity","!!!!!!!"+contentMap);
+                    commentContentList.add(commentContent);
+
+                    //최신순 정렬
+//                    Collections.sort(commentContentList, new Comparator<CommentContent>() {
+//                        @Override
+//                        public int compare(CommentContent o1, CommentContent o2) {
+//                            return o2.comment_timestamp.compareTo(o1.comment_timestamp);
+//                        }
+//                    });
+
+                }
+                commentAdapter = new CommentAdapter(commentContentList);
+                comment_view.setAdapter(commentAdapter);
+            } else{
+                Log.d(Constraints.TAG, "get failed with ", task.getException());
+            }
+        });
+    }
 
     public void onClick(View view){
         if(view == left_btn) { finish(); }
@@ -191,13 +299,36 @@ public class DetailActivity extends AppCompatActivity {
         time_text = (TextView) findViewById(R.id.time_tv);
         name_text = (TextView) findViewById(R.id.user_name);
         selecttime_text = (TextView) findViewById(R.id.select_time_tv);
+        likenum_text = (TextView) findViewById(R.id.like_number);
 
         edit_comment = (EditText) findViewById(R.id.edit_comment);
+
+        comment_view = (RecyclerView) findViewById(R.id.comment_list);
 
         left_btn = (ImageView) findViewById(R.id.left_btn);
         like_btn = (ImageView) findViewById(R.id.heart_btn);
         comment_btn = (ImageView) findViewById(R.id.comment_btn);
+        more_btn = (ImageView) findViewById(R.id.more_btn);
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.setting_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.delete_menu:
+                Toast.makeText(DetailActivity.this,"삭제버튼 클릭!",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.update_menu:
+                Toast.makeText(DetailActivity.this,"수정버튼 클릭!",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

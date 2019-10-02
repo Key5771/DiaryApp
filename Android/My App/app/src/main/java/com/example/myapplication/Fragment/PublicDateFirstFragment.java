@@ -135,6 +135,7 @@ public class PublicDateFirstFragment extends Fragment {
                     DiaryContent diaryData = new DiaryContent();
                     contentMap = document.getData();
 
+                    diaryData.id = (String) document.getId();
                     diaryData.title = (String) contentMap.getOrDefault("title", "제목");
                     diaryData.content = (String) contentMap.getOrDefault("content", "내용");
                     diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
@@ -182,6 +183,7 @@ public class PublicDateFirstFragment extends Fragment {
                     DiaryContent diaryData = new DiaryContent();
                     contentMap = document.getData();
 
+                    diaryData.id = (String) document.getId();
                     diaryData.title = (String) contentMap.getOrDefault("title", "제목");
                     diaryData.content = (String) contentMap.getOrDefault("content", "내용");
                     diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
@@ -224,6 +226,7 @@ public class PublicDateFirstFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent diaryIntent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
+                diaryIntent.putExtra("id",diaryContentList.get(position).id);
                 diaryIntent.putExtra("Content", diaryContentList.get(position));
                 startActivity(diaryIntent);
             }

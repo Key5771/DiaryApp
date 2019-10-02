@@ -223,6 +223,7 @@ public class PrivateSelectFirstFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Intent diaryIntent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
+                diaryIntent.putExtra("id",diaryContentList.get(position).id);
                 diaryIntent.putExtra("Content", diaryContentList.get(position));
                 startActivity(diaryIntent);
             }

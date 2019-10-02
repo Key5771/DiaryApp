@@ -154,8 +154,6 @@ public class AddDiaryActivity extends AppCompatActivity {
         user_diary.put("title", diaryContent.title);
         user_diary.put("content", diaryContent.content);
 
-
-
         firebaseFirestore.collection("Content")
                 .add(user_diary)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

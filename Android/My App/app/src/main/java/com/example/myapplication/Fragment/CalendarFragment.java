@@ -151,11 +151,8 @@ public class CalendarFragment extends Fragment {
 //                Date selectDate = selectTime;
 //                Date selectDatePlusDay = cal.add(Calendar.DATE,1);
 
-                Query collRef = firebaseFirestore.collection("Content").whereEqualTo("user id",user.getEmail());
-
-//                CollectionReference collectionReference = firebaseFirestore.collection("Content");
-                collRef
-                        .whereEqualTo("select timestamp",day)
+                firebaseFirestore.collection("Content")
+                        .whereEqualTo("user id",user.getEmail()).whereEqualTo("select timestamp",day)
                         .get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         QuerySnapshot documentSnapshots = task.getResult();
