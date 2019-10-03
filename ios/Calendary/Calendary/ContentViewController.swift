@@ -58,6 +58,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         commentTableView.delegate = self
         commentTableView.dataSource = self
         
+        // 키보드 올리고 내리고 함수 호출
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -154,6 +155,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    // 댓글 저장 버튼을 누른 경우
     @IBAction func sendButtonClick(_ sender: Any) {
         db.collection("Content").document(diaryId).collection("Comment").addDocument(data: [
             "user id": firebaseAuth.currentUser?.email,
@@ -163,14 +165,15 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         commentTextField.text = ""
     }
     
-    
+    // 좋아요 버튼이 눌렸을 때
     @IBAction func likeClick(_ sender: UITapGestureRecognizer) {
-        
+        // 좋아요 버튼을 누른 계정이 없을 경우 도큐먼트 저장
         if like == false {
             db.collection("Content").document(diaryId).collection("Favorite").addDocument(data: [
                 "favUserID": firebaseAuth.currentUser?.email
             ])
         } else {
+            // 좋아요 버튼이 눌려있는 경우 현재 유저의 정보가 담겨있는 도큐먼트 삭제
             db.collection("Content").document(diaryId).collection("Favorite").whereField("favUserID", isEqualTo: firebaseAuth.currentUser?.email).getDocuments { (snapshot, error) in
                 snapshot?.documents.forEach { $0.reference.delete() }
             }
