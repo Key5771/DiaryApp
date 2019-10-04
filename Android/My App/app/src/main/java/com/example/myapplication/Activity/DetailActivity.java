@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Constraints;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.CommentAdapter;
@@ -64,6 +66,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView left_btn, like_btn ,comment_btn, more_btn;
     private Map<String, Object> contentMap;
     List<CommentContent> commentContentList;
+    RecyclerView.LayoutManager layoutManager;
 
     private String docID;
     boolean click = false;
@@ -78,6 +81,8 @@ public class DetailActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        commentContent = new CommentContent();
+
         intent = getIntent();
         init();
 
@@ -86,18 +91,20 @@ public class DetailActivity extends AppCompatActivity {
 
         String title_st;
         String content_st;
-        String name_st;
+        String name_st, id_st;
         Date time_st;
         Date date_st;
 
         docID = intent.getStringExtra("id");
 
         DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("Content");
+
         title_st = diaryContent.title;
         content_st = diaryContent.content ;
         time_st = diaryContent.timestamp;
         date_st = diaryContent.select_timestamp;
-        name_st = diaryContent.user_id;
+        name_st = diaryContent.user_name;
+//        name_st = diaryContent.user_id;
 
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
@@ -109,13 +116,18 @@ public class DetailActivity extends AppCompatActivity {
         time_text.setText(dateFormat2.format(time_st));
         selecttime_text.setText(dateFormat.format(date_st)+" 일기");
         name_text.setText(name_st);
+        name_text.setTypeface(null,Typeface.BOLD);
 
         like_Count();
-        read_comment();
+
         //댓글 저장하기
         comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
+            @Nullable
             public void onClick(View v) {
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                 String comment = edit_comment.getText().toString();
                 Date commentDate = Calendar.getInstance().getTime();
 
@@ -135,6 +147,7 @@ public class DetailActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             System.out.println("BBBBBBBBBBBBBBBB" + comment);
                             edit_comment.setText("");
+                            read_comment();
                         }
                         else {
                             Log.d("DetailActivity","comment save error");
@@ -209,7 +222,7 @@ public class DetailActivity extends AppCompatActivity {
                                    like_btn.setImageResource(R.drawable.heart);
                                }
                            } else {
-                               System.out.println("cccccccccccccccccccccccccccccccccccccccccccc");
+                               System.out.println("cccccccc");
                            }
                        }
                    });
@@ -224,7 +237,7 @@ public class DetailActivity extends AppCompatActivity {
                 openOptionsMenu();
             }
         });
-
+        read_comment();
     }
 
     private void like_Count(){
@@ -264,21 +277,21 @@ public class DetailActivity extends AppCompatActivity {
                     CommentContent commentContent = new CommentContent();
                     contentMap = document.getData();
 
-                    commentContent.id = (String) document.getId();
+//                    commentContent.id = (String) document.getId();
                     commentContent.comment_content = (String) contentMap.getOrDefault("content","내용");
-//                    commentContent.comment_timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
+                    commentContent.comment_timestamp = ((Timestamp)contentMap.getOrDefault("date",0)).toDate();
                     commentContent.comment_user_id = (String) contentMap.get("user id");
 
                     Log.d("DetailActivity","!!!!!!!"+contentMap);
                     commentContentList.add(commentContent);
 
                     //최신순 정렬
-//                    Collections.sort(commentContentList, new Comparator<CommentContent>() {
-//                        @Override
-//                        public int compare(CommentContent o1, CommentContent o2) {
-//                            return o2.comment_timestamp.compareTo(o1.comment_timestamp);
-//                        }
-//                    });
+                    Collections.sort(commentContentList, new Comparator<CommentContent>() {
+                        @Override
+                        public int compare(CommentContent o1, CommentContent o2) {
+                            return o2.comment_timestamp.compareTo(o1.comment_timestamp);
+                        }
+                    });
 
                 }
                 commentAdapter = new CommentAdapter(commentContentList);
@@ -310,6 +323,9 @@ public class DetailActivity extends AppCompatActivity {
         comment_btn = (ImageView) findViewById(R.id.comment_btn);
         more_btn = (ImageView) findViewById(R.id.more_btn);
 
+        comment_view.addItemDecoration(new DividerItemDecoration(this,1));
+        layoutManager = new LinearLayoutManager(this);
+        comment_view.setLayoutManager(layoutManager);
     }
 
     @Override

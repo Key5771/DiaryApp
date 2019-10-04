@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="이름"
-        android:textColor="@color/dark"
-        android:textSize="18dp" />
+        android:textColor="#000000"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/comment_content"
@@ -21,11 +21,13 @@
         android:layout_height="wrap_content"
         android:text="댓글댓글"
         android:textColor="@color/dark"
-        android:textSize="15dp" />
+        android:textSize="14dp" />
 
     <TextView
         android:id="@+id/comment_timestamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
+        android:textSize="11dp"
         android:text="TextView" />
 </LinearLayout>

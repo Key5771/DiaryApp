@@ -1,6 +1,7 @@
 package com.example.myapplication.Fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -76,7 +77,7 @@ public class CalendarFragment extends Fragment {
     private float scale = 1.05f;
     private FloatingActionButton fab, diary_fab, todo_fab;
     private EditText todoText;
-
+    private String content;
 
     private RecyclerView.LayoutManager layoutManager;
     boolean fab_click = false;
@@ -94,7 +95,7 @@ public class CalendarFragment extends Fragment {
         diary_fab = (FloatingActionButton) view.findViewById(R.id.diary_fab);
         todo_fab = (FloatingActionButton) view.findViewById(R.id.todo_fab);
         mDayList = (RecyclerView) view.findViewById(R.id.day_list);
-        todoText = (EditText) view.findViewById(R.id.todo);
+
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -225,13 +226,14 @@ public class CalendarFragment extends Fragment {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(R.layout.todo_popup);
-
-
         alertDialogBuilder.setTitle(todo_date+" 의 할일").setCancelable(false);
 
         alertDialogBuilder.setPositiveButton("저장", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Dialog f = (Dialog) dialog;
+                todoText = (EditText) f.findViewById(R.id.todo);
+                content = todoText.getText().toString();
                 todo_save();
             }
         });
@@ -257,8 +259,10 @@ public class CalendarFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        System.out.println("111111111111111111111111111111111111111111" + content);
+
         todoContent.user_id = user.getEmail();
-        todoContent.todo_content = todoText.getText().toString(); //null pointer exception
+        todoContent.todo_content = content;
         todoContent.select_timestamp = selectTime;
 
         Map<String, Object> user_todo = new HashMap<>();

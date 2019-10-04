@@ -122,7 +122,20 @@ public class AddDiaryActivity extends AppCompatActivity {
         diaryContent.timestamp = currentTime;
         diaryContent.select_timestamp = select_day;
 
+        if (diaryContent.title.isEmpty() || diaryContent.content.isEmpty()) {
+            Toast.makeText(AddDiaryActivity.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        show_check = show_swt.isChecked();
+
         Map<String, Object> user_diary = new HashMap<>();
+
+        user_diary.put("show", show_check);
+        user_diary.put("user id", diaryContent.user_id);
+        user_diary.put("select timestamp", diaryContent.select_timestamp);
+        user_diary.put("timestamp", diaryContent.timestamp);
+        user_diary.put("title", diaryContent.title);
+        user_diary.put("content", diaryContent.content);
 
         CollectionReference reference = firebaseFirestore.collection("User");
         reference.whereEqualTo("Email", user.getEmail()).get().addOnCompleteListener(task -> {
@@ -132,44 +145,26 @@ public class AddDiaryActivity extends AppCompatActivity {
                     DiaryContent diaryContent = new DiaryContent();
                     diaryContent.user_name = queryDocumentSnapshot.getData().get("name").toString();
                     user_diary.put("user name", diaryContent.user_name);
+                    firebaseFirestore.collection("Content").add(user_diary)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(AddDiaryActivity.this, "저장되었습니다!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    String error = e.getMessage();
+                                    Toast.makeText(AddDiaryActivity.this, "Error :" + error, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 }
             } else {
                 Log.d("AddDiaryActivity", "get failed with ", task.getException());
             }
         });
-
-
-
-        if (diaryContent.title.isEmpty() || diaryContent.content.isEmpty()) {
-            Toast.makeText(AddDiaryActivity.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        show_check = show_swt.isChecked();
-
-        user_diary.put("show", show_check);
-        user_diary.put("user id", diaryContent.user_id);
-        user_diary.put("select timestamp", diaryContent.select_timestamp);
-        user_diary.put("timestamp", diaryContent.timestamp);
-        user_diary.put("title", diaryContent.title);
-        user_diary.put("content", diaryContent.content);
-
-        firebaseFirestore.collection("Content")
-                .add(user_diary)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(AddDiaryActivity.this, "저장되었습니다!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        String error = e.getMessage();
-                        Toast.makeText(AddDiaryActivity.this, "Error :" + error, Toast.LENGTH_SHORT).show();
-                    }
-                });
 
     }
 

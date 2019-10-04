@@ -1,6 +1,7 @@
 package com.example.myapplication.Fragment;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class PrivateDateFirstFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RadioButton newRadioButton, oldRadioButton;
     private RadioGroup radioGroup;
+    private ProgressDialog progressDialog;
 
     RecyclerView.LayoutManager layoutManager;
 
@@ -77,8 +79,15 @@ public class PrivateDateFirstFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_private_date_first, container, false);
 
         init(view);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("로딩중...");
+        progressDialog.show();
+
         read_newDiary();
         select_diary();
+
+        progressDialog.dismiss();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -154,7 +163,7 @@ public class PrivateDateFirstFragment extends Fragment {
                     diaryData.content = (String) contentMap.getOrDefault("content","내용");
                     diaryData.timestamp = ((Timestamp)contentMap.getOrDefault("timestamp",0)).toDate();
                     diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
-                    diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
+                    diaryData.user_name = (String)contentMap.getOrDefault("user name","익명");
                     diaryData.user_id = (String) contentMap.get("user id");
 
                     diaryContentList.add(diaryData);
