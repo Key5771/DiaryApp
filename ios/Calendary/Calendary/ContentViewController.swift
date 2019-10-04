@@ -28,6 +28,8 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var commentTableView: UITableView!
     @IBOutlet weak var commentTableViewHeightConstraint: NSLayoutConstraint!
     
+    
+    
     var diaryId: String = ""
     var like: Bool = false
     var comment: [CommentContent] = []
@@ -163,6 +165,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
             "date": Date()
         ])
         commentTextField.text = ""
+        commentTextField.resignFirstResponder()
     }
     
     // 좋아요 버튼이 눌렸을 때
@@ -204,6 +207,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         commentInputBottomConstraint.constant = 0
         scrollViewBottomConstraint.constant = 0
     }
+    
     
     
     @IBAction func cancel(_ sender: Any) {

@@ -10,7 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     var diarys: [DiaryContent] = [] {
         didSet {
             dataFiltered()
@@ -22,6 +22,9 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var sortButton: UIButton!
+    
+    
     
     private let refreshControl = UIRefreshControl()
     
@@ -194,6 +197,21 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @objc func refresh() {
         getDocumentFromNetwork()
     }
+    
+    @IBAction func sortButtonClick(_ sender: Any) {
+        let viewController: UIViewController = self.storyboard!.instantiateViewController(withIdentifier: "diaryPopover")
+        viewController.modalPresentationStyle = .popover
+        viewController.popoverPresentationController?.sourceView = self.view
+        viewController.popoverPresentationController?.sourceRect = self.sortButton.frame
+        viewController.popoverPresentationController?.delegate = self
+        viewController.popoverPresentationController?.permittedArrowDirections = .up
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     
     // MARK: - Navigation
 
