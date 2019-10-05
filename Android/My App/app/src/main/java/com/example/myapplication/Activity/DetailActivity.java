@@ -1,12 +1,17 @@
 package com.example.myapplication.Activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,10 +27,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.CommentAdapter;
 import com.example.myapplication.Adapter.DiaryAdapter2;
+import com.example.myapplication.Fragment.DiaryFragment;
+import com.example.myapplication.Fragment.PrivateDateFirstFragment;
 import com.example.myapplication.Model.CommentContent;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,6 +76,8 @@ public class DetailActivity extends AppCompatActivity {
     private Map<String, Object> contentMap;
     List<CommentContent> commentContentList;
     RecyclerView.LayoutManager layoutManager;
+    private GestureDetector gestureDetector;
+    private RecyclerView.OnItemTouchListener itemTouchListener;
 
     private String docID;
     boolean click = false;
@@ -106,7 +117,6 @@ public class DetailActivity extends AppCompatActivity {
         name_st = diaryContent.user_name;
 //        name_st = diaryContent.user_id;
 
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
 
@@ -125,36 +135,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             @Nullable
             public void onClick(View v) {
-
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                String comment = edit_comment.getText().toString();
-                Date commentDate = Calendar.getInstance().getTime();
-
-                commentContent.comment_user_id = user.getEmail();
-                commentContent.comment_timestamp = commentDate;
-                commentContent.comment_content = comment;
-
-                CollectionReference collectionReference = firebaseFirestore.collection("Content").document(docID).collection("Comment");
-                Map<String, Object> com = new HashMap<>();
-                com.put("user id",commentContent.comment_user_id);
-                com.put("content",commentContent.comment_content);
-                com.put("date",commentContent.comment_timestamp);
-
-                collectionReference.add(com).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if (task.isSuccessful()){
-                            System.out.println("BBBBBBBBBBBBBBBB" + comment);
-                            edit_comment.setText("");
-                            read_comment();
-                        }
-                        else {
-                            Log.d("DetailActivity","comment save error");
-                        }
-                    }
-                });
-
+                save_comment();
             }
         });
 
@@ -238,8 +219,42 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
         read_comment();
+        del_comment();
     }
 
+    //댓글 저장하기
+    private void save_comment(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String comment = edit_comment.getText().toString();
+        Date commentDate = Calendar.getInstance().getTime();
+
+        commentContent.comment_user_id = user.getEmail();
+        commentContent.comment_timestamp = commentDate;
+        commentContent.comment_content = comment;
+
+        CollectionReference collectionReference = firebaseFirestore.collection("Content").document(docID).collection("Comment");
+        Map<String, Object> com = new HashMap<>();
+        com.put("user id",commentContent.comment_user_id);
+        com.put("content",commentContent.comment_content);
+        com.put("date",commentContent.comment_timestamp);
+
+        collectionReference.add(com).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if (task.isSuccessful()){
+                    System.out.println("BBBBBBBBBBBBBBBB" + comment);
+                    edit_comment.setText("");
+                    read_comment();
+                }
+                else {
+                    Log.d("DetailActivity","comment save error");
+                }
+            }
+        });
+    }
+
+    //좋아요 개수 불러오기
     private void like_Count(){
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -261,11 +276,11 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    //댓글 불러오기
     private void read_comment(){
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //댓글 불러오기
         CollectionReference collectionReference = firebaseFirestore.collection("Content").document(docID).collection("Comment");
         collectionReference.get().addOnCompleteListener(task -> {
 
@@ -300,6 +315,61 @@ public class DetailActivity extends AppCompatActivity {
                 Log.d(Constraints.TAG, "get failed with ", task.getException());
             }
         });
+    }
+
+    //댓글 선택 & 삭제
+    private void del_comment(){
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e){
+                return true;
+            }
+        });
+
+        comment_view.addOnItemTouchListener(new DetailActivity.RecyclerTouchListener(this, comment_view, new DetailActivity.ClickListener(){
+            @Override
+            public void onClick(View view, int position){
+                Toast.makeText(DetailActivity.this,"대댓글 구현중...",Toast.LENGTH_SHORT).show();
+            }
+
+            //댓글 삭제
+            @Override
+            public void onLongClick(View view, int position){
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(DetailActivity.this);
+                alert.setTitle("삭제하겠습니까?");
+                alert.setMessage("삭제된 일기는 복구할 수 없습니다.");
+                alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseFirestore.collection("Content").document(docID).collection("Comment")
+                                .document(commentContentList.get(position).id)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(DetailActivity.this,"삭제되었습니다",Toast.LENGTH_SHORT).show();
+                                        read_comment();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(DetailActivity.this,"실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                });
+                alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
+            }
+        }));
+
+
     }
 
     public void onClick(View view){
@@ -346,5 +416,50 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public interface ClickListener{
+        void onClick(View view, int position);
+        void onLongClick(View view, int position);
+    }
+
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+
+        private GestureDetector gestureDetector;
+        private DetailActivity.ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final DetailActivity.ClickListener clickListener){
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e){
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e){
+                    View child = recyclerView.findChildViewUnder(e.getX(),e.getY());
+                    if(child != null && clickListener != null){
+                        clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e){
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if(child != null && clickListener != null && gestureDetector.onTouchEvent(e)){
+                clickListener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e){
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept){}
     }
 }

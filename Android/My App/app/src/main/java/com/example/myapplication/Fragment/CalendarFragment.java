@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Activity.AddDiaryActivity;
+import com.example.myapplication.Activity.DetailActivity;
 import com.example.myapplication.Adapter.DiaryAdapter;
 import com.example.myapplication.Adapter.TitleAdapter;
 import com.example.myapplication.Model.DiaryContent;
@@ -250,16 +252,13 @@ public class CalendarFragment extends Fragment {
         todoContent = new TodoContent();
 
         Calendar cal = Calendar.getInstance();
-//        cal.set(Calendar.YEAR, year);
-//        cal.set(Calendar.MONTH, month);
-//        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         Date selectTime = cal.getTime();
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        System.out.println("111111111111111111111111111111111111111111" + content);
+        System.out.println("111111111111111" + content);
 
         todoContent.user_id = user.getEmail();
         todoContent.todo_content = content;
@@ -301,6 +300,7 @@ public class CalendarFragment extends Fragment {
         diary_fab.animate().translationY(0);
         todo_fab.animate().translationY(0);
     }
+
 
 
 }
