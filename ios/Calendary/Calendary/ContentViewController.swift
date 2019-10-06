@@ -103,6 +103,8 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                     //                    }
                 }
             }
+            
+            let user = db.collection("User").document()
         }
         // 좋아요 한 경우와 안한 경우 구분해서 이미지 변경 및 변경되도록 설정
         db.collection("Content").document(diaryId).collection("Favorite").whereField("favUserID", isEqualTo: firebaseAuth.currentUser?.email).addSnapshotListener { (snapShot, err) in
