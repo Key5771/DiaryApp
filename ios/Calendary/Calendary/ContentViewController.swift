@@ -31,6 +31,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     var diaryId: String = ""
+    var userContent: String = ""
     var like: Bool = false
     var comment: [CommentContent] = []
     
@@ -87,8 +88,16 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                         self.dateLabel.text = timestamp
                     }
                     
-                    if let user = querySnapshot!.get("user id") as? String {
-                        self.userId.text = user
+                    if let userEmail = querySnapshot!.get("user id") as? String {
+                        let user = self.db.collection("User").whereField("Email", isEqualTo: userEmail).getDocuments { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                if let userid = querySnapshot?.documents.first?.get("name") as? String {
+                                    self.userId.text = userid
+                                }
+                            }
+                        }
                     }
                     
                     if let currnetDate = querySnapshot?.get("timestamp") as? Timestamp {
@@ -104,7 +113,17 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
             
-            let user = db.collection("User").document()
+//            if userContent != "" {
+//                let user = db.collection("User").whereField("Email", isEqualTo: firebaseAuth.currentUser).getDocuments { (querySnapshot, err) in
+//                    if let err = err {
+//                        print("Error getting documents: \(err)")
+//                    } else {
+//                        if let userid = querySnapshot?.documents.first?.get("name") as? String {
+//                            self.userId.text = userid
+//                        }
+//                    }
+//                }
+//            }
         }
         // 좋아요 한 경우와 안한 경우 구분해서 이미지 변경 및 변경되도록 설정
         db.collection("Content").document(diaryId).collection("Favorite").whereField("favUserID", isEqualTo: firebaseAuth.currentUser?.email).addSnapshotListener { (snapShot, err) in
