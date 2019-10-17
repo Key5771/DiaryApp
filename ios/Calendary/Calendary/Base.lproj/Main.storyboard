@@ -50,14 +50,14 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listCell" id="LxK-QI-72V" customClass="ListTableViewCell" customModule="Calendary" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="366" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="366" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LxK-QI-72V" id="f7i-0S-TXC">
-                                            <rect key="frame" x="0.0" y="0.0" width="366" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="366" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="캘린더리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1g-4H-QmB">
-                                                    <rect key="frame" x="28" y="19" width="198" height="21.5"/>
+                                                    <rect key="frame" x="28" y="19" width="198" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -96,6 +96,9 @@
                                     <constraint firstAttribute="width" constant="50" id="vmn-sf-aQN"/>
                                 </constraints>
                                 <state key="normal" image="list"/>
+                                <connections>
+                                    <action selector="doWorkButtonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e7k-cu-yTT"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -120,16 +123,90 @@
                         <barButtonItem key="backBarButtonItem" title="뒤로" id="xNz-T8-liz"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="j7N-ls-x9r" id="ECN-sB-zNv"/>
                         <outlet property="addButtonConstraint" destination="bes-PO-xNl" id="j62-kk-ZDY"/>
                         <outlet property="addDiaryButton" destination="WsY-V9-hL6" id="Vo3-iO-sDT"/>
                         <outlet property="calendar" destination="Ydd-e3-nf6" id="Phk-gs-h02"/>
-                        <outlet property="doWorkButton" destination="4mW-YC-cg1" id="PNm-M5-Mjo"/>
+                        <outlet property="doWorkButton" destination="4mW-YC-cg1" id="FWJ-uF-FCi"/>
                         <outlet property="doWorkButtonConstraint" destination="v0c-xj-zbq" id="ZC6-vB-Zrd"/>
+                        <outlet property="doWorkContent" destination="BRh-eZ-EWv" id="8YN-ia-2eZ"/>
+                        <outlet property="doWorkSaveButton" destination="9Y1-Ye-8ce" id="7nj-lg-sQF"/>
                         <outlet property="editButton" destination="wZX-EH-zwk" id="naC-Zy-3r8"/>
                         <outlet property="listTableView" destination="eas-Oj-fBH" id="x5O-HM-egH"/>
+                        <outlet property="popOverDateLabel" destination="oIz-Wk-cpz" id="hat-Jf-3oN"/>
+                        <outlet property="popOverDateLabel2" destination="UeJ-O7-S7b" id="d9h-At-Nn6"/>
+                        <outlet property="popOverView" destination="RsK-LQ-rX6" id="Y3I-w2-Ro8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="RsK-LQ-rX6">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="180"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Y1-Ye-8ce">
+                            <rect key="frame" x="254" y="134" width="30" height="30"/>
+                            <state key="normal" title="저장">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="doWorkSave:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ds8-O8-adv"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzf-NE-9dT">
+                            <rect key="frame" x="192" y="134" width="30" height="30"/>
+                            <state key="normal" title="취소">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="doWorkCancel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wJM-QW-cux"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIz-Wk-cpz">
+                            <rect key="frame" x="16" y="16" width="130" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="130" id="pET-5S-qlt"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BRh-eZ-EWv">
+                            <rect key="frame" x="16" y="77" width="268" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="268" id="mGV-QY-zgt"/>
+                            </constraints>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeJ-O7-S7b">
+                            <rect key="frame" x="146" y="16" width="42" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="j7N-ls-x9r">
+                            <rect key="frame" x="132" y="72" width="37" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" red="0.95294117649999999" green="0.69411764710000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="BRh-eZ-EWv" firstAttribute="leading" secondItem="Tuj-v0-Qwx" secondAttribute="leading" constant="16" id="0UG-UE-vfJ"/>
+                        <constraint firstItem="UeJ-O7-S7b" firstAttribute="top" secondItem="RsK-LQ-rX6" secondAttribute="top" constant="16" id="0po-EA-9EL"/>
+                        <constraint firstItem="Tuj-v0-Qwx" firstAttribute="trailing" secondItem="9Y1-Ye-8ce" secondAttribute="trailing" constant="16" id="1Bw-br-qSO"/>
+                        <constraint firstItem="Tuj-v0-Qwx" firstAttribute="bottom" secondItem="9Y1-Ye-8ce" secondAttribute="bottom" constant="16" id="4Q8-jE-Fw5"/>
+                        <constraint firstItem="UeJ-O7-S7b" firstAttribute="leading" secondItem="oIz-Wk-cpz" secondAttribute="trailing" id="9kI-CW-O9f"/>
+                        <constraint firstItem="oIz-Wk-cpz" firstAttribute="leading" secondItem="RsK-LQ-rX6" secondAttribute="leading" constant="16" id="AiF-l3-QDV"/>
+                        <constraint firstItem="oIz-Wk-cpz" firstAttribute="top" secondItem="RsK-LQ-rX6" secondAttribute="top" constant="16" id="QxC-MJ-97i"/>
+                        <constraint firstItem="Tuj-v0-Qwx" firstAttribute="trailing" secondItem="BRh-eZ-EWv" secondAttribute="trailing" constant="16" id="SGE-rX-6cU"/>
+                        <constraint firstItem="Dzf-NE-9dT" firstAttribute="top" secondItem="BRh-eZ-EWv" secondAttribute="bottom" constant="32" id="rnW-vd-6us"/>
+                        <constraint firstItem="Tuj-v0-Qwx" firstAttribute="bottom" secondItem="Dzf-NE-9dT" secondAttribute="bottom" constant="16" id="uGT-4Y-jdR"/>
+                        <constraint firstItem="9Y1-Ye-8ce" firstAttribute="leading" secondItem="Dzf-NE-9dT" secondAttribute="trailing" constant="32" id="x2t-oP-R7O"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="Tuj-v0-Qwx"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="1206" y="66"/>
         </scene>
@@ -1219,6 +1296,7 @@
                                             </label>
                                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TqA-Bq-VDE">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <items>
                                                     <navigationItem id="GrU-ci-IDw">
                                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EoX-aa-EN5">

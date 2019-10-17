@@ -20,6 +20,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var doWorkButton: UIButton!
     @IBOutlet weak var addButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var doWorkButtonConstraint: NSLayoutConstraint!
+    @IBOutlet var popOverView: UIView!
+    @IBOutlet weak var popOverDateLabel: UILabel!
+    @IBOutlet weak var doWorkContent: UITextField!
+    @IBOutlet weak var doWorkSaveButton: UIButton!
+    @IBOutlet weak var popOverDateLabel2: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let db = Firestore.firestore()
     let firebaseAuth = Auth.auth()
@@ -81,17 +87,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         imageView.image = image
         navigationItem.titleView = imageView
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        popOverView.layer.borderColor = UIColor(displayP3Red: 0/255, green: 0/255, blue: 0/255, alpha: 1).cgColor
+        popOverView.layer.borderWidth = 1
+        
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
         getDocumentFromFirebase()
         
-        if date > self.date {
-            self.editButton.isHidden = true
-        } else {
-            self.editButton.isHidden = false
-        }
+//        if date > self.date {
+//            self.editButton.isHidden = true
+//        } else {
+//            self.editButton.isHidden = false
+//        }
         
     }
     
@@ -120,6 +130,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             click = true
         }
     }
+    
+    
+    @IBAction func doWorkButtonClick(_ sender: Any) {
+        self.view.addSubview(popOverView)
+        popOverView.center = self.view.center
+        
+        let dateFormat: DateFormatter = DateFormatter()
+        dateFormat.dateFormat = "yyyy년 MM월 dd일"
+        if calendar.selectedDate == nil {
+            let selectDate: String = dateFormat.string(from: date)
+            popOverDateLabel.text = selectDate as? String
+        } else {
+            let selectDate: String = dateFormat.string(from: self.calendar.selectedDate!)
+            popOverDateLabel.text = selectDate as? String
+        }
+        
+        popOverDateLabel2.text = " 의 할일"
+        
+        
+    }
+    
+    @IBAction func doWorkSave(_ sender: Any) {
+        doWorkContent.resignFirstResponder()
+        
+        activityIndicator.startAnimating()
+        
+        doWorkSaveButton.isEnabled = false
+        
+        var ref: DocumentReference? = nil
+        
+        ref = db.collection("Todo").addDocument(data: [
+            "timestamp": date,
+            "todo": doWorkContent.text ?? "",
+            "user id": firebaseAuth.currentUser?.email
+        ]) { err in
+            self.activityIndicator.stopAnimating()
+            var alertTitle = "저장되었습니다."
+            var alertMessage = "성공적으로 저장되었습니다."
+            if err != nil {
+                alertTitle = "실패하였습니다."
+                alertMessage = "저장에 실패하였습니다."
+            }
+            
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "확인", style: .default, handler: {
+                (_) in
+                self.popOverView.removeFromSuperview()
+            })
+            alertController.addAction(okButton)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    
+    @IBAction func doWorkCancel(_ sender: Any) {
+        self.popOverView.removeFromSuperview()
+    }
+    
+    
     
     deinit {
         selectedDateObserver?.invalidate()
