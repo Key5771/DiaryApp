@@ -10,7 +10,7 @@ import Foundation
 
 struct CommentContent {
     var id: String
-    var name: String
+    var email: String
     var date: Date
     var content: String
 }

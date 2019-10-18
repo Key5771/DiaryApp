@@ -44,7 +44,15 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = commentTableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentTableViewCell
-        cell.nameLabel.text = comment[indexPath.row].name
+        let name = db.collection("User").whereField("Email", isEqualTo: comment[indexPath.row].email).getDocuments(completion: { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                if let userEmail = querySnapshot?.documents.first?.get("name") as? String {
+                    cell.nameLabel.text = userEmail
+                }
+            }
+        })
         cell.contentLabel.text = comment[indexPath.row].content
         
         let dateFormat: DateFormatter = DateFormatter()
@@ -52,6 +60,11 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.timeLabel.text = dateFormat.string(from: comment[indexPath.row].date)
         
         return cell
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getComment()
     }
     
     override func viewDidLoad() {
@@ -154,12 +167,6 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        getComment()
-    }
-    
     // 댓글 남긴 사용자의 정보와 댓글 내용 가져오기
     func getComment() {
         db.collection("Content").document(diaryId).collection("Comment").order(by: "date", descending: false).addSnapshotListener { (querySnapShot, err) in
@@ -169,7 +176,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.comment = []
                 
                 for document in querySnapShot!.documents {
-                    let commentContent: CommentContent = CommentContent(id: document.documentID, name: document.get("user id") as! String, date: (document.get("date") as! Timestamp).dateValue(), content: document.get("content") as! String)
+                    let commentContent: CommentContent = CommentContent(id: document.documentID, email: document.get("user id") as! String, date: (document.get("date") as! Timestamp).dateValue(), content: document.get("content") as! String)
                     self.comment.append(commentContent)
                 }
                 self.commentTableView.reloadData()
