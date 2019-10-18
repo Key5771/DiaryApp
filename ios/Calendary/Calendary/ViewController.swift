@@ -129,6 +129,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         getDoworkFromFirebase()
         getDocumentFromFirebase()
         
+        if calendar.selectedDate == nil {
+            getDoworkFromFirebase()
+            getDocumentFromFirebase()
+        }
+        
 //        if date > self.date {
 //            self.editButton.isHidden = true
 //        } else {
@@ -142,7 +147,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if click == true {
             addDiaryButton.isHidden = false
             doWorkButton.isHidden = false
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.2) {
                 self.addButtonConstraint.constant = 76
                 self.doWorkButtonConstraint.constant = 136
                 self.view.layoutIfNeeded()
@@ -150,7 +155,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
             click = false
         } else {
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.addButtonConstraint.constant = 16
                 self.doWorkButtonConstraint.constant = 16
                 self.view.layoutIfNeeded()
@@ -212,6 +217,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             })
             alertController.addAction(okButton)
             self.present(alertController, animated: true, completion: nil)
+            self.getDoworkFromFirebase()
         }
     }
     
