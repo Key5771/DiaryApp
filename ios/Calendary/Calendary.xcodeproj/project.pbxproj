@@ -12,6 +12,7 @@
 		EA1BDF7A2317DC1100821122 /* PasswordFindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */; };
 		EA1BDF7C2317DC6600821122 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1BDF7B2317DC6600821122 /* JoinViewController.swift */; };
 		EA1EF927231789320097EAFA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1EF926231789320097EAFA /* LoginViewController.swift */; };
+		EA28D288235991C50047DB02 /* DoworkContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA28D287235991C50047DB02 /* DoworkContent.swift */; };
 		EA57AAA92341F3E10011323E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */; };
 		EA57AAAB2341F4D70011323E /* CommentContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57AAAA2341F4D70011323E /* CommentContent.swift */; };
 		EA57AAEE234726F00011323E /* DiaryPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57AAED234726F00011323E /* DiaryPopoverViewController.swift */; };
@@ -67,6 +68,7 @@
 		EA1BDF792317DC1100821122 /* PasswordFindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFindViewController.swift; sourceTree = "<group>"; };
 		EA1BDF7B2317DC6600821122 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		EA1EF926231789320097EAFA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EA28D287235991C50047DB02 /* DoworkContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoworkContent.swift; sourceTree = "<group>"; };
 		EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		EA57AAAA2341F4D70011323E /* CommentContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentContent.swift; sourceTree = "<group>"; };
 		EA57AAED234726F00011323E /* DiaryPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPopoverViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				EA57AAA82341F3E10011323E /* CommentTableViewCell.swift */,
 				EAABCBB02333D6C900D8264F /* ShareTableViewCell.swift */,
 				EAB7564D2316798300467C3A /* DiaryContent.swift */,
+				EA28D287235991C50047DB02 /* DoworkContent.swift */,
 				EA57AAAA2341F4D70011323E /* CommentContent.swift */,
 				EAABCBAC2332121D00D8264F /* UserDocument.swift */,
 				EAB75612230FC76400467C3A /* Main.storyboard */,
@@ -465,6 +468,7 @@
 				EA1EF927231789320097EAFA /* LoginViewController.swift in Sources */,
 				EAB7564A2316764900467C3A /* DiaryViewController.swift in Sources */,
 				EAB7564C231677C800467C3A /* DiaryTableViewCell.swift in Sources */,
+				EA28D288235991C50047DB02 /* DoworkContent.swift in Sources */,
 				EAABCBB12333D6C900D8264F /* ShareTableViewCell.swift in Sources */,
 				EA57AAEE234726F00011323E /* DiaryPopoverViewController.swift in Sources */,
 				EABECB7C2339125D00DCFAE6 /* ListTableViewCell.swift in Sources */,

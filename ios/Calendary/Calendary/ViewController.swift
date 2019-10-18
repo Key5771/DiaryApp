@@ -32,17 +32,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var click: Bool = true
     var date: Date = Date()
+    var dowork: [DoworkContent] = []
     var diarys: [DiaryContent] = []
     var selectedDateObserver: NSKeyValueObservation? = nil
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return diarys.count
+        if section == 0 {
+            return dowork.count
+        } else if section == 1 {
+            return diarys.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  listTableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
-        
-        cell.workLabel.text = diarys[indexPath.row].title
+        if indexPath.section == 0 {
+//            cell.workLabel.text = dowork[indexPath.row]
+        } else if indexPath.section == 1 {
+            cell.workLabel.text = diarys[indexPath.row].title
+        }
         
         return cell
     }
@@ -66,6 +79,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.listTableView.reloadData()
             }
         }
+    }
+    
+    func getDoworkFromFirebase() {
+//        let selectedDate
     }
     
     override func viewDidLoad() {

@@ -1218,6 +1218,9 @@
                                 <state key="normal" title="최신순">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="newSort:" destination="PPM-BN-k6A" eventType="touchUpInside" id="JuE-CO-bBP"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQd-Bj-z3R">
                                 <rect key="frame" x="0.0" y="90" width="414" height="1"/>
@@ -1234,6 +1237,9 @@
                                 <state key="normal" title="오래된순">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="oldSort:" destination="PPM-BN-k6A" eventType="touchUpInside" id="fnv-Pt-Zia"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>

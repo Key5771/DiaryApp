@@ -9,17 +9,40 @@
 import UIKit
 
 class DiaryPopoverViewController: UIViewController {
-    
-    var sort = ["최신순", "오래된순"]
-    
-    
 
+    
+    var delegate: DiaryViewController?
+    var segmentIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         // Do any additional setup after loading the view.
     }
+
+
+    
+    @IBAction func newSort(_ sender: Any) {
+        if segmentIndex == 0 {
+            delegate?.method = .newWrite
+        } else if segmentIndex == 1 {
+            delegate?.method = .newSelectTimestamp
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func oldSort(_ sender: Any) {
+        if segmentIndex == 0 {
+            delegate?.method = .oldWrite
+        } else if segmentIndex == 1 {
+            delegate?.method = .oldSelectTimestamp
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
     
 
     /*

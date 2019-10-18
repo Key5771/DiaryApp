@@ -47,10 +47,13 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func selectSegment(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
+            sortButton.isHidden = false
             method = .newWrite
         } else if sender.selectedSegmentIndex == 1 {
+            sortButton.isHidden = false
             method = .newSelectTimestamp
         } else if sender.selectedSegmentIndex == 2 {
+            sortButton.isHidden = true
             method = .doWork
         }
     }
@@ -199,12 +202,14 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func sortButtonClick(_ sender: Any) {
-        let viewController: UIViewController = self.storyboard!.instantiateViewController(withIdentifier: "diaryPopover")
+        let viewController = self.storyboard!.instantiateViewController(withIdentifier: "diaryPopover") as! DiaryPopoverViewController
+        viewController.segmentIndex = self.segment.selectedSegmentIndex
         viewController.modalPresentationStyle = .popover
         viewController.popoverPresentationController?.sourceView = self.view
         viewController.popoverPresentationController?.sourceRect = self.sortButton.frame
         viewController.popoverPresentationController?.delegate = self
         viewController.popoverPresentationController?.permittedArrowDirections = .up
+        viewController.delegate = self
         self.present(viewController, animated: true, completion: nil)
     }
     
