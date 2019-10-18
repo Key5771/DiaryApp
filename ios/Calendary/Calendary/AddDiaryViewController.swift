@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import Firebase
 
 class AddDiaryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var contentTextview: UITextView!

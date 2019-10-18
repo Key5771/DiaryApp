@@ -31,7 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let firebaseAuth = Auth.auth()
     
     var click: Bool = true
-    var date: Date = Date()
+    let date: Date = Date()
     var dowork: [DoworkContent] = []
     var diarys: [DiaryContent] = []
     var selectedDateObserver: NSKeyValueObservation? = nil
@@ -198,7 +198,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var ref: DocumentReference? = nil
         
         ref = db.collection("Todo").addDocument(data: [
-            "timestamp": calendar.selectedDate,
+            "timestamp": calendar.selectedDate ?? date,
             "todo": doWorkContent.text ?? "",
             "user id": firebaseAuth.currentUser?.email
         ]) { err in
@@ -218,12 +218,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             alertController.addAction(okButton)
             self.present(alertController, animated: true, completion: nil)
             self.getDoworkFromFirebase()
+            self.doWorkContent.text = ""
         }
     }
     
     
     @IBAction func doWorkCancel(_ sender: Any) {
         self.popOverView.removeFromSuperview()
+        self.doWorkContent.text = ""
     }
     
     

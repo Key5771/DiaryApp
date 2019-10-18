@@ -9,11 +9,12 @@
 import UIKit
 import FirebaseFirestore
 
-class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var sortButton: UIButton!
     
     let db = Firestore.firestore()
     var diary: [DiaryContent] = [] {
@@ -63,10 +64,13 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func selectSegment(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
+            sortButton.isHidden = true
             method = .popular
         } else if sender.selectedSegmentIndex == 1 {
+            sortButton.isHidden = false
             method = .newSelected
         } else if sender.selectedSegmentIndex == 2 {
+            sortButton.isHidden = false
             method = .newWrite
         }
     }
@@ -101,6 +105,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
         
         activityIndicatorView.startAnimating()
         
@@ -116,7 +121,6 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
-        // Do any additional setup after loading the view.
     }
     
     @objc func refresh() {
@@ -129,7 +133,9 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         getDocumentFromFirebase()
+        
     }
     
     func getDocumentFromFirebase() {
@@ -148,6 +154,23 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         })
     }
+    
+    @IBAction func sortButtonClick(_ sender: Any) {
+        let viewController = self.storyboard!.instantiateViewController(withIdentifier: "sharePopover") as! SharePopoverViewController
+        viewController.segmentIndex = self.segment.selectedSegmentIndex
+        viewController.modalPresentationStyle = .popover
+        viewController.popoverPresentationController?.sourceView = self.view
+        viewController.popoverPresentationController?.sourceRect = self.sortButton.frame
+        viewController.popoverPresentationController?.delegate = self
+        viewController.popoverPresentationController?.permittedArrowDirections = .up
+        viewController.delegate = self
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     
     
     // MARK: - Navigation
