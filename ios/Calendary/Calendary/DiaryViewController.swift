@@ -140,6 +140,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         tableView.insertRows(at: [indexPath], with: .automatic)
                     } else {
                         print("Document successfully removed!")
+                        self.tableView.reloadData()
                     }
                 }
             }
@@ -147,14 +148,19 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if editingStyle == .delete {
                 let work = self.doWorkArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                db.collection("Todo").getDocuments { (querySnapshot, err) in
-                    querySnapshot?.documents.forEach { $0.reference.delete() }
+                
+                db.collection("Todo").document(work.id).delete() { err in
+                    if let err = err {
+                        print("Error removing document: \(err)")
+                        self.doWorkArray.insert(work, at: indexPath.row)
+                        tableView.insertRows(at: [indexPath], with: .automatic)
+                    } else {
+                        print("Document successfully removed")
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
