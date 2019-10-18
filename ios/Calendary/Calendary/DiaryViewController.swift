@@ -142,6 +142,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         print("Document successfully removed!")
                         self.tableView.reloadData()
                     }
+                    
                 }
             }
         } else if segment.selectedSegmentIndex == 2 {
