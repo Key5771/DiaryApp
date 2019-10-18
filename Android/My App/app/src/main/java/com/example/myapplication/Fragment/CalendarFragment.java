@@ -98,7 +98,6 @@ public class CalendarFragment extends Fragment {
         todo_fab = (FloatingActionButton) view.findViewById(R.id.todo_fab);
         mDayList = (RecyclerView) view.findViewById(R.id.day_list);
 
-
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -151,8 +150,6 @@ public class CalendarFragment extends Fragment {
 
                 //선택한 날짜에 저장된 목록 가져오기
 
-//                Date selectDate = selectTime;
-//                Date selectDatePlusDay = cal.add(Calendar.DATE,1);
 
                 firebaseFirestore.collection("Content")
                         .whereEqualTo("user id",user.getEmail()).whereEqualTo("select timestamp",day)
@@ -165,7 +162,13 @@ public class CalendarFragment extends Fragment {
                             DiaryContent diaryData = new DiaryContent();
                             contentMap = document.getData();
 
-                            diaryData.title = (String) contentMap.getOrDefault("title","제목");
+                            diaryData.id = (String) document.getId();
+                            diaryData.title = (String) contentMap.getOrDefault("title", "제목");
+                            diaryData.content = (String) contentMap.getOrDefault("content", "내용");
+                            diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
+                            diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
+                            diaryData.timestamp = ((Timestamp) contentMap.getOrDefault("timestamp", 0)).toDate();
+                            diaryData.user_id = (String) contentMap.get("user id");
 
                             diaryContentList.add(diaryData);
                             Log.i(TAG, contentMap.toString());
@@ -217,6 +220,8 @@ public class CalendarFragment extends Fragment {
                 input_todo(v);
             }
         });
+
+        select_diary();
 
         return view;
     }
@@ -299,6 +304,33 @@ public class CalendarFragment extends Fragment {
     private void closeFABMenu(){
         diary_fab.animate().translationY(0);
         todo_fab.animate().translationY(0);
+    }
+
+    private void select_diary() {
+
+        //일기 선택
+        gestureDetector = new GestureDetector(getActivity().getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+        });
+
+        //리스트에서 선택한 일기 보내주기
+        mDayList.addOnItemTouchListener(new DiaryFragment.RecyclerTouchListener(getActivity().getApplicationContext(), mDayList, new DiaryFragment.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent diaryIntent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
+                diaryIntent.putExtra("id",diaryContentList.get(position).id);
+                diaryIntent.putExtra("Content", diaryContentList.get(position));
+                startActivity(diaryIntent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
+
     }
 
 

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.Activity.DetailActivity;
+import com.example.myapplication.Activity.PrivateDetailActivity;
 import com.example.myapplication.Adapter.DiaryAdapter;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
@@ -36,6 +37,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -142,7 +144,6 @@ public class PrivateDateFirstFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
@@ -177,6 +178,13 @@ public class PrivateDateFirstFragment extends Fragment {
                         }
                     });
 
+                    Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
+                        @Override
+                        public int compare(DiaryContent o1, DiaryContent o2) {
+                            return o2.select_timestamp.compareTo(o1.select_timestamp);
+                        }
+                    });
+
                 }
                 mDiaryAdaptor = new DiaryAdapter(diaryContentList);
                 mDateList.setAdapter(mDiaryAdaptor);
@@ -191,7 +199,6 @@ public class PrivateDateFirstFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
@@ -238,6 +245,7 @@ public class PrivateDateFirstFragment extends Fragment {
 
     private void select_diary() {
 
+
         //일기 선택
         gestureDetector = new GestureDetector(getActivity().getApplicationContext(), new GestureDetector.SimpleOnGestureListener(){
             @Override
@@ -250,11 +258,17 @@ public class PrivateDateFirstFragment extends Fragment {
         mDateList.addOnItemTouchListener(new DiaryFragment.RecyclerTouchListener(getActivity().getApplicationContext(), mDateList, new DiaryFragment.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent diaryIntent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
-                diaryIntent.putExtra("id",diaryContentList.get(position).id);
-                diaryIntent.putExtra("Content", diaryContentList.get(position));
-                startActivity(diaryIntent);
-            }
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                    Intent privIntent = new Intent(getActivity().getBaseContext(), PrivateDetailActivity.class);
+                    privIntent.putExtra("id",diaryContentList.get(position).id);
+                    privIntent.putExtra("Content", diaryContentList.get(position));
+                    startActivity(privIntent);
+
+//                    Intent diaryIntent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
+//                    diaryIntent.putExtra("id", diaryContentList.get(position).id);
+//                    diaryIntent.putExtra("Content", diaryContentList.get(position));
+//                    startActivity(diaryIntent);
+                }
 
 
             //일기 삭제하기

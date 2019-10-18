@@ -8,10 +8,71 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/image_plus_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/white"
+                    android:gravity="start|top"
+                    android:minHeight="500dp"
+                    android:hint="\t \t 내용입력"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/dark"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="51dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="51dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="293dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
     <EditText
         android:id="@+id/edit_title"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -26,38 +87,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_tv" />
 
-    <EditText
-        android:id="@+id/edit_content"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/edit_text_stroke"
-        android:gravity="start|top"
-        android:hint="\n\t 오늘 하루 어땠어요?"
-        android:inputType="textMultiLine"
-        android:textColor="@color/dark"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
-
     <Switch
         android:id="@+id/show_swt"
-        android:layout_width="121dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:text="공개여부"
         android:thumb="@drawable/switch_thumb"
         android:track="@drawable/switch_track_selector"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_content"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/save_button"
@@ -86,7 +126,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/netmarbleb"
-        android:text="일기"
+        android:text=" 일기 작성"
         android:textColor="@color/dark"
         android:textSize="26dp"
         app:layout_constraintStart_toEndOf="@+id/backbtn"
@@ -94,19 +134,16 @@
 
     <ImageView
         android:id="@+id/image_plus_btn"
-        android:layout_width="60dp"
-        android:layout_height="35dp"
+        android:layout_width="50dp"
+        android:layout_height="26dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="225dp"
+        android:layout_marginBottom="4dp"
         android:clickable="true"
         android:tint="@color/orange_inactive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/show_swt"
-        app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_content"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/picture" />
 
     <TextView

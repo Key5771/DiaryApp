@@ -119,11 +119,11 @@ public class PublicDateFirstFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-
-        //일기 불러오기
+        /*
+         * 일기 불러오기
+         */
         CollectionReference collectionReference = firebaseFirestore.collection("Content");
         collectionReference.whereEqualTo("show", true).get().addOnCompleteListener(task -> {
 
@@ -145,7 +145,9 @@ public class PublicDateFirstFragment extends Fragment {
 
                     diaryContentList.add(diaryData);
 
-                    //최신순 정렬
+                    /*
+                   최신순 정렬
+                     */
                     Collections.sort(diaryContentList, new Comparator<DiaryContent>() {
                         @Override
                         public int compare(DiaryContent o1, DiaryContent o2) {

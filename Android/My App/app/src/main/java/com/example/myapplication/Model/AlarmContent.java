@@ -2,9 +2,11 @@ package com.example.myapplication.Model;
 
 public class AlarmContent {
 
-    public String destinationUid;
-//    public String user_id;
-//    public String uid;
-    public int kind;
-    public String message;
+    public String alarm_user_name;
+    public String like_message;
+    public String comment_message;
+
+    public AlarmContent(){
+
+    }
 }

@@ -1,21 +1,68 @@
 package com.example.myapplication.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.myapplication.Activity.DetailActivity;
+import com.example.myapplication.Adapter.DiaryAdapter;
+import com.example.myapplication.Adapter.PublicAdapter;
+import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BestDiaryFragment extends Fragment {
 
+    private RecyclerView bestList;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
+    List<DiaryContent> diaryContentList;
+    private GestureDetector gestureDetector;
+    private DiaryAdapter mDiaryAdaptor;
+    private PublicAdapter publicAdapter;
+    private Map<String, Object> contentMap;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private int likeCount;
+
+    RecyclerView.LayoutManager layoutManager;
 
     public BestDiaryFragment() {
 
@@ -26,7 +73,98 @@ public class BestDiaryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_best_diary, container, false);
 
+        init(view);
+        read_diary();
+        select_diary();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                read_diary();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         return view;
     }
 
+    private void read_diary(){
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+        //일기 불러오기
+        CollectionReference collectionReference = firebaseFirestore.collection("Content");
+        collectionReference.whereEqualTo("show", true).get().addOnCompleteListener(task -> {
+
+            if (task.isSuccessful()) {
+
+                QuerySnapshot documentSnapshots = task.getResult();
+                diaryContentList = new ArrayList<>();
+                contentMap = new HashMap<>();
+                for (QueryDocumentSnapshot document : documentSnapshots) {
+                    DiaryContent diaryData = new DiaryContent();
+                    contentMap = document.getData();
+
+                    diaryData.id = (String) document.getId();
+                    diaryData.title = (String) contentMap.getOrDefault("title", "제목");
+                    diaryData.content = (String) contentMap.getOrDefault("content", "내용");
+                    diaryData.select_timestamp = ((Timestamp)contentMap.getOrDefault("select timestamp",0)).toDate();
+                    diaryData.user_name = (String)contentMap.getOrDefault("user name","이름");
+                    diaryData.timestamp = ((Timestamp) contentMap.getOrDefault("timestamp", 0)).toDate();
+                    diaryData.user_id = (String) contentMap.get("user id");
+
+                    diaryContentList.add(diaryData);
+                }
+
+                publicAdapter = new PublicAdapter(diaryContentList);
+                bestList.setAdapter(publicAdapter);
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
+            }
+        });
+
+
+
+
+    }
+
+    private void select_diary() {
+
+        //일기 선택
+        gestureDetector = new GestureDetector(getActivity().getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+        });
+
+        //리스트에서 선택한 일기 보내주기
+        bestList.addOnItemTouchListener(new DiaryFragment.RecyclerTouchListener(getActivity().getApplicationContext(), bestList, new DiaryFragment.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent diaryIntent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
+                diaryIntent.putExtra("id",diaryContentList.get(position).id);
+                diaryIntent.putExtra("Content", diaryContentList.get(position));
+                startActivity(diaryIntent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
+
+    }
+
+    private void init(View v){
+        bestList = (RecyclerView) v.findViewById(R.id.best_list);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_layout6);
+        swipeRefreshLayout.setColorSchemeResources(R.color.orange_inactive);
+
+        bestList.addItemDecoration(new DividerItemDecoration(v.getContext(), 1));
+        layoutManager = new LinearLayoutManager(getActivity());
+        bestList.setLayoutManager(layoutManager);
+    }
 }

@@ -12,6 +12,7 @@ public class DiaryContent implements Serializable {
     public String uid;
     public String user_name;
     public Date timestamp, select_timestamp;
+    public int like_num;
 
     public DiaryContent(){
 

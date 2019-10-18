@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -88,6 +89,7 @@ public class DetailActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -97,16 +99,14 @@ public class DetailActivity extends AppCompatActivity {
         intent = getIntent();
         init();
 
-
         left_btn.setOnClickListener(this::onClick);
+        docID = intent.getStringExtra("id");
 
         String title_st;
         String content_st;
         String name_st, id_st;
         Date time_st;
         Date date_st;
-
-        docID = intent.getStringExtra("id");
 
         DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("Content");
 
@@ -115,7 +115,6 @@ public class DetailActivity extends AppCompatActivity {
         time_st = diaryContent.timestamp;
         date_st = diaryContent.select_timestamp;
         name_st = diaryContent.user_name;
-//        name_st = diaryContent.user_id;
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
@@ -225,6 +224,7 @@ public class DetailActivity extends AppCompatActivity {
     //댓글 저장하기
     private void save_comment(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         String comment = edit_comment.getText().toString();
         Date commentDate = Calendar.getInstance().getTime();
@@ -243,8 +243,9 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()){
-                    System.out.println("BBBBBBBBBBBBBBBB" + comment);
+//                    System.out.println("BBBBBBBBBBBBBBBB" + comment);
                     edit_comment.setText("");
+                    inputMethodManager.hideSoftInputFromWindow(edit_comment.getWindowToken(),0);
                     read_comment();
                 }
                 else {
@@ -256,7 +257,7 @@ public class DetailActivity extends AppCompatActivity {
 
     //좋아요 개수 불러오기
     private void like_Count(){
-
+        DiaryContent diaryData = new DiaryContent();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -268,7 +269,8 @@ public class DetailActivity extends AppCompatActivity {
                     likeCount = 0;
                     for(DocumentSnapshot documentSnapshot : task.getResult()){
                         likeCount ++;
-                        likenum_text.setText(String.valueOf(likeCount));}
+                        diaryData.like_num = likeCount;
+                        likenum_text.setText(String.valueOf(diaryData.like_num));}
                 }else {
                     Log.d("DetailActivity", "Error getting documents: ", task.getException());
                 }
@@ -297,7 +299,7 @@ public class DetailActivity extends AppCompatActivity {
                     commentContent.comment_timestamp = ((Timestamp)contentMap.getOrDefault("date",0)).toDate();
                     commentContent.comment_user_id = (String) contentMap.get("user id");
 
-                    Log.d("DetailActivity","!!!!!!!"+contentMap);
+//                    Log.d("DetailActivity","!!!!!!!"+contentMap);
                     commentContentList.add(commentContent);
 
                     //최신순 정렬
@@ -343,7 +345,7 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         firebaseFirestore.collection("Content").document(docID).collection("Comment")
-                                .document(commentContentList.get(position).id)
+                                .document(DetailActivity.this.commentContentList.get(position).id)
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
