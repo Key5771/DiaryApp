@@ -19,10 +19,14 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var switchButton: UISwitch!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var onoffLabel: UILabel!
+    @IBOutlet weak var addPhotoButton: UIButton!
+    @IBOutlet weak var imageView1: UIImageView!
     
     var date: Date = Date()
     
     var diaryId: String = ""
+    
+    let picker = UIImagePickerController()
     
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo ?? [:]
@@ -65,6 +69,8 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Do any additional setup after loading the view.
+        
         titleTextfield.layer.borderWidth = 1
         titleTextfield.layer.borderColor = UIColor.lightGray.cgColor
         titleTextfield.layer.cornerRadius = 10
@@ -90,9 +96,6 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
 //                    if let content = querySnapshot!.get("content") as? String {
 //                        self.contentTextview.text = content
 //                    }
-////                    if let date = querySnapshot!.get("date") as? String {
-////                        self.contentTextview.text = content
-////                    }
 //                }
 //            }
 //        }
@@ -100,7 +103,7 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
-        // Do any additional setup after loading the view.
+        picker.delegate = self
     }
     
     @IBAction func save(_ sender: Any) {
@@ -151,6 +154,41 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    @IBAction func addPhoto(_ sender: Any) {
+        let alert = UIAlertController(title: "어디서 사진을 가져올까", message: "골라줘", preferredStyle: .actionSheet)
+        
+        let library = UIAlertAction(title: "사진앨범", style: .default) {
+            (action) in self.openLibrary()
+        }
+        
+        let camera = UIAlertAction(title: "카메라", style: .default) {
+            (action) in self.openCamera()
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(library)
+        alert.addAction(camera)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func openLibrary() {
+        picker.sourceType = .photoLibrary
+        present(picker, animated: false, completion: nil)
+    }
+    
+    func openCamera() {
+        if (UIImagePickerController .isSourceTypeAvailable(.camera)) {
+            picker.sourceType = .camera
+            present(picker, animated: false, completion: nil)
+        } else {
+            print("Camera not available")
+        }
+    }
+    
+    
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -170,6 +208,8 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     }
     
     
+    
+    
     /*
     // MARK: - Navigation
 
@@ -180,4 +220,15 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     }
     */
 
+}
+
+extension AddDiaryViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageView1.image = image
+            print(info)
+        }
+        dismiss(animated: true, completion: nil)
+    }
 }
