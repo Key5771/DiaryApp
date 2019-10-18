@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  listTableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListTableViewCell
         if indexPath.section == 0 {
-//            cell.workLabel.text = dowork[indexPath.row]
+            cell.workLabel.text = dowork[indexPath.row].content
         } else if indexPath.section == 1 {
             cell.workLabel.text = diarys[indexPath.row].title
         }
@@ -82,7 +82,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getDoworkFromFirebase() {
-//        let selectedDate
+        let selectedDate = calendar.selectedDate ?? Date()
+        let selectedDatePlusDay = Calendar.current.date(byAdding: .day,value: 1, to: selectedDate)
+        
+        db.collection("Todo").whereField("timestamp", isGreaterThanOrEqualTo: selectedDate).whereField("timestamp", isLessThan: selectedDatePlusDay).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting document: \(err)")
+            } else {
+                self.dowork = []
+                for document in querySnapshot!.documents where document.get("user id") as? String == self.firebaseAuth.currentUser?.email {
+                    let dowork: DoworkContent = DoworkContent(id: document.documentID, userId: document.get("user id") as! String, content: document.get("todo") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue())
+                    self.dowork.append(dowork)
+                }
+                self.listTableView.reloadData()
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -112,6 +126,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
+        getDoworkFromFirebase()
         getDocumentFromFirebase()
         
 //        if date > self.date {
@@ -178,7 +193,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var ref: DocumentReference? = nil
         
         ref = db.collection("Todo").addDocument(data: [
-            "timestamp": date,
+            "timestamp": calendar.selectedDate,
             "todo": doWorkContent.text ?? "",
             "user id": firebaseAuth.currentUser?.email
         ]) { err in
