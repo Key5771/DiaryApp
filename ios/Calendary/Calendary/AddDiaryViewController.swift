@@ -11,8 +11,9 @@ import FirebaseFirestore
 import FirebaseAuth
 import Firebase
 import FirebaseStorage
+import Photos
 
-class AddDiaryViewController: UIViewController, UITextViewDelegate {
+class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var titleTextfield: UITextField!
@@ -28,7 +29,6 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     var date: Date = Date()
     var diaryId: String = ""
     let picker = UIImagePickerController()
-    var imageArray: [Collection] = []
     
     
     @objc func keyboardDidShow(notification: Notification) {
@@ -155,22 +155,7 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
         } else {
             
         }
-        
-        let data = Data()
-        let storageRef = Storage.storage()
-        let riversRef = storageRef.reference().child("images/rivers.jpg")
-        let uploadTask = riversRef.putData(data, metadata: nil) { (metadata, err) in
-            guard let metadata = metadata else {
-                return
-            }
-            
-            let size = metadata.size
-            riversRef.downloadURL { (url, err) in
-                guard let downloadURL = url else {
-                    return
-                }
-            }
-        }
+
     }
     
     @IBAction func addPhoto(_ sender: Any) {
@@ -202,9 +187,39 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     func openCamera() {
         if (UIImagePickerController .isSourceTypeAvailable(.camera)) {
             picker.sourceType = .camera
+            picker.modalPresentationStyle = .overFullScreen
             present(picker, animated: false, completion: nil)
         } else {
             print("Camera not available")
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let optimizedImageData = image.jpegData(compressionQuality: 0.6) {
+            uploadImage(imageData: optimizedImageData)
+            print(info)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func uploadImage(imageData: Data) {
+        let storageReference = Storage.storage().reference()
+//        let currentUser = Auth.auth().currentUser
+        let uuid = NSUUID().uuidString
+        let imageRef = storageReference.child("\(uuid)")
+        
+        let uploadMetaData = StorageMetadata()
+        uploadMetaData.contentType = "image/jpeg"
+        
+        imageRef.putData(imageData, metadata: uploadMetaData) { (uploadMetaData, error) in
+            if error != nil {
+                print("Error took place \(String(describing: error?.localizedDescription))")
+                return
+            } else {
+                self.imageView1.image = UIImage(data: imageData)
+                print("Meta data of uploaded image \(String(describing: uploadMetaData))")
+            }
+            
         }
     }
     
@@ -242,13 +257,13 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
 
 }
 
-extension AddDiaryViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageView1.image = image
-            print(info)
-        }
-        dismiss(animated: true, completion: nil)
-    }
-}
+//extension AddDiaryViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            imageView1.image = image
+//            print(info)
+//        }
+//        dismiss(animated: true, completion: nil)
+//    }
+//}
