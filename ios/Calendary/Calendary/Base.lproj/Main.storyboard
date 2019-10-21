@@ -50,14 +50,14 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="listCell" id="LxK-QI-72V" customClass="ListTableViewCell" customModule="Calendary" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="366" height="59.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="366" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LxK-QI-72V" id="f7i-0S-TXC">
-                                            <rect key="frame" x="0.0" y="0.0" width="366" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="366" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="캘린더리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1g-4H-QmB">
-                                                    <rect key="frame" x="28" y="19" width="198" height="21.5"/>
+                                                    <rect key="frame" x="28" y="19" width="198" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -293,24 +293,23 @@
                                 <rect key="frame" x="64" y="746" width="59" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="사진추가">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addPhoto:" destination="f0U-Px-UQh" eventType="touchUpInside" id="Hpk-1T-pPB"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7gH-BR-L84">
-                                <rect key="frame" x="64" y="568" width="50" height="50"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwO-Sn-ZAq">
+                                <rect key="frame" x="32" y="568" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="64T-u5-y1K"/>
-                                    <constraint firstAttribute="height" constant="50" id="ytH-MG-Kud"/>
+                                    <constraint firstAttribute="height" constant="50" id="CmV-8K-PQ9"/>
+                                    <constraint firstAttribute="width" constant="50" id="aho-5m-FK2"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="7gH-BR-L84" firstAttribute="top" secondItem="mAp-aK-qud" secondAttribute="bottom" constant="16" id="0zS-Gb-PRQ"/>
                             <constraint firstItem="Ld0-wB-QsT" firstAttribute="bottom" secondItem="x7s-yh-ngG" secondAttribute="bottom" constant="32" id="12w-MG-c82"/>
                             <constraint firstItem="xLB-co-Tdt" firstAttribute="leading" secondItem="Ld0-wB-QsT" secondAttribute="leading" constant="16" id="1Ec-I0-nYo"/>
                             <constraint firstItem="Ld0-wB-QsT" firstAttribute="trailing" secondItem="Ojd-kc-Ig2" secondAttribute="trailing" constant="16" id="351-VL-ZgG"/>
@@ -319,6 +318,7 @@
                             <constraint firstItem="AJ2-th-R50" firstAttribute="top" secondItem="xLB-co-Tdt" secondAttribute="bottom" constant="16" id="J1h-Hr-Mre"/>
                             <constraint firstItem="zZS-pC-0wT" firstAttribute="leading" secondItem="Ld0-wB-QsT" secondAttribute="leading" constant="64" id="JBP-8G-B4w"/>
                             <constraint firstItem="Ld0-wB-QsT" firstAttribute="trailing" secondItem="x7s-yh-ngG" secondAttribute="trailing" constant="64" id="NaG-hi-wQE"/>
+                            <constraint firstItem="KwO-Sn-ZAq" firstAttribute="top" secondItem="mAp-aK-qud" secondAttribute="bottom" constant="16" id="QDj-sP-RNS"/>
                             <constraint firstItem="xLB-co-Tdt" firstAttribute="top" secondItem="Ojd-kc-Ig2" secondAttribute="bottom" constant="16" id="RVl-ia-xyF"/>
                             <constraint firstItem="mAp-aK-qud" firstAttribute="leading" secondItem="Ld0-wB-QsT" secondAttribute="leading" constant="16" id="Vyf-KX-StV"/>
                             <constraint firstItem="x7s-yh-ngG" firstAttribute="top" secondItem="mAp-aK-qud" secondAttribute="bottom" constant="194" id="Yv9-gB-2gD"/>
@@ -327,10 +327,10 @@
                             <constraint firstItem="ygl-Yn-bsU" firstAttribute="centerY" secondItem="f5j-zD-5mE" secondAttribute="centerY" id="eMg-Cc-2tf"/>
                             <constraint firstItem="x7s-yh-ngG" firstAttribute="leading" secondItem="e8X-TV-WWU" secondAttribute="trailing" constant="16" id="emX-pf-xId"/>
                             <constraint firstItem="e8X-TV-WWU" firstAttribute="top" secondItem="mAp-aK-qud" secondAttribute="bottom" constant="200" id="gBe-0H-8WE"/>
+                            <constraint firstItem="KwO-Sn-ZAq" firstAttribute="leading" secondItem="Ld0-wB-QsT" secondAttribute="leading" constant="32" id="h6F-04-cw2"/>
                             <constraint firstItem="Ojd-kc-Ig2" firstAttribute="leading" secondItem="Ld0-wB-QsT" secondAttribute="leading" constant="16" id="hcF-YW-6lz"/>
                             <constraint firstItem="mAp-aK-qud" firstAttribute="top" secondItem="AJ2-th-R50" secondAttribute="bottom" constant="16" id="q32-Af-aZu"/>
                             <constraint firstItem="AJ2-th-R50" firstAttribute="leading" secondItem="Ld0-wB-QsT" secondAttribute="leading" constant="16" id="ruk-hA-u1d"/>
-                            <constraint firstItem="7gH-BR-L84" firstAttribute="leading" secondItem="Ld0-wB-QsT" secondAttribute="leading" constant="64" id="twP-NB-CnY"/>
                             <constraint firstItem="Ld0-wB-QsT" firstAttribute="trailing" secondItem="AJ2-th-R50" secondAttribute="trailing" constant="16" id="vrE-6o-gGZ"/>
                             <constraint firstItem="Ld0-wB-QsT" firstAttribute="trailing" secondItem="xLB-co-Tdt" secondAttribute="trailing" constant="16" id="wfo-1Q-ZoO"/>
                         </constraints>
@@ -352,7 +352,7 @@
                         <outlet property="contentTextview" destination="mAp-aK-qud" id="0bU-8z-lk8"/>
                         <outlet property="contentTextviewBottomConstraint" destination="12w-MG-c82" id="GjT-1N-G0L"/>
                         <outlet property="dateLabel" destination="Ojd-kc-Ig2" id="Am6-8C-8FR"/>
-                        <outlet property="imageView1" destination="7gH-BR-L84" id="Fqb-xG-5aG"/>
+                        <outlet property="imageView1" destination="KwO-Sn-ZAq" id="aqc-pT-HRl"/>
                         <outlet property="onoffLabel" destination="e8X-TV-WWU" id="2Pe-rP-BDD"/>
                         <outlet property="saveButton" destination="7pj-qY-6zu" id="Y2k-Nb-hM7"/>
                         <outlet property="switchButton" destination="x7s-yh-ngG" id="tjQ-cn-zZ1"/>
@@ -608,7 +608,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Oi-eu-KP6">
                                     <rect key="frame" x="168" y="64" width="78" height="30"/>
                                     <state key="normal" title="회원탈퇴하기">
-                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="deleteUserButtonTouches:" destination="uW0-t5-hwZ" eventType="touchUpInside" id="gpR-OS-XXu"/>
@@ -728,7 +728,7 @@
                                     <constraint firstAttribute="height" constant="30" id="FJZ-4Y-Iwh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                 <connections>
                                     <action selector="emailTextfield:" destination="6Jc-U1-78E" eventType="editingDidEnd" id="Ha2-sX-RzU"/>
                                 </connections>
@@ -880,7 +880,7 @@
                                     <constraint firstAttribute="height" constant="30" id="PET-zg-cqZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mPN-OM-oXC">
                                 <rect key="frame" x="189" y="430" width="37" height="37"/>
@@ -947,7 +947,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="v0t-g1-Ble"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOf-5Q-0xR">
                                                 <rect key="frame" x="20" y="326" width="374" height="30"/>
@@ -1451,7 +1451,7 @@
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5IN-QC-RpL">
                                                                     <rect key="frame" x="0.0" y="79" width="382" height="1"/>
-                                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="ycW-Wq-1bW"/>
                                                                     </constraints>

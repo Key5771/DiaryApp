@@ -185,7 +185,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         popOverDateLabel2.text = " 의 할일"
         
-        
+        addDiaryButton.isHidden = true
+        doWorkButton.isHidden = true
+        click = true
     }
     
     @IBAction func doWorkSave(_ sender: Any) {
@@ -240,6 +242,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "addDiary" {
             let addDiaryViewContollrer = segue.destination as? AddDiaryViewController
             addDiaryViewContollrer?.date = calendar.selectedDate ?? Date()
+            addDiaryButton.isHidden = true
+            doWorkButton.isHidden = true
+            click = true
             print(calendar.selectedDate)
         }
     }

@@ -118,6 +118,8 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
         imageView.image = image
         navigationItem.titleView = imageView
         
+        sortButton.isHidden = true
+        
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 

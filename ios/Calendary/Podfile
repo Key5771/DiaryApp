@@ -11,7 +11,7 @@ target 'Calendary' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
-
+pod 'Firebase/Storage'
 
   target 'CalendaryTests' do
     inherit! :search_paths

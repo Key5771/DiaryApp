@@ -10,8 +10,10 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 import Firebase
+import FirebaseStorage
 
 class AddDiaryViewController: UIViewController, UITextViewDelegate {
+    
     @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var titleTextfield: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
@@ -24,10 +26,10 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var imageView1: UIImageView!
     
     var date: Date = Date()
-    
     var diaryId: String = ""
-    
     let picker = UIImagePickerController()
+    var imageArray: [Collection] = []
+    
     
     @objc func keyboardDidShow(notification: Notification) {
         let userInfo = notification.userInfo ?? [:]
@@ -153,6 +155,22 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
         } else {
             
         }
+        
+        let data = Data()
+        let storageRef = Storage.storage()
+        let riversRef = storageRef.reference().child("images/rivers.jpg")
+        let uploadTask = riversRef.putData(data, metadata: nil) { (metadata, err) in
+            guard let metadata = metadata else {
+                return
+            }
+            
+            let size = metadata.size
+            riversRef.downloadURL { (url, err) in
+                guard let downloadURL = url else {
+                    return
+                }
+            }
+        }
     }
     
     @IBAction func addPhoto(_ sender: Any) {
@@ -173,6 +191,7 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate {
         alert.addAction(cancel)
         
         present(alert, animated: true, completion: nil)
+        
     }
     
     func openLibrary() {
