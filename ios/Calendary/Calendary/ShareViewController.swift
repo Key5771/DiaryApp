@@ -148,7 +148,7 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.activityIndicatorView.stopAnimating()
                 self.diary = []
                 for document in querySnapshot!.documents {
-                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String)
+                    let diaryContent: DiaryContent = DiaryContent(id: document.documentID, title: document.get("title") as! String, content: document.get("content") as! String, timestamp: (document.get("timestamp") as! Timestamp).dateValue(), selectTimestamp: (document.get("select timestamp") as! Timestamp).dateValue(), show: (document.get("show") as? String) ?? "", userId: document.get("user id") as! String, imageId: document.get("image id") as? String ?? "")
                     self.diary.append(diaryContent)
                 }
                 self.refreshControl.endRefreshing()

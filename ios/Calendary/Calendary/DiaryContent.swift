@@ -17,6 +17,7 @@ struct DiaryContent {
     var selectTimestamp: Date
     var show: String
     var userId: String
+    var imageId: String
 }
 
 extension DiaryContent: Equatable {

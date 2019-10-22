@@ -13,7 +13,7 @@ import Firebase
 import FirebaseStorage
 import Photos
 
-class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var contentTextview: UITextView!
     @IBOutlet weak var titleTextfield: UITextField!
@@ -24,11 +24,24 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var onoffLabel: UILabel!
     @IBOutlet weak var addPhotoButton: UIButton!
-    @IBOutlet weak var imageView1: UIImageView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var date: Date = Date()
     var diaryId: String = ""
     let picker = UIImagePickerController()
+    var imageArray: [(UIImage, String)] = []
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionViewCell
+        
+        cell.collectionImageView.image = imageArray[indexPath.item].0
+        
+        return cell
+    }
     
     
     @objc func keyboardDidShow(notification: Notification) {
@@ -107,6 +120,9 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         picker.delegate = self
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     @IBAction func save(_ sender: Any) {
@@ -121,6 +137,17 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
 //        let calendar = Calendar.current
         let db = Firestore.firestore()
         let firebaseAuth = Auth.auth()
+        guard titleTextfield.text?.isEmpty == false && contentTextview.text?.isEmpty == false else {
+            activityIndicatorView.stopAnimating()
+            let alertTitle = "내용을 입력하세요"
+            
+            let alertController = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alertController.addAction(okButton)
+            self.present(alertController, animated: true, completion: nil)
+            self.saveButton.isEnabled = true
+            return
+        }
         if diaryId == "" {
             ref = db.collection("Content").addDocument(data: [
                 "content": contentTextview.text ?? "",
@@ -128,7 +155,8 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
                 "title": titleTextfield.text ?? "",
                 "timestamp": Date(),
                 "user id": firebaseAuth.currentUser?.email,
-                "show": switchButton.isOn
+                "show": switchButton.isOn,
+                "image id": imageArray.map { $0.1 }.joined(separator: "|")
 //                "user name": db.collection("User").whereField("Email", isEqualTo: firebaseAuth.currentUser?.email) as! String
             ]) { err in
                 self.activityIndicatorView.stopAnimating()
@@ -148,10 +176,11 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
                 self.present(alertController, animated: true, completion: nil)
             }
             
-//            ref?.collection("Favorite").addDocument(data: [
-//                "favUserId": firebaseAuth.currentUser?.email
-//            ])
-            
+            for image in imageArray {
+                if let optimizedImageData = image.0.jpegData(compressionQuality: 0.6) {
+                    uploadImage(imageData: optimizedImageData, uuid: image.1)
+                }
+            }
         } else {
             
         }
@@ -195,17 +224,20 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage, let optimizedImageData = image.jpegData(compressionQuality: 0.6) {
-            uploadImage(imageData: optimizedImageData)
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            uploadImage(imageData: optimizedImageData)
+            let uuid = NSUUID().uuidString
+            self.imageArray.append((image, uuid))
+            self.collectionView.reloadData()
             print(info)
         }
         dismiss(animated: true, completion: nil)
     }
     
-    func uploadImage(imageData: Data) {
+    func uploadImage(imageData: Data, uuid: String) {
         let storageReference = Storage.storage().reference()
 //        let currentUser = Auth.auth().currentUser
-        let uuid = NSUUID().uuidString
+        
         let imageRef = storageReference.child("\(uuid)")
         
         let uploadMetaData = StorageMetadata()
@@ -216,7 +248,7 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
                 print("Error took place \(String(describing: error?.localizedDescription))")
                 return
             } else {
-                self.imageView1.image = UIImage(data: imageData)
+//                self.imageView1.image = UIImage(data: imageData)
                 print("Meta data of uploaded image \(String(describing: uploadMetaData))")
             }
             

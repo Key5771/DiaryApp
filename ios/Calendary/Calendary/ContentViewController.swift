@@ -9,8 +9,9 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import FirebaseStorage
 
-class ContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet var backgroundTap: UITapGestureRecognizer!
     @IBOutlet weak var titleLabel: UILabel!
@@ -27,10 +28,12 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var commentTableView: UITableView!
     @IBOutlet weak var commentTableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
     
     var diaryId: String = ""
+    var imageId: [String] = []
     var userContent: String = ""
     var like: Bool = false
     var comment: [CommentContent] = []
@@ -62,6 +65,42 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageId.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionViewCell
+        
+        let storageReference = Storage.storage().reference()
+        //        let currentUser = Auth.auth().currentUser
+                
+        let imageRef = storageReference.child("\(imageId[indexPath.item])")
+        
+        let uploadMetaData = StorageMetadata()
+        uploadMetaData.contentType = "image/jpeg"
+        
+        imageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
+          if let error = error {
+            print("Error gettiong documents: \(error)")
+          } else {
+            // Data for "images/island.jpg" is returned
+            DispatchQueue.main.async {
+                let image = UIImage(data: data!)
+                cell.collectionImageView.image = image
+            }
+          }
+        }
+        return cell
+    }
+    
+    func getImage(uuid: String) {
+        
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getComment()
@@ -73,6 +112,9 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         commentTableView.delegate = self
         commentTableView.dataSource = self
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         // 키보드 올리고 내리고 함수 호출
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -86,6 +128,8 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
+                    self.imageId = ((querySnapshot!.get("image id") as? String) ?? "").split(separator: "|").map(String.init)
+                    self.collectionView.reloadData()
                     if let title = querySnapshot!.get("title") as? String {
                         self.titleLabel.text = title
                     }
