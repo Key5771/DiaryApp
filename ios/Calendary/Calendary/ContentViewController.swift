@@ -10,6 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 import FirebaseStorage
+import GoogleSignIn
 
 class ContentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -30,8 +31,6 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var commentTableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    
-    
     var diaryId: String = ""
     var imageId: [String] = []
     var userContent: String = ""
@@ -40,6 +39,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let db = Firestore.firestore()
     let firebaseAuth = Auth.auth()
+//    let didSignInForUser: GIDGoogleUser
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comment.count
@@ -47,6 +47,7 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = commentTableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! CommentTableViewCell
+
         let name = db.collection("User").whereField("Email", isEqualTo: comment[indexPath.row].email).getDocuments(completion: { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -130,6 +131,10 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 } else {
                     self.imageId = ((querySnapshot!.get("image id") as? String) ?? "").split(separator: "|").map(String.init)
                     self.collectionView.reloadData()
+                    
+                    let userEmail = querySnapshot!.get("user id") as? String
+                    let user = self.db.collection("User").whereField("Email", isEqualTo: userEmail)
+                    
                     if let title = querySnapshot!.get("title") as? String {
                         self.titleLabel.text = title
                     }
@@ -145,13 +150,18 @@ class ContentViewController: UIViewController, UITableViewDelegate, UITableViewD
                         self.dateLabel.text = timestamp
                     }
                     
-                    if let userEmail = querySnapshot!.get("user id") as? String {
-                        let user = self.db.collection("User").whereField("Email", isEqualTo: userEmail).getDocuments { (querySnapshot, err) in
+                    if user != nil {
+                        user.getDocuments { (querySnapshot, err) in
                             if let err = err {
                                 print("Error getting documents: \(err)")
                             } else {
-                                if let userid = querySnapshot?.documents.first?.get("name") as? String {
-                                    self.userId.text = userid
+                                let email = querySnapshot?.documents.first?.get("Email") as? String
+                                if email != nil {
+                                    if let userid = querySnapshot?.documents.first?.get("name") as? String {
+                                        self.userId.text = userid
+                                    }
+                                } else {
+                                    self.userId.text = userEmail
                                 }
                             }
                         }

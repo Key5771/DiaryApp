@@ -43,7 +43,7 @@
                                     <action selector="plusButtonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MZe-r1-ann"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eas-Oj-fBH">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eas-Oj-fBH">
                                 <rect key="frame" x="16" y="454" width="366" height="279"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -63,12 +63,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpM-ru-QlU">
+                                                    <rect key="frame" x="0.0" y="58" width="366" height="1"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="2iJ-pE-QMK"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="PpM-ru-QlU" firstAttribute="leading" secondItem="f7i-0S-TXC" secondAttribute="leading" id="8SM-bo-Oe5"/>
+                                                <constraint firstAttribute="bottom" secondItem="PpM-ru-QlU" secondAttribute="bottom" id="FlS-Rh-Z53"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Q1g-4H-QmB" secondAttribute="bottom" constant="8" id="HvO-JL-Wbm"/>
                                                 <constraint firstItem="Q1g-4H-QmB" firstAttribute="leading" secondItem="f7i-0S-TXC" secondAttribute="leadingMargin" constant="8" id="PT6-Yg-hOe"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Q1g-4H-QmB" secondAttribute="trailing" constant="120" id="Taa-91-ztv"/>
                                                 <constraint firstItem="Q1g-4H-QmB" firstAttribute="top" secondItem="f7i-0S-TXC" secondAttribute="topMargin" constant="8" id="Ugt-g0-30D"/>
+                                                <constraint firstAttribute="trailing" secondItem="PpM-ru-QlU" secondAttribute="trailing" id="pu3-ZC-v3v"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -294,7 +304,7 @@
                                 <rect key="frame" x="64" y="746" width="59" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="사진추가">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="addPhoto:" destination="f0U-Px-UQh" eventType="touchUpInside" id="Hpk-1T-pPB"/>
@@ -639,7 +649,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Oi-eu-KP6">
                                     <rect key="frame" x="168" y="64" width="78" height="30"/>
                                     <state key="normal" title="회원탈퇴하기">
-                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="deleteUserButtonTouches:" destination="uW0-t5-hwZ" eventType="touchUpInside" id="gpR-OS-XXu"/>
@@ -818,7 +828,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YKF-7G-Fey" customClass="GIDSignInButton">
-                                <rect key="frame" x="50" y="705" width="314" height="128"/>
+                                <rect key="frame" x="50" y="594" width="314" height="239"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="VjW-rn-h0a">
@@ -837,13 +847,13 @@
                             <constraint firstItem="FIp-ee-vPE" firstAttribute="top" secondItem="TfH-bS-GIT" secondAttribute="bottom" constant="30" id="GSF-oa-lap"/>
                             <constraint firstItem="URo-OS-p1J" firstAttribute="trailing" secondItem="TfH-bS-GIT" secondAttribute="trailing" constant="50" id="IE7-k8-Upv"/>
                             <constraint firstItem="FIp-ee-vPE" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="50" id="NCx-1p-fk2"/>
+                            <constraint firstItem="YKF-7G-Fey" firstAttribute="top" secondItem="FIp-ee-vPE" secondAttribute="bottom" constant="94" id="Oi6-0q-O4D"/>
                             <constraint firstItem="TfH-bS-GIT" firstAttribute="top" secondItem="YNX-zG-7il" secondAttribute="bottom" constant="20" id="UQX-lo-Cbh"/>
                             <constraint firstItem="YNX-zG-7il" firstAttribute="top" secondItem="Fpk-GX-vUG" secondAttribute="bottom" constant="50" id="XkX-cS-QF1"/>
                             <constraint firstItem="URo-OS-p1J" firstAttribute="trailing" secondItem="YKF-7G-Fey" secondAttribute="trailing" constant="50" id="XtD-g8-ECP"/>
                             <constraint firstItem="YNX-zG-7il" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="50" id="cKk-Vn-Hg0"/>
                             <constraint firstItem="URo-OS-p1J" firstAttribute="trailing" secondItem="fFE-im-X1R" secondAttribute="trailing" constant="100" id="gOa-Tv-YHM"/>
                             <constraint firstItem="VjW-rn-h0a" firstAttribute="centerX" secondItem="mvB-5k-pcK" secondAttribute="centerX" id="i0d-gt-aEE"/>
-                            <constraint firstItem="YKF-7G-Fey" firstAttribute="top" secondItem="M2C-tL-hx7" secondAttribute="bottom" constant="32" id="iTd-Fc-OHq"/>
                             <constraint firstItem="afm-sL-w7N" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="150" id="jEp-XE-iXq"/>
                             <constraint firstItem="M2C-tL-hx7" firstAttribute="leading" secondItem="URo-OS-p1J" secondAttribute="leading" constant="100" id="n0I-Bq-SPz"/>
                             <constraint firstItem="fFE-im-X1R" firstAttribute="top" secondItem="FIp-ee-vPE" secondAttribute="bottom" constant="32" id="oE1-1W-DRm"/>
@@ -1482,7 +1492,7 @@
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5IN-QC-RpL">
                                                                     <rect key="frame" x="0.0" y="79" width="382" height="1"/>
-                                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="ycW-Wq-1bW"/>
                                                                     </constraints>

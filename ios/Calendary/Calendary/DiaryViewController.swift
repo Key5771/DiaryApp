@@ -11,6 +11,9 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
+    
+    var a: [DiaryContent] = []
+    
     var diarys: [DiaryContent] = [] {
         didSet {
             dataFiltered()
@@ -289,7 +292,13 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if segue.identifier == "editDiary" {
             if let row = tableView.indexPathForSelectedRow {
                 let vc = segue.destination as? ContentViewController
+//
+//                let transition: CATransition = CATransition()
+//                transition.duration = 0.3
+//                transition.type = CATransitionType.push
+//                transition.subtype = CATransitionSubtype.fromLeft
                 vc?.modalPresentationStyle = .overFullScreen
+                
                 vc?.diaryId = diarys[row.row].id
                 tableView.deselectRow(at: row, animated: true)
             }
