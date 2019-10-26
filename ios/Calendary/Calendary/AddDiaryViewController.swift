@@ -184,7 +184,6 @@ class AddDiaryViewController: UIViewController, UITextViewDelegate, UIImagePicke
         } else {
             
         }
-
     }
     
     @IBAction func addPhoto(_ sender: Any) {

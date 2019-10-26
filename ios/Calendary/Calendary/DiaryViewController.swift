@@ -289,19 +289,27 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         
+        
         if segue.identifier == "editDiary" {
-            if let row = tableView.indexPathForSelectedRow {
-                let vc = segue.destination as? ContentViewController
-//
-//                let transition: CATransition = CATransition()
-//                transition.duration = 0.3
-//                transition.type = CATransitionType.push
-//                transition.subtype = CATransitionSubtype.fromLeft
-                vc?.modalPresentationStyle = .overFullScreen
-                
-                vc?.diaryId = diarys[row.row].id
-                tableView.deselectRow(at: row, animated: true)
+            if segment.selectedSegmentIndex == 0 || segment.selectedSegmentIndex == 1 {
+                if let row = tableView.indexPathForSelectedRow {
+                    let vc = segue.destination as? ContentViewController
+    //
+    //                let transition: CATransition = CATransition()
+    //                transition.duration = 0.3
+    //                transition.type = CATransitionType.push
+    //                transition.subtype = CATransitionSubtype.fromLeft
+                    vc?.modalPresentationStyle = .overFullScreen
+
+                    vc?.diaryId = filteredDiarys[row.row].id
+                    tableView.deselectRow(at: row, animated: true)
+                }
+            } else if segment.selectedSegmentIndex == 2 {
+                if let row = tableView.indexPathForSelectedRow {
+                    tableView.deselectRow(at: row, animated: true)
+                }
             }
+
         }
     }
 }

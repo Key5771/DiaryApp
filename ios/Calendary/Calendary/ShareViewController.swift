@@ -191,6 +191,4 @@ class ShareViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-    
-
 }
