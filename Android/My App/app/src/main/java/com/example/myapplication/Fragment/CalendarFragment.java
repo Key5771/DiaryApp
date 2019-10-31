@@ -285,13 +285,13 @@ public class CalendarFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getActivity(),"저장되었습니다!",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(),"저장되었습니다!",Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"저장 실패하셨습니다",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(),"저장 실패하셨습니다",Toast.LENGTH_SHORT).show();
                     }
                 });
     }

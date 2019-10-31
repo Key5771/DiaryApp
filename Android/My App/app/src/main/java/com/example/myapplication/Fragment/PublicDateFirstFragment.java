@@ -4,6 +4,7 @@ package com.example.myapplication.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,10 +26,13 @@ import com.example.myapplication.Adapter.DiaryAdapter;
 import com.example.myapplication.Adapter.PublicAdapter;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -52,12 +56,15 @@ public class PublicDateFirstFragment extends Fragment {
     private GestureDetector gestureDetector;
     private DiaryAdapter mDiaryAdaptor;
     private PublicAdapter publicAdapter;
-    private TextView titleTextview, contentTextview, timeTextview;
+    private TextView titleTextview, contentTextview, timeTextview  ;
     private SwipeRefreshLayout swipeRefreshLayout;
     Map<String, Object> contentMap;
 
     private RadioButton newRadioButton, oldRadioButton;
     private RadioGroup radioGroup;
+
+    private String docID;
+    private int likenum;
 
     RecyclerView.LayoutManager layoutManager;
 
@@ -193,6 +200,7 @@ public class PublicDateFirstFragment extends Fragment {
                     diaryData.timestamp = ((Timestamp) contentMap.getOrDefault("timestamp", 0)).toDate();
                     diaryData.user_id = (String) contentMap.get("user id");
 
+
                     diaryContentList.add(diaryData);
 
                     //오래된순 정렬
@@ -237,6 +245,6 @@ public class PublicDateFirstFragment extends Fragment {
             public void onLongClick(View view, int position) {
             }
         }));
-
     }
+
 }

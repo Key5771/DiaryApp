@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/image_plus_btn"
+        app:layout_constraintBottom_toTopOf="@+id/show_swt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_title">
@@ -28,42 +28,23 @@
 
                 <EditText
                     android:id="@+id/edit_content"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@color/white"
                     android:gravity="start|top"
-                    android:minHeight="500dp"
-                    android:hint="\t \t 내용입력"
+                    android:hint="\t \t 내용을 입력하세요"
                     android:inputType="textMultiLine"
                     android:textColor="@color/dark"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@+id/imageView5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="51dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="51dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="293dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    tools:srcCompat="@tools:sample/avatars" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
@@ -91,13 +72,16 @@
         android:id="@+id/show_swt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:text="공개여부"
         android:thumb="@drawable/switch_thumb"
         android:track="@drawable/switch_track_selector"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/save_button"
@@ -131,20 +115,6 @@
         android:textSize="26dp"
         app:layout_constraintStart_toEndOf="@+id/backbtn"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/image_plus_btn"
-        android:layout_width="50dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="225dp"
-        android:layout_marginBottom="4dp"
-        android:clickable="true"
-        android:tint="@color/orange_inactive"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/show_swt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/picture" />
 
     <TextView
         android:id="@+id/date_tv"

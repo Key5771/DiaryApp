@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="#000000"
-        android:textSize="17dp" />
+        android:textSize="19dp" />
 
     <TextView
         android:id="@+id/pub_item_content"
@@ -21,7 +21,7 @@
         android:maxLines="1"
         android:text="TextView"
         android:textColor="@color/dark"
-        android:textSize="15dp" />
+        android:textSize="17dp" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColor="@color/dark"
-                android:textSize="11dp" />
+                android:textSize="13dp" />
 
             <TextView
                 android:id="@+id/pub_item"
@@ -46,17 +46,17 @@
                 android:layout_marginLeft="5dp"
                 android:text="|"
                 android:textColor="@color/dark"
-                android:textSize="12dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/pub_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="200dp"
+                android:layout_marginRight="150dp"
                 android:text="TextView"
                 android:textColor="@color/dark"
-                android:textSize="11dp" />
+                android:textSize="13dp" />
 
 
         </TableRow>

@@ -102,6 +102,7 @@ public class PublicSelectFirstFragment extends Fragment {
         newRadioButton = (RadioButton) view.findViewById(R.id.pub_radioButton3);
         oldRadioButton = (RadioButton) view.findViewById(R.id.pub_radioButton4);
 
+
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout4);
         swipeRefreshLayout.setColorSchemeResources(R.color.orange_inactive);
 

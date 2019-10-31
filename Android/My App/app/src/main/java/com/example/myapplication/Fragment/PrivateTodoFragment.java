@@ -1,7 +1,10 @@
 package com.example.myapplication.Fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Activity.PrivateDetailActivity;
 import com.example.myapplication.Adapter.TodoAdapter;
 import com.example.myapplication.Model.TodoContent;
 import com.example.myapplication.R;
@@ -77,7 +81,8 @@ public class PrivateTodoFragment extends Fragment {
             }
         });
 
-        delete_todo();
+//        delete_todo();
+        delete_TODO();
 
 
         return view;
@@ -89,7 +94,6 @@ public class PrivateTodoFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         mTodoList.setLayoutManager(layoutManager);
         mTodoList.addItemDecoration(new DividerItemDecoration(view.getContext(),1));
-
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout5);
         swipeRefreshLayout.setColorSchemeResources(R.color.orange_inactive);
     }
@@ -110,7 +114,7 @@ public class PrivateTodoFragment extends Fragment {
                         for(QueryDocumentSnapshot document : documentSnapshots){
                             TodoContent todoData = new TodoContent();
                             contentMap = document.getData();
-
+                            todoData.id = (String) contentMap.getOrDefault("id","id");
                             todoData.user_id = (String) contentMap.getOrDefault("user id","유저");
                             todoData.todo_content = (String) contentMap.getOrDefault("todo","할일");
                             todoData.select_timestamp = ((Timestamp)contentMap.getOrDefault("timestamp", "날짜")).toDate();
@@ -163,6 +167,53 @@ public class PrivateTodoFragment extends Fragment {
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(mTodoList);
+    }
+
+    private void delete_TODO(){
+        //리스트에서 선택한 일기 보내주기
+        mTodoList.addOnItemTouchListener(new DiaryFragment.RecyclerTouchListener(getActivity().getApplicationContext(), mTodoList, new DiaryFragment.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+
+            //일기 삭제하기
+            @Override
+            public void onLongClick(View view, int position) {
+
+                System.out.println("@#@#@@#$%@#$%@#%#$%%$^#$%@%#^@#$^@#$"+PrivateTodoFragment.this.todoContentList.get(position));
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                alert.setTitle("삭제하겠습니까?");
+                alert.setMessage("삭제된 할일은 복구할 수 없습니다.");
+                alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        firebaseFirestore.collection("Todo")
+                                .document(PrivateTodoFragment.this.todoContentList.get(position).id)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getActivity(),"삭제되었습니다",Toast.LENGTH_SHORT).show();
+                                    read_todo();}
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(),"실패", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                });
+                alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).show();
+            }
+        }));
     }
 
 

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,6 +101,7 @@ public class DetailActivity extends AppCompatActivity {
         init();
 
         left_btn.setOnClickListener(this::onClick);
+        more_btn.setOnClickListener(this::onClick);
         docID = intent.getStringExtra("id");
 
         String title_st;
@@ -374,8 +376,74 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
+
     public void onClick(View view){
         if(view == left_btn) { finish(); }
+        if(view == more_btn) {
+            DiaryContent diaryContent = (DiaryContent) intent.getSerializableExtra("Content");
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            PopupMenu popupMenu = new PopupMenu(this,view);
+            getMenuInflater().inflate(R.menu.setting_menu,popupMenu.getMenu());
+
+//                MenuInflater inflater = popupMenu.getMenuInflater();
+//                Menu menu = popupMenu.getMenu();
+//                inflater.inflate(R.menu.setting_menu, menu);
+            popupMenu.show();
+
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.update_menu:
+
+                            break;
+                        case R.id.delete_menu:
+
+                            AlertDialog.Builder alert = new AlertDialog.Builder(DetailActivity.this);
+                            alert.setTitle("정말 삭제하겠습니까?");
+                            alert.setMessage("삭제된 일기는 되돌릴 수 없습니다");
+                            alert.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    firebaseFirestore.collection("Content").document(docID).collection("Favorite").document().delete();
+                                    firebaseFirestore.collection("Content").document(docID).collection("Comment").document().delete();
+                                    firebaseFirestore.collection("Content").document(docID)
+                                            .delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(DetailActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(DetailActivity.this, "실패하였습니다", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            });
+                            alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).show();
+
+                    }
+                    return false;
+                }
+            });
+
+//            if(user.equals(diaryContent.user_id)){
+//
+//            } else{
+//                Toast.makeText(DetailActivity.this,"ㅎㅎ",Toast.LENGTH_SHORT).show();
+//            }
+
+        }
     }
 
     public void init(){

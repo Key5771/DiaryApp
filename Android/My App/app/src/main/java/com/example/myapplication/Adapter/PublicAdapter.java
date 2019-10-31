@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PublicAdapter extends RecyclerView.Adapter<PublicAdapter.ViewHolder> {
 
@@ -72,6 +75,7 @@ public class PublicAdapter extends RecyclerView.Adapter<PublicAdapter.ViewHolder
         holder.contentTextView.setText(diaryContentList.get(position).content);
         holder.timeTextView.setText(timetv);
         holder.nameTextView.setText(diaryContentList.get(position).user_id);
+
     }
 
     @Override

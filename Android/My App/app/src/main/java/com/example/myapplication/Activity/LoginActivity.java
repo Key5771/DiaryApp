@@ -22,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.ApiException;
@@ -60,6 +61,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .requestEmail()
                 .build();
 
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, null)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions)
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         edit_email = (EditText) findViewById(R.id.edit_email);
@@ -78,7 +86,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
     }
@@ -114,37 +123,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
-    private void signIn(){
-//        googleApiClient = new GoogleApiClient.Builder(this)
-//                .enableAutoManage(this, null)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions)
-//                .build();
-//        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try{
-                GoogleSignInAccount account = task.getResult(ApiException.class);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                //구글 로그인 성공해서 파베에 인증
+                GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-            } catch (ApiException e){
-                Log.w("Login Activity ","Google sign in failed", e);
+            }
+            else{
+                //구글 로그인 실패
             }
         }
 
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-    }
+//    @Override
+//    public void onStart(){
+//        super.onStart();
+//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+//    }
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct){
@@ -161,6 +164,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
     }
+
+//    @Override
+//    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+//        System.out.println("login 실패");
+//    }
+
 
     @Override
     public void onClick(View view){

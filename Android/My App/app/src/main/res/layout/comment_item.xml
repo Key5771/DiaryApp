@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="이름"
         android:textColor="#000000"
-        android:textSize="15dp" />
+        android:textSize="19dp" />
 
     <TextView
         android:id="@+id/comment_content"
@@ -21,13 +21,13 @@
         android:layout_height="wrap_content"
         android:text="댓글댓글"
         android:textColor="@color/dark"
-        android:textSize="14dp" />
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/comment_timestamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/dark"
-        android:textSize="11dp"
+        android:textSize="15dp"
         android:text="TextView" />
 </LinearLayout>
