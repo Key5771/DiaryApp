@@ -259,7 +259,7 @@ public class PrivateDateFirstFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                    Intent privIntent = new Intent(getActivity().getBaseContext(), PrivateDetailActivity.class);
+                    Intent privIntent = new Intent(getActivity().getBaseContext(), DetailActivity.class);
                     privIntent.putExtra("id",diaryContentList.get(position).id);
                     privIntent.putExtra("Content", diaryContentList.get(position));
                     startActivity(privIntent);
