@@ -71,7 +71,7 @@ public class DiaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_diary_fragment, container, false);
 
         //탭 레이아웃 설정
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("작성순"));
         tabLayout.addTab(tabLayout.newTab().setText("일기순"));
         tabLayout.addTab(tabLayout.newTab().setText("할일별"));

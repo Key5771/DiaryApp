@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction = fragmentManager.beginTransaction();
     transaction.replace(R.id.frame_layout, calendarFragment).commitAllowingStateLoss();
 
-
     bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override

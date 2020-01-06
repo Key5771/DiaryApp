@@ -41,17 +41,13 @@ public class AddDiaryActivity extends AppCompatActivity {
     private Button save_btn;
     private TextView date_tv;
     private Switch show_swt;
-    private ImageView backbtn, imageadd_button;
+    private ImageView backbtn;
     private FirebaseFirestore firebaseFirestore;
     private EditText edit_title, edit_content;
     private FirebaseAuth firebaseAuth;
-    private StorageReference firebaseStorage;
     private Boolean show_check;
 
     private DiaryContent diaryContent;
-    private ImageView image_preview, imageView5, imageView7;
-    private Uri filePath;
-    private static final int REQUEST_CODE = 200;
 
 
     @Override
@@ -61,7 +57,6 @@ public class AddDiaryActivity extends AppCompatActivity {
         init();
         settingDate();
 
-        firebaseStorage = FirebaseStorage.getInstance().getReference();
         diaryContent = new DiaryContent();
 
 
@@ -87,8 +82,6 @@ public class AddDiaryActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-
-
     }
 
     /*
@@ -123,7 +116,6 @@ public class AddDiaryActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        firebaseStorage = FirebaseStorage.getInstance().getReference();
 
 
         Intent intent = getIntent();
@@ -204,10 +196,6 @@ public class AddDiaryActivity extends AppCompatActivity {
             date_tv = (TextView) findViewById(R.id.date_tv);
             backbtn = (ImageView) findViewById(R.id.backbtn);
 
-//            image_preview = (ImageView) findViewById(R.id.imageView4);
-//            imageView5 = (ImageView) findViewById(R.id.imageView5);
-//            imageView7 = (ImageView) findViewById(R.id.imageView7);
-
             show_swt = (Switch) findViewById(R.id.show_swt);
             if(show_swt.isChecked()){
                 show_swt.setText("공개");
@@ -215,7 +203,6 @@ public class AddDiaryActivity extends AppCompatActivity {
                 show_swt.setText("비공개");
             }
 
-//            imageadd_button = (ImageView) findViewById(R.id.image_plus_btn);
         }
 
 }
