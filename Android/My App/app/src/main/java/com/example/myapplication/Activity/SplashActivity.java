@@ -3,9 +3,6 @@ package com.example.myapplication.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
-import com.example.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends Activity {

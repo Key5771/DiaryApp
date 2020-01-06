@@ -15,7 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import kotlin.jvm.internal.MagicApiIntrinsics;
 
 public class TitleAdapter extends RecyclerView.Adapter<TitleAdapter.ViewHolder> {
     private List<DiaryContent> diaryContentList;

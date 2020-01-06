@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Constraints;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -28,9 +29,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.CommentAdapter;
-import com.example.myapplication.Adapter.DiaryAdapter2;
-import com.example.myapplication.Fragment.DiaryFragment;
-import com.example.myapplication.Fragment.PrivateDateFirstFragment;
 import com.example.myapplication.Model.CommentContent;
 import com.example.myapplication.Model.DiaryContent;
 import com.example.myapplication.R;
@@ -51,7 +49,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.jetbrains.annotations.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

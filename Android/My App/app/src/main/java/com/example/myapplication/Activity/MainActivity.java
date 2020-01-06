@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.myapplication.Database.TaskContract;
-import com.example.myapplication.Database.TaskDbHelper;
 import com.example.myapplication.Fragment.CalendarFragment;
 import com.example.myapplication.Fragment.DiaryFragment;
 import com.example.myapplication.Fragment.FeelingFragment;
